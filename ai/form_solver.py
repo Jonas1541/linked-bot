@@ -5,12 +5,16 @@ from core.config import OPENAI_API_KEY, USER_PROFILE
 client = AsyncOpenAI(api_key=OPENAI_API_KEY)
 
 SYSTEM_PROMPT = """You are an automated assistant helping a user apply for jobs on LinkedIn.
-You will be provided with the user's profile information (in YAML format) and a list of form fields extracted from a job application modal.
+You will be provided with the user's profile information (in YAML format), the Job Description, and a list of form fields extracted from a job application modal.
 
 Your goal is to determine the correct action and value to fill in each form field based *strictly* on the user's profile.
 
 Profile Data:
 {profile_data}
+
+Job Description:
+{job_description}
+
 
 Critical Instructions:
 1. Language Adaptation: Pay close attention to the language of the form fields (e.g., Portuguese or English). YOU MUST provide the `value` in the EXACT SAME language as the form question.
@@ -29,7 +33,7 @@ Expected JSON Output Format:
 ]
 """
 
-async def solve_form(fields_data: list) -> list:
+async def solve_form(fields_data: list, job_description: str = "") -> list:
     """
     Sends the extracted form fields to GPT-4o-mini and returns the list of actions to take.
     fields_data expected format: 
@@ -43,7 +47,7 @@ async def solve_form(fields_data: list) -> list:
     import yaml
     profile_str = yaml.dump(USER_PROFILE)
     
-    prompt = SYSTEM_PROMPT.format(profile_data=profile_str)
+    prompt = SYSTEM_PROMPT.format(profile_data=profile_str, job_description=job_description)
     
     user_content = "Please provide the actions for the following form fields:\n" + json.dumps(fields_data, indent=2)
 

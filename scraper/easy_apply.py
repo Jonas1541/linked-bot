@@ -105,9 +105,32 @@ async def handle_form_loop(page: Page) -> bool:
         # 2. If there are inputs that require answers, use AI
         if extracted_fields:
             print(f"[EasyApply] Found {len(extracted_fields)} fields, calling AI...")
-            actions = await solve_form(extracted_fields)
+            
+            # Fetch job description to provide context for the AI (e.g. what language is the job in)
+            job_desc_loc = page.locator(".jobs-description-content__text")
+            job_description = ""
+            if await job_desc_loc.count() > 0:
+                job_description = (await job_desc_loc.first.inner_text())[:4000] # First 4000 chars are enough for context/language
+            
+            actions = await solve_form(extracted_fields, job_description=job_description)
+            
+            # DEBUG LOG
+            with open("ai_form_debug.log", "a", encoding="utf-8") as f:
+                import json
+                f.write(f"\n--- STEP {step} ---\nINPUT FIELDS:\n{json.dumps(extracted_fields, indent=2)}\nACTIONS:\n{json.dumps(actions, indent=2)}\n")
+            
             await execute_ai_actions(page, actions)
         
+        # Check if we got an error in the form from previous actions before we try to click next again
+        # We need to wait a tiny bit to see if an error appears
+        await random_sleep(1.0, 1.5)
+        err_msg = page.locator(".artdeco-inline-feedback--error")
+        if await err_msg.count() > 0 and await err_msg.first.is_visible():
+            err_text = await err_msg.first.inner_text()
+            print(f"[EasyApply] Form Error detected: '{err_text}'. Aborting application.")
+            await close_modal(page)
+            return False
+
         # 3. Proceed to next step
         next_locators = [
             page.locator("button[aria-label='Continue to next step']"),
@@ -147,13 +170,6 @@ async def handle_form_loop(page: Page) -> bool:
             step += 1
             max_unchanged_steps = 0
             continue
-
-        # If no buttons are visible, maybe we got an error in the form
-        err_msg = page.locator(".artdeco-inline-feedback--error")
-        if await err_msg.count() > 0 and await err_msg.first.is_visible():
-            print("[EasyApply] Form Error detected. Aborting application.")
-            await close_modal(page)
-            return False
             
         max_unchanged_steps += 1
         if max_unchanged_steps > 2:
@@ -164,53 +180,93 @@ async def handle_form_loop(page: Page) -> bool:
     return False
 
 async def extract_fields(page: Page) -> list:
-    """Scrapes the current modal step for inputs (text, select, radio)."""
+    """Scrapes the current modal step for inputs, selects, and radios without depending on brittle container classes."""
     fields = []
     
-    # Wait for form elements
-    form_items = await page.locator(".jobs-easy-apply-form-section__grouping").all()
-    
-    for item in form_items:
+    # Restrict our search to avoid grabbing hidden inputs outside the form modal view
+    modal = page.locator(".pb4, .jobs-easy-apply-modal, .artdeco-modal").first
+    if await modal.count() == 0:
+        return fields
+        
+    # 1. Text Inputs / Selects / Textareas
+    elements = await modal.locator("input[type='text'], input[type='numeric'], input[type='number'], input[type='email'], input[type='tel'], select, textarea").all()
+    for el in elements:
         try:
-            label = await item.locator("label").first.inner_text()
+            if not await el.is_visible():
+                continue
             
-            # Text inputs
-            inputs = await item.locator("input[type='text'], input[type='numeric']").all()
-            if inputs:
-                for inp in inputs:
-                    tag_id = await inp.get_attribute("id")
-                    fields.append({"selector": f"#{tag_id}", "label": label.strip(), "type": "input", "options": []})
+            tag_name = await el.evaluate("e => e.tagName.toLowerCase()")
+            tag_id = await el.get_attribute("id")
+            
+            label = ""
+            if tag_id:
+                label_loc = modal.locator(f"label[for='{tag_id}']")
+                if await label_loc.count() > 0:
+                    label = await label_loc.first.inner_text()
+            
+            if not label:
+                parent_label = await el.evaluate("e => e.closest('label') ? e.closest('label').innerText : ''")
+                if parent_label:
+                    label = parent_label
+                    
+            if not label:
                 continue
                 
-            # Select dropdowns
-            selects = await item.locator("select").all()
-            if selects:
-                for sel in selects:
-                    tag_id = await sel.get_attribute("id")
-                    options = await sel.locator("option").all_inner_texts()
-                    clean_opts = [o.strip() for o in options if o.strip() and o.lower() != "select an option"]
-                    fields.append({"selector": f"#{tag_id}", "label": label.strip(), "type": "select", "options": clean_opts})
+            label = label.strip()
+            
+            if tag_name == "select":
+                options = await el.locator("option").all_inner_texts()
+                clean_opts = [o.strip() for o in options if o.strip() and o.lower() != "select an option"]
+                fields.append({"selector": f"#{tag_id}", "label": label, "type": "select", "options": clean_opts})
+            else:
+                fields.append({"selector": f"#{tag_id}", "label": label, "type": "input", "options": []})
+        except Exception:
+            pass
+
+    # 2. Radio Button Groups (Fieldsets or loose)
+    fieldsets = await modal.locator("fieldset").all()
+    for fs in fieldsets:
+        try:
+            if not await fs.is_visible():
                 continue
                 
-            # Radio buttons
-            radios = await item.locator("fieldset").all()
-            if radios:
-                for rad in radios:
-                    legend = await rad.locator("legend").inner_text()
-                    radio_inputs = await rad.locator("input[type='radio']").all()
-                    opts = []
-                    for r_in in radio_inputs: # We need the IDs and the labels attached to them
-                        r_id = await r_in.get_attribute("id")
-                        r_lbl = await page.locator(f"label[for='{r_id}']").inner_text()
-                        opts.append({"selector": f"#{r_id}", "label": r_lbl.strip()})
-                        
-                    fields.append({"selector": "fieldset", "label": legend.strip(), "type": "radio", "options": opts})
+            legend_loc = fs.locator("legend")
+            legend = await legend_loc.inner_text() if await legend_loc.count() > 0 else "Radio Group"
+            legend = legend.strip()
+            
+            radio_inputs = await fs.locator("input[type='radio']").all()
+            if not radio_inputs:
                 continue
                 
-        except Exception as e:
-            # Skip element if it causes trouble parsing
+            opts = []
+            for r_in in radio_inputs:
+                r_id = await r_in.get_attribute("id")
+                r_lbl_loc = modal.locator(f"label[for='{r_id}']")
+                if await r_lbl_loc.count() > 0:
+                    r_lbl = await r_lbl_loc.inner_text()
+                else:
+                    r_lbl = await fs.locator(f"[for='{r_id}']").inner_text() if await fs.locator(f"[for='{r_id}']").count() > 0 else r_id
+                opts.append({"selector": f"#{r_id}", "label": r_lbl.strip()})
+                
+            fields.append({"selector": "fieldset", "label": legend, "type": "radio", "options": opts})
+        except Exception:
             pass
             
+    # 3. Resume Selection Container
+    resume_containers = await modal.locator(".jobs-document-upload-redesign-card__container").all()
+    if resume_containers:
+        opts = []
+        for rc in resume_containers:
+            inputs = await rc.locator("input[type='radio']").all()
+            for r_in in inputs:
+                r_id = await r_in.get_attribute("id")
+                card = modal.locator(f"label[for='{r_id}']")
+                if await card.count() > 0:
+                    name = await card.inner_text()
+                    opts.append({"selector": f"#{r_id}", "label": name.strip()})
+        if opts:
+            fields.append({"selector": "resume_radios", "label": "Choose resume / Escolha o currículo", "type": "radio", "options": opts})
+
     return fields
 
 async def execute_ai_actions(page: Page, actions: list):
@@ -224,9 +280,9 @@ async def execute_ai_actions(page: Page, actions: list):
         
         try:
             el = page.locator(selector)
-            if not await el.is_visible():
+            if await el.count() == 0:
                 continue
-                
+
             if act_type == "type" and val:
                 # Clear existing text first
                 await el.fill("")
@@ -235,7 +291,18 @@ async def execute_ai_actions(page: Page, actions: list):
                 await el.select_option(label=str(val))
                 await random_sleep(0.5, 1.0)
             elif act_type == "click":
-                # Used for clicking radio buttons
+                # For radio buttons/checkboxes, React often intercepts clicks on the pseudo-hidden input
+                # It's more reliable to click the `<label>` linked to it.
+                tag_name = await el.evaluate("e => e.tagName.toLowerCase()")
+                if tag_name == "input":
+                    input_id = await el.get_attribute("id")
+                    if input_id:
+                        lbl = page.locator(f"label[for='{input_id}']")
+                        if await lbl.count() > 0:
+                            await lbl.first.click(force=True)
+                            await random_sleep(0.5, 1.0)
+                            continue
+                
                 await el.click(force=True)
                 await random_sleep(0.5, 1.0)
         except Exception as e:
