@@ -18,8 +18,15 @@ demographics:
 preferences:
   roles: ["Java Developer", "Backend Developer", "Software Engineer", "Full Stack Developer"]
   work_models: ["Remote"] # Preferred setup
-  salary_expectation: "Negotiable"
-
+  salary_expectation:
+    BRL: # Valores em Reais para vagas no Brasil (Competitivo)
+      junior: "4000"
+      pleno: "6000"
+      senior: "9000"
+    USD: # Valores em Dólares para vagas internacionais/remotas (Competitivo)
+      junior: "2000"
+      pleno: "4000"
+      senior: "6000"
 experience_summary:
   years_of_experience: "3"
   years_java: "3"
