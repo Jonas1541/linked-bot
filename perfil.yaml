@@ -1,0 +1,56 @@
+personal_info:
+  name: "Jonas Felipe Durau"
+  phone: "+55 41 996775078"
+  email: "jonasdurau@gmail.com"
+  location: "Curitiba, PR, Brazil"
+  github: "https://github.com/Jonas1541"
+  linkedin: "https://www.linkedin.com/in/jonas-durau-32b048223/"
+
+demographics:
+  gender: "Male"
+  age: "24"
+  sexual_orientation: "Heterosexual"
+  pronouns: "he/him (ele/dele)"
+  race_ethnicity: "White (Latino/Hispanic if applying outside Brazil)"
+  disability: "None"
+  medication: "None"
+
+preferences:
+  roles: ["Java Developer", "Backend Developer", "Software Engineer", "Full Stack Developer"]
+  work_models: ["Remote"] # Preferred setup
+  salary_expectation: "Negotiable"
+
+experience_summary:
+  years_of_experience: "3"
+  years_java: "3"
+  years_spring_boot: "3"
+  years_docker: "2"
+  years_sql: "3"
+  years_angular: "1"
+  focus: "Backend development with Java, Spring Boot, and Linux. Solid understanding of OOP, Clean Code, and SOLID principles. Experience with microservices, multi-tenancy, and edge computing."
+
+skills:
+  backend: ["Java", "Spring Boot", "Spring Security", "Spring Data JPA", "RESTful APIs", "JUnit 5", "Mockito"]
+  frontend: ["Angular", "TypeScript", "HTML", "CSS/SCSS", "Vaadin", "Thymeleaf", "HTMX", "Angular Material"]
+  devops: ["Docker", "Docker Compose", "Nginx", "Caddy", "Linux", "Git", "GitHub", "CI/CD", "Cron"]
+  databases: ["MySQL", "PostgreSQL", "Flyway"]
+  architecture: ["Multi-Tenancy", "Microservices", "SOLID", "Clean Code", "Design Patterns", "RabbitMQ"]
+
+education:
+  - degree: "Specialization in Java Technology"
+    institution: "UTFPR"
+    status: "Enrolled"
+  - degree: "Bachelor of Science in Software Engineering"
+    institution: "Universidade Positivo"
+    status: "Graduated"
+    year: "2025"
+  - degree: "Technical Degree in Industrial Automation"
+    institution: "IFPR"
+    status: "Graduated"
+    year: "2021"
+
+languages:
+  - language: "Portuguese"
+    proficiency: "Native"
+  - language: "English"
+    proficiency: "Advanced"
