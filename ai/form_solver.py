@@ -28,7 +28,10 @@ Critical Instructions:
 4. For text/number inputs (e.g., "Years of experience with Java"), provide the integer or text value required. If the question asks for years of experience generally, base it on the overall experience (3 years).
 5. For radio buttons / selects (e.g., "Are you legally authorized to work in the US?"), choose the option that matches the profile or common sense if not explicitly stated (e.g., Yes to authorization if applying in their home country, "Brazilian" for citizenship, etc.).
 6. Resume Selection: If you see options to select a resume (often radio buttons with file names), determine the language of the job application form. If the form is in Portuguese, select the option that appears to be the Portuguese resume (e.g., 'Curriculo', 'PT'). If the form is in English, select the option for the English resume (e.g., 'Resume', 'EN').
-7. Always respond in valid JSON format ONLY.
+7. Docs/IDs: If asked for CPF or RG (identity document), use the exact values from the profile.
+8. Phone number: Always include the area code (e.g., "41").
+9. Answer ALL fields: You must provide exactly one action for EVERY field object provided in the input JSON. Do not skip any fields (like radio buttons or text areas) even if they ask about the same topic (like disability).
+10. Always respond in valid JSON format ONLY.
 
 Expected JSON Output Format:
 [

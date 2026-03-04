@@ -1,10 +1,12 @@
 personal_info:
   name: "Jonas Felipe Durau"
-  phone: "+55 41 996775078"
+  phone: "41996775078"
   email: "jonasdurau@gmail.com"
   location: "Curitiba, PR, Brazil"
   github: "https://github.com/Jonas1541"
   linkedin: "https://www.linkedin.com/in/jonas-durau-32b048223/"
+  cpf: "10337419906"
+  rg: "134403306"
 
 demographics:
   gender: "Male"
