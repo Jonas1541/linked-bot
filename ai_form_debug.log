@@ -3,7 +3,7 @@
 INPUT FIELDS:
 [
   {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374595836-19468472009-multipleChoice",
+    "selector": "[id='text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4377485984-29125761450-multipleChoice']",
     "label": "E-mail\nE-mail",
     "type": "select",
     "options": [
@@ -12,7 +12,7 @@ INPUT FIELDS:
     ]
   },
   {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374595836-19468472001-phoneNumber-country",
+    "selector": "[id='text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4377485984-29125761442-phoneNumber-country']",
     "label": "C\u00f3digo do pa\u00eds\nC\u00f3digo do pa\u00eds",
     "type": "select",
     "options": [
@@ -269,7 +269,7 @@ INPUT FIELDS:
     ]
   },
   {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374595836-19468472001-phoneNumber-nationalNumber",
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4377485984-29125761442-phoneNumber-nationalNumber']",
     "label": "N\u00famero de celular",
     "type": "input",
     "options": []
@@ -278,391 +278,300 @@ INPUT FIELDS:
 ACTIONS:
 [
   {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374595836-19468472009-multipleChoice",
+    "selector": "[id='text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4377485984-29125761450-multipleChoice']",
     "action": "select",
     "value": "jonasdurau@gmail.com"
   },
   {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374595836-19468472001-phoneNumber-country",
+    "selector": "[id='text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4377485984-29125761442-phoneNumber-country']",
     "action": "select",
     "value": "Brasil (+55)"
   },
   {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374595836-19468472001-phoneNumber-nationalNumber",
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4377485984-29125761442-phoneNumber-nationalNumber']",
     "action": "type",
-    "value": "996775078"
+    "value": "41996775078"
   }
 ]
 
---- STEP 2 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "resume_radios",
-    "label": "Choose resume / Escolha o curr\u00edculo",
-    "type": "radio",
-    "options": [
-      {
-        "selector": "#jobsDocumentCardToggle-ember216",
-        "label": "Desmarcar sele\u00e7\u00e3o de resume Jonas-Felipe-Durau-Resume.pdf"
-      },
-      {
-        "selector": "#jobsDocumentCardToggle-ember218",
-        "label": "Selecionar resume Jonas-Felipe-Durau-Curriculo.pdf"
-      }
-    ]
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#jobsDocumentCardToggle-ember218",
-    "action": "click",
-    "value": null
-  }
-]
-
---- STEP 3 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374595836-19468472177-numeric",
-    "label": "H\u00e1 quantos anos voc\u00ea j\u00e1 usa Java no trabalho?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374595836-19468472161-numeric",
-    "label": "H\u00e1 quantos anos voc\u00ea j\u00e1 usa React.js no trabalho?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374595836-19468472153-numeric",
-    "label": "H\u00e1 quantos anos voc\u00ea j\u00e1 usa Kotlin no trabalho?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374595836-19468472145-multipleChoice",
-    "label": "Qual seu n\u00edvel de profici\u00eancia em Ingl\u00eas?\nQual seu n\u00edvel de profici\u00eancia em Ingl\u00eas?",
-    "type": "select",
-    "options": [
-      "Selecionar op\u00e7\u00e3o",
-      "Nenhuma",
-      "Conversa\u00e7\u00e3o",
-      "Proficiente",
-      "Nativo ou bil\u00edngue"
-    ]
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374595836-19468472169-numeric",
-    "label": "Por gentileza, nos informe sua pretens\u00e3o salarial CLT.",
-    "type": "input",
-    "options": []
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374595836-19468472177-numeric",
-    "action": "type",
-    "value": "3"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374595836-19468472161-numeric",
-    "action": "type",
-    "value": "1"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374595836-19468472153-numeric",
-    "action": "type",
-    "value": "1"
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374595836-19468472145-multipleChoice",
-    "action": "select",
-    "value": "Proficiente"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374595836-19468472169-numeric",
-    "action": "type",
-    "value": "Negoci\u00e1vel"
-  }
-]
+--- RESUME SELECTION ---
+Job Title: DESENVOLVEDOR FULLSTACK (JAVA/ANGULAR) PL
+Detected Language: pt
+Target: Curriculo.pdf
+Options: ['Desmarcar seleção de resume Jonas-Felipe-Durau-Resume.pdf', 'Selecionar resume Jonas-Felipe-Durau-Curriculo.pdf']
 
 --- STEP 1 ---
 INPUT FIELDS:
 [
   {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952647914-multipleChoice",
-    "label": "E-mail\nE-mail",
+    "selector": "[id='text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207074-multipleChoice']",
+    "label": "Email\nEmail",
     "type": "select",
     "options": [
-      "Selecionar op\u00e7\u00e3o",
+      "Selecciona una opci\u00f3n",
       "jonasdurau@gmail.com"
     ]
   },
   {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952647906-phoneNumber-country",
-    "label": "C\u00f3digo do pa\u00eds\nC\u00f3digo do pa\u00eds",
+    "selector": "[id='text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207082-phoneNumber-country']",
+    "label": "C\u00f3digo del pa\u00eds\nC\u00f3digo del pa\u00eds",
     "type": "select",
     "options": [
-      "Selecionar op\u00e7\u00e3o",
+      "Selecciona una opci\u00f3n",
       "Brasil (+55)",
-      "Afeganist\u00e3o (+93)",
-      "Alb\u00e2nia (+355)",
-      "Alemanha (+49)",
+      "Afganist\u00e1n (+93)",
+      "Albania (+355)",
+      "Alemania (+49)",
       "Andorra (+376)",
       "Angola (+244)",
       "Anguila (+1)",
+      "Antigua y Barbuda (+1)",
       "Ant\u00e1rtida (+0)",
-      "Ant\u00edgua e Barbuda (+1)",
+      "Arabia Saud\u00ed (+966)",
+      "Argelia (+213)",
       "Argentina (+54)",
-      "Arg\u00e9lia (+213)",
-      "Arm\u00eania (+374)",
+      "Armenia (+374)",
       "Aruba (+297)",
-      "Ar\u00e1bia Saudita (+966)",
-      "Austr\u00e1lia (+61)",
-      "Azerbaij\u00e3o (+994)",
+      "Australia (+61)",
+      "Austria (+43)",
+      "Azerbaiy\u00e1n (+994)",
       "Bahamas (+1)",
-      "Bangladesh (+880)",
+      "Banglad\u00e9s (+880)",
       "Barbados (+1)",
-      "Barein (+973)",
-      "Belize (+501)",
-      "Benin (+229)",
+      "Bar\u00e9in (+973)",
+      "Belice (+501)",
+      "Ben\u00edn (+229)",
       "Bermudas (+1)",
-      "Bielorr\u00fassia (+375)",
-      "Bol\u00edvia (+591)",
+      "Bielorrusia (+375)",
+      "Bolivia (+591)",
+      "Bosnia y Herzegovina (+387)",
       "Botsuana (+267)",
-      "Brunei (+673)",
-      "Bulg\u00e1ria (+359)",
-      "Burquina Faso (+226)",
+      "Brun\u00e9i (+673)",
+      "Bulgaria (+359)",
+      "Burkina Faso (+226)",
       "Burundi (+257)",
-      "But\u00e3o (+975)",
+      "But\u00e1n (+975)",
       "B\u00e9lgica (+32)",
-      "B\u00f3snia e Herzegovina (+387)",
       "Cabo Verde (+238)",
-      "Camar\u00f5es (+237)",
-      "Camboja (+855)",
+      "Camboya (+855)",
+      "Camer\u00fan (+237)",
       "Canad\u00e1 (+1)",
+      "Caribe neerland\u00e9s (+599)",
       "Catar (+974)",
-      "Cazaquist\u00e3o (+7)",
-      "Chade (+235)",
+      "Chad (+235)",
+      "Chequia (+420)",
       "Chile (+56)",
       "China (+86)",
       "Chipre (+357)",
-      "Cidade do Vaticano (+39)",
-      "Col\u00f4mbia (+57)",
-      "Comores (+269)",
-      "Congo - Kinshasa (+243)",
-      "Coreia do Norte (+850)",
-      "Coreia do Sul (+82)",
+      "Ciudad del Vaticano (+39)",
+      "Colombia (+57)",
+      "Comoras (+269)",
+      "Congo (+242)",
+      "Corea del Norte (+850)",
+      "Corea del Sur (+82)",
       "Costa Rica (+506)",
-      "Costa do Marfim (+225)",
-      "Cro\u00e1cia (+385)",
+      "Croacia (+385)",
       "Cuba (+53)",
-      "Cura\u00e7ao (+599)",
+      "Curazao (+599)",
+      "C\u00f4te d\u2019Ivoire (+225)",
       "Dinamarca (+45)",
-      "Djibuti (+253)",
       "Dominica (+1)",
-      "Egito (+20)",
+      "Ecuador (+593)",
+      "Egipto (+20)",
       "El Salvador (+503)",
-      "Emirados \u00c1rabes Unidos (+971)",
-      "Equador (+593)",
-      "Eritreia (+291)",
-      "Eslov\u00e1quia (+421)",
-      "Eslov\u00eania (+386)",
-      "Espanha (+34)",
-      "Essuat\u00edni (+268)",
+      "Emiratos \u00c1rabes Unidos (+971)",
+      "Eritrea (+291)",
+      "Eslovaquia (+421)",
+      "Eslovenia (+386)",
+      "Espa\u00f1a (+34)",
       "Estados Unidos (+1)",
-      "Est\u00f4nia (+372)",
-      "Eti\u00f3pia (+251)",
-      "Fiji (+679)",
+      "Estonia (+372)",
+      "Esuatini (+268)",
+      "Etiop\u00eda (+251)",
       "Filipinas (+63)",
-      "Finl\u00e2ndia (+358)",
-      "Fran\u00e7a (+33)",
-      "Gab\u00e3o (+241)",
-      "Gana (+233)",
-      "Ge\u00f3rgia (+995)",
+      "Finlandia (+358)",
+      "Fiyi (+679)",
+      "Francia (+33)",
+      "Gab\u00f3n (+241)",
+      "Gambia (+220)",
+      "Georgia (+995)",
+      "Ghana (+233)",
       "Gibraltar (+350)",
       "Granada (+1)",
-      "Groenl\u00e2ndia (+299)",
-      "Gr\u00e9cia (+30)",
+      "Grecia (+30)",
+      "Groenlandia (+299)",
       "Guadalupe (+590)",
       "Guam (+1)",
       "Guatemala (+502)",
-      "Guernsey (+44)",
-      "Guiana (+592)",
-      "Guiana Francesa (+594)",
-      "Guin\u00e9 (+224)",
-      "Guin\u00e9 Equatorial (+240)",
-      "Guin\u00e9-Bissau (+245)",
-      "G\u00e2mbia (+220)",
-      "Haiti (+509)",
+      "Guayana Francesa (+594)",
+      "Guernesey (+44)",
+      "Guinea (+224)",
+      "Guinea Ecuatorial (+240)",
+      "Guinea-Bis\u00e1u (+245)",
+      "Guyana (+592)",
+      "Hait\u00ed (+509)",
       "Honduras (+504)",
-      "Hong Kong, RAE da China (+852)",
-      "Hungria (+36)",
-      "Ilha Bouvet (+0)",
-      "Ilha Christmas (+61)",
-      "Ilha Norfolk (+672)",
-      "Ilha de Man (+44)",
-      "Ilhas Aland (+358)",
-      "Ilhas Cayman (+1)",
-      "Ilhas Cocos (Keeling) (+61)",
-      "Ilhas Cook (+682)",
-      "Ilhas Faro\u00e9 (+298)",
-      "Ilhas Ge\u00f3rgia do Sul e Sandwich do Sul (+0)",
-      "Ilhas Heard e McDonald (+0)",
-      "Ilhas Malvinas (+500)",
-      "Ilhas Marianas do Norte (+1)",
-      "Ilhas Marshall (+692)",
-      "Ilhas Menores Distantes dos EUA (+0)",
-      "Ilhas Pitcairn (+0)",
-      "Ilhas Salom\u00e3o (+677)",
-      "Ilhas Turcas e Caicos (+1)",
-      "Ilhas Virgens Americanas (+1)",
-      "Ilhas Virgens Brit\u00e2nicas (+1)",
-      "Indon\u00e9sia (+62)",
-      "Iraque (+964)",
+      "Hungr\u00eda (+36)",
+      "India (+91)",
+      "Indonesia (+62)",
+      "Irak (+964)",
       "Irlanda (+353)",
-      "Ir\u00e3 (+98)",
-      "Isl\u00e2ndia (+354)",
+      "Ir\u00e1n (+98)",
+      "Isla Bouvet (+0)",
+      "Isla Norfolk (+672)",
+      "Isla de Man (+44)",
+      "Isla de Navidad (+61)",
+      "Islandia (+354)",
+      "Islas Aland (+358)",
+      "Islas Caim\u00e1n (+1)",
+      "Islas Cocos (+61)",
+      "Islas Cook (+682)",
+      "Islas Feroe (+298)",
+      "Islas Georgia del Sur y Sandwich del Sur (+0)",
+      "Islas Heard y McDonald (+0)",
+      "Islas Malvinas (+500)",
+      "Islas Marianas del Norte (+1)",
+      "Islas Marshall (+692)",
+      "Islas Pitcairn (+0)",
+      "Islas Salom\u00f3n (+677)",
+      "Islas Turcas y Caicos (+1)",
+      "Islas V\u00edrgenes Brit\u00e1nicas (+1)",
+      "Islas V\u00edrgenes de EE. UU. (+1)",
+      "Islas menores alejadas de EE. UU. (+0)",
       "Israel (+972)",
-      "It\u00e1lia (+39)",
-      "I\u00eamen (+967)",
+      "Italia (+39)",
       "Jamaica (+1)",
-      "Jap\u00e3o (+81)",
+      "Jap\u00f3n (+81)",
       "Jersey (+44)",
-      "Jord\u00e2nia (+962)",
+      "Jordania (+962)",
+      "Kazajist\u00e1n (+7)",
+      "Kenia (+254)",
+      "Kirguist\u00e1n (+996)",
+      "Kiribati (+686)",
       "Kuwait (+965)",
       "Laos (+856)",
       "Lesoto (+266)",
-      "Let\u00f4nia (+371)",
-      "Lib\u00e9ria (+231)",
+      "Letonia (+371)",
+      "Liberia (+231)",
+      "Libia (+218)",
       "Liechtenstein (+423)",
-      "Litu\u00e2nia (+370)",
+      "Lituania (+370)",
       "Luxemburgo (+352)",
       "L\u00edbano (+961)",
-      "L\u00edbia (+218)",
-      "Macau, RAE da China (+853)",
-      "Maced\u00f4nia do Norte (+389)",
+      "Macedonia del Norte (+389)",
       "Madagascar (+261)",
+      "Malasia (+60)",
       "Malaui (+265)",
       "Maldivas (+960)",
       "Mali (+223)",
       "Malta (+356)",
-      "Mal\u00e1sia (+60)",
-      "Marrocos (+212)",
+      "Marruecos (+212)",
       "Martinica (+596)",
-      "Maurit\u00e2nia (+222)",
-      "Maur\u00edcio (+230)",
+      "Mauricio (+230)",
+      "Mauritania (+222)",
       "Mayotte (+262)",
-      "Mianmar (Birm\u00e2nia) (+95)",
-      "Micron\u00e9sia (+691)",
-      "Mold\u00e1via (+373)",
-      "Mong\u00f3lia (+976)",
+      "Micronesia (+691)",
+      "Moldavia (+373)",
+      "Mongolia (+976)",
       "Montenegro (+382)",
       "Montserrat (+1)",
-      "Mo\u00e7ambique (+258)",
+      "Mozambique (+258)",
+      "Myanmar (Birmania) (+95)",
       "M\u00e9xico (+52)",
-      "M\u00f4naco (+377)",
-      "Nam\u00edbia (+264)",
+      "M\u00f3naco (+377)",
+      "Namibia (+264)",
       "Nauru (+674)",
       "Nepal (+977)",
-      "Nicar\u00e1gua (+505)",
-      "Nig\u00e9ria (+234)",
+      "Nicaragua (+505)",
+      "Nigeria (+234)",
       "Niue (+683)",
       "Noruega (+47)",
-      "Nova Caled\u00f4nia (+687)",
-      "Nova Zel\u00e2ndia (+64)",
+      "Nueva Caledonia (+687)",
+      "Nueva Zelanda (+64)",
       "N\u00edger (+227)",
-      "Om\u00e3 (+968)",
-      "Palau (+680)",
+      "Om\u00e1n (+968)",
+      "Pakist\u00e1n (+92)",
+      "Palaos (+680)",
       "Panam\u00e1 (+507)",
-      "Papua-Nova Guin\u00e9 (+675)",
-      "Paquist\u00e3o (+92)",
-      "Paraguai (+595)",
-      "Pa\u00edses Baixos (+31)",
-      "Pa\u00edses Baixos Caribenhos (+599)",
-      "Peru (+51)",
-      "Polin\u00e9sia Francesa (+689)",
-      "Pol\u00f4nia (+48)",
-      "Porto Rico (+1)",
+      "Pap\u00faa Nueva Guinea (+675)",
+      "Paraguay (+595)",
+      "Pa\u00edses Bajos (+31)",
+      "Per\u00fa (+51)",
+      "Polinesia Francesa (+689)",
+      "Polonia (+48)",
       "Portugal (+351)",
-      "Quirguist\u00e3o (+996)",
-      "Quiribati (+686)",
-      "Qu\u00eania (+254)",
+      "Puerto Rico (+1)",
+      "RAE de Hong Kong (China) (+852)",
+      "RAE de Macao (China) (+853)",
       "Reino Unido (+44)",
-      "Rep\u00fablica Centro-Africana (+236)",
+      "Rep\u00fablica Centroafricana (+236)",
+      "Rep\u00fablica Democr\u00e1tica del Congo (+243)",
       "Rep\u00fablica Dominicana (+1)",
-      "Rep\u00fablica do Congo (+242)",
-      "Reuni\u00e3o (+262)",
-      "Rom\u00eania (+40)",
+      "Reuni\u00f3n (+262)",
       "Ruanda (+250)",
-      "R\u00fassia (+7)",
-      "Saara Ocidental (+212)",
+      "Ruman\u00eda (+40)",
+      "Rusia (+7)",
       "Samoa (+685)",
       "Samoa Americana (+1)",
+      "San Bartolom\u00e9 (+590)",
+      "San Crist\u00f3bal y Nieves (+1)",
       "San Marino (+378)",
-      "Santa Helena (+290)",
-      "Santa L\u00facia (+1)",
-      "Seicheles (+248)",
+      "San Mart\u00edn (+590)",
+      "San Pedro y Miquel\u00f3n (+508)",
+      "San Vicente y las Granadinas (+1)",
+      "Santa Elena (+290)",
+      "Santa Luc\u00eda (+1)",
+      "Santo Tom\u00e9 y Pr\u00edncipe (+239)",
       "Senegal (+221)",
-      "Serra Leoa (+232)",
-      "Singapura (+65)",
+      "Serbia (+381)",
+      "Seychelles (+248)",
+      "Sierra Leona (+232)",
+      "Singapur (+65)",
       "Sint Maarten (+1)",
-      "Som\u00e1lia (+252)",
+      "Siria (+963)",
+      "Somalia (+252)",
       "Sri Lanka (+94)",
-      "Sud\u00e3o (+249)",
-      "Sud\u00e3o do Sul (+211)",
-      "Suriname (+597)",
-      "Su\u00e9cia (+46)",
-      "Su\u00ed\u00e7a (+41)",
-      "Svalbard e Jan Mayen (+47)",
-      "S\u00e3o Bartolomeu (+590)",
-      "S\u00e3o Crist\u00f3v\u00e3o e N\u00e9vis (+1)",
-      "S\u00e3o Martinho (+590)",
-      "S\u00e3o Pedro e Miquel\u00e3o (+508)",
-      "S\u00e3o Tom\u00e9 e Pr\u00edncipe (+239)",
-      "S\u00e3o Vicente e Granadinas (+1)",
-      "S\u00e9rvia (+381)",
-      "S\u00edria (+963)",
-      "Tadjiquist\u00e3o (+992)",
-      "Tail\u00e2ndia (+66)",
-      "Taiwan (+886)",
-      "Tanz\u00e2nia (+255)",
-      "Tch\u00e9quia (+420)",
-      "Territ\u00f3rio Brit\u00e2nico do Oceano \u00cdndico (+246)",
-      "Territ\u00f3rios Franceses do Sul (+0)",
-      "Territ\u00f3rios palestinos (+970)",
+      "Sud\u00e1frica (+27)",
+      "Sud\u00e1n (+249)",
+      "Sud\u00e1n del Sur (+211)",
+      "Suecia (+46)",
+      "Suiza (+41)",
+      "Surinam (+597)",
+      "Svalbard y Jan Mayen (+47)",
+      "S\u00e1hara Occidental (+212)",
+      "Tailandia (+66)",
+      "Taiw\u00e1n (+886)",
+      "Tanzania (+255)",
+      "Tayikist\u00e1n (+992)",
+      "Territorio Brit\u00e1nico del Oc\u00e9ano \u00cdndico (+246)",
+      "Territorios Australes Franceses (+0)",
+      "Territorios Palestinos (+970)",
       "Timor-Leste (+670)",
       "Togo (+228)",
       "Tokelau (+690)",
       "Tonga (+676)",
-      "Trinidad e Tobago (+1)",
-      "Tun\u00edsia (+216)",
-      "Turcomenist\u00e3o (+993)",
-      "Turquia (+90)",
+      "Trinidad y Tobago (+1)",
+      "Turkmenist\u00e1n (+993)",
+      "Turqu\u00eda (+90)",
       "Tuvalu (+688)",
-      "Ucr\u00e2nia (+380)",
+      "T\u00fanez (+216)",
+      "Ucrania (+380)",
       "Uganda (+256)",
-      "Uruguai (+598)",
-      "Uzbequist\u00e3o (+998)",
+      "Uruguay (+598)",
+      "Uzbekist\u00e1n (+998)",
       "Vanuatu (+678)",
       "Venezuela (+58)",
-      "Vietn\u00e3 (+84)",
-      "Wallis e Futuna (+681)",
-      "Z\u00e2mbia (+260)",
-      "\u00c1frica do Sul (+27)",
-      "\u00c1ustria (+43)",
-      "\u00cdndia (+91)",
-      "Zimb\u00e1bue (+263)"
+      "Vietnam (+84)",
+      "Wallis y Futuna (+681)",
+      "Yemen (+967)",
+      "Yibuti (+253)",
+      "Zambia (+260)",
+      "Zimbabue (+263)"
     ]
   },
   {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952647906-phoneNumber-nationalNumber",
-    "label": "N\u00famero de celular",
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207082-phoneNumber-nationalNumber']",
+    "label": "Tel\u00e9fono m\u00f3vil",
     "type": "input",
     "options": []
   }
@@ -670,96 +579,82 @@ INPUT FIELDS:
 ACTIONS:
 [
   {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952647914-multipleChoice",
+    "selector": "[id='text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207074-multipleChoice']",
     "action": "select",
     "value": "jonasdurau@gmail.com"
   },
   {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952647906-phoneNumber-country",
+    "selector": "[id='text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207082-phoneNumber-country']",
     "action": "select",
     "value": "Brasil (+55)"
   },
   {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952647906-phoneNumber-nationalNumber",
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207082-phoneNumber-nationalNumber']",
     "action": "type",
-    "value": "996775078"
+    "value": "41996775078"
   }
 ]
 
---- STEP 2 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "resume_radios",
-    "label": "Choose resume / Escolha o curr\u00edculo",
-    "type": "radio",
-    "options": [
-      {
-        "selector": "#jobsDocumentCardToggle-ember239",
-        "label": "Desmarcar sele\u00e7\u00e3o de resume Jonas-Felipe-Durau-Resume.pdf"
-      },
-      {
-        "selector": "#jobsDocumentCardToggle-ember241",
-        "label": "Selecionar resume Jonas-Felipe-Durau-Curriculo.pdf"
-      }
-    ]
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#jobsDocumentCardToggle-ember241",
-    "action": "click",
-    "value": null
-  }
-]
+--- RESUME SELECTION ---
+Job Title: Java Software Engineer, AI Imaging (Backend)
+Detected Language: en
+Target: Resume.pdf
+Options: ['Desmarcar seleção de resume Jonas-Felipe-Durau-Resume.pdf', 'Selecionar resume Jonas-Felipe-Durau-Curriculo.pdf']
 
 --- STEP 3 ---
 INPUT FIELDS:
 [
   {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952648026-numeric",
-    "label": "H\u00e1 quantos anos voc\u00ea j\u00e1 usa Spring Framework no trabalho?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952648018-numeric",
-    "label": "H\u00e1 quantos anos voc\u00ea j\u00e1 usa Amazon Web Services no trabalho?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952647994-numeric",
-    "label": "H\u00e1 quantos anos voc\u00ea j\u00e1 usa Java no trabalho?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952648010-multipleChoice",
-    "label": "Nosso budget para essa oportunidade gira em torno de 9K CLT + benef\u00edcios. Vc topa essa remunera\u00e7\u00e3o?\nNosso budget para essa oportunidade gira em torno de 9K CLT + benef\u00edcios. Vc topa essa remunera\u00e7\u00e3o?",
+    "selector": "[id='text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207570-multipleChoice']",
+    "label": "\u00bfCu\u00e1l es tu nivel de Ingl\u00e9s?\n\u00bfCu\u00e1l es tu nivel de Ingl\u00e9s?",
     "type": "select",
     "options": [
-      "Selecionar op\u00e7\u00e3o",
-      "Yes",
-      "No"
+      "Selecciona una opci\u00f3n",
+      "Ninguno",
+      "Conversaci\u00f3n",
+      "Profesional",
+      "Nativo o biling\u00fce"
     ]
   },
   {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952648002-numeric",
-    "label": "Por favor, nos informe seu CPF:",
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207578-numeric']",
+    "label": "How many years of experience do you have with Java?",
     "type": "input",
     "options": []
   },
   {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952648042-numeric",
-    "label": "Por favor, nos informe seu RG:",
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207562-numeric']",
+    "label": "How many years of experience do you have with Spring Boot?",
     "type": "input",
     "options": []
   },
   {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952648034-numeric",
-    "label": "Por favor, nos informe sua data de nascimento:",
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207554-numeric']",
+    "label": "How many years of experience do you have with SQL?",
+    "type": "input",
+    "options": []
+  },
+  {
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207546-numeric']",
+    "label": "How many years of experience do you have with JavaScript?",
+    "type": "input",
+    "options": []
+  },
+  {
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207586-numeric']",
+    "label": "How many years of experience do you have with React?",
+    "type": "input",
+    "options": []
+  },
+  {
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207594-numeric']",
+    "label": "What is your salary expectation in dollars?",
+    "type": "input",
+    "options": []
+  },
+  {
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207602-numeric']",
+    "label": "How many years of experience do you have with user interface systems, preferably powered by JavaScript such as React?",
     "type": "input",
     "options": []
   }
@@ -767,39 +662,44 @@ INPUT FIELDS:
 ACTIONS:
 [
   {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952648026-numeric",
+    "selector": "[id='text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207570-multipleChoice']",
+    "action": "select",
+    "value": "Profesional"
+  },
+  {
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207578-numeric']",
     "action": "type",
     "value": "3"
   },
   {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952648018-numeric",
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207562-numeric']",
+    "action": "type",
+    "value": "3"
+  },
+  {
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207554-numeric']",
+    "action": "type",
+    "value": "3"
+  },
+  {
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207546-numeric']",
     "action": "type",
     "value": "1"
   },
   {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952647994-numeric",
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207586-numeric']",
     "action": "type",
-    "value": "3"
+    "value": "1"
   },
   {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952648010-multipleChoice",
-    "action": "select",
-    "value": "Yes"
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207594-numeric']",
+    "action": "type",
+    "value": "4000"
   },
   {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952648002-numeric",
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375475290-28964207602-numeric']",
     "action": "type",
-    "value": "12345678901"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952648042-numeric",
-    "action": "type",
-    "value": "123456789"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4375407471-28952648034-numeric",
-    "action": "type",
-    "value": "1999-01-01"
+    "value": "1"
   }
 ]
 
@@ -807,1912 +707,19 @@ ACTIONS:
 INPUT FIELDS:
 [
   {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374504509-19446089281-multipleChoice",
-    "label": "E-mail\nE-mail",
-    "type": "select",
-    "options": [
-      "Selecionar op\u00e7\u00e3o",
-      "jonasdurau@gmail.com"
-    ]
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374504509-19446089289-phoneNumber-country",
-    "label": "C\u00f3digo do pa\u00eds\nC\u00f3digo do pa\u00eds",
-    "type": "select",
-    "options": [
-      "Selecionar op\u00e7\u00e3o",
-      "Brasil (+55)",
-      "Afeganist\u00e3o (+93)",
-      "Alb\u00e2nia (+355)",
-      "Alemanha (+49)",
-      "Andorra (+376)",
-      "Angola (+244)",
-      "Anguila (+1)",
-      "Ant\u00e1rtida (+0)",
-      "Ant\u00edgua e Barbuda (+1)",
-      "Argentina (+54)",
-      "Arg\u00e9lia (+213)",
-      "Arm\u00eania (+374)",
-      "Aruba (+297)",
-      "Ar\u00e1bia Saudita (+966)",
-      "Austr\u00e1lia (+61)",
-      "Azerbaij\u00e3o (+994)",
-      "Bahamas (+1)",
-      "Bangladesh (+880)",
-      "Barbados (+1)",
-      "Barein (+973)",
-      "Belize (+501)",
-      "Benin (+229)",
-      "Bermudas (+1)",
-      "Bielorr\u00fassia (+375)",
-      "Bol\u00edvia (+591)",
-      "Botsuana (+267)",
-      "Brunei (+673)",
-      "Bulg\u00e1ria (+359)",
-      "Burquina Faso (+226)",
-      "Burundi (+257)",
-      "But\u00e3o (+975)",
-      "B\u00e9lgica (+32)",
-      "B\u00f3snia e Herzegovina (+387)",
-      "Cabo Verde (+238)",
-      "Camar\u00f5es (+237)",
-      "Camboja (+855)",
-      "Canad\u00e1 (+1)",
-      "Catar (+974)",
-      "Cazaquist\u00e3o (+7)",
-      "Chade (+235)",
-      "Chile (+56)",
-      "China (+86)",
-      "Chipre (+357)",
-      "Cidade do Vaticano (+39)",
-      "Col\u00f4mbia (+57)",
-      "Comores (+269)",
-      "Congo - Kinshasa (+243)",
-      "Coreia do Norte (+850)",
-      "Coreia do Sul (+82)",
-      "Costa Rica (+506)",
-      "Costa do Marfim (+225)",
-      "Cro\u00e1cia (+385)",
-      "Cuba (+53)",
-      "Cura\u00e7ao (+599)",
-      "Dinamarca (+45)",
-      "Djibuti (+253)",
-      "Dominica (+1)",
-      "Egito (+20)",
-      "El Salvador (+503)",
-      "Emirados \u00c1rabes Unidos (+971)",
-      "Equador (+593)",
-      "Eritreia (+291)",
-      "Eslov\u00e1quia (+421)",
-      "Eslov\u00eania (+386)",
-      "Espanha (+34)",
-      "Essuat\u00edni (+268)",
-      "Estados Unidos (+1)",
-      "Est\u00f4nia (+372)",
-      "Eti\u00f3pia (+251)",
-      "Fiji (+679)",
-      "Filipinas (+63)",
-      "Finl\u00e2ndia (+358)",
-      "Fran\u00e7a (+33)",
-      "Gab\u00e3o (+241)",
-      "Gana (+233)",
-      "Ge\u00f3rgia (+995)",
-      "Gibraltar (+350)",
-      "Granada (+1)",
-      "Groenl\u00e2ndia (+299)",
-      "Gr\u00e9cia (+30)",
-      "Guadalupe (+590)",
-      "Guam (+1)",
-      "Guatemala (+502)",
-      "Guernsey (+44)",
-      "Guiana (+592)",
-      "Guiana Francesa (+594)",
-      "Guin\u00e9 (+224)",
-      "Guin\u00e9 Equatorial (+240)",
-      "Guin\u00e9-Bissau (+245)",
-      "G\u00e2mbia (+220)",
-      "Haiti (+509)",
-      "Honduras (+504)",
-      "Hong Kong, RAE da China (+852)",
-      "Hungria (+36)",
-      "Ilha Bouvet (+0)",
-      "Ilha Christmas (+61)",
-      "Ilha Norfolk (+672)",
-      "Ilha de Man (+44)",
-      "Ilhas Aland (+358)",
-      "Ilhas Cayman (+1)",
-      "Ilhas Cocos (Keeling) (+61)",
-      "Ilhas Cook (+682)",
-      "Ilhas Faro\u00e9 (+298)",
-      "Ilhas Ge\u00f3rgia do Sul e Sandwich do Sul (+0)",
-      "Ilhas Heard e McDonald (+0)",
-      "Ilhas Malvinas (+500)",
-      "Ilhas Marianas do Norte (+1)",
-      "Ilhas Marshall (+692)",
-      "Ilhas Menores Distantes dos EUA (+0)",
-      "Ilhas Pitcairn (+0)",
-      "Ilhas Salom\u00e3o (+677)",
-      "Ilhas Turcas e Caicos (+1)",
-      "Ilhas Virgens Americanas (+1)",
-      "Ilhas Virgens Brit\u00e2nicas (+1)",
-      "Indon\u00e9sia (+62)",
-      "Iraque (+964)",
-      "Irlanda (+353)",
-      "Ir\u00e3 (+98)",
-      "Isl\u00e2ndia (+354)",
-      "Israel (+972)",
-      "It\u00e1lia (+39)",
-      "I\u00eamen (+967)",
-      "Jamaica (+1)",
-      "Jap\u00e3o (+81)",
-      "Jersey (+44)",
-      "Jord\u00e2nia (+962)",
-      "Kuwait (+965)",
-      "Laos (+856)",
-      "Lesoto (+266)",
-      "Let\u00f4nia (+371)",
-      "Lib\u00e9ria (+231)",
-      "Liechtenstein (+423)",
-      "Litu\u00e2nia (+370)",
-      "Luxemburgo (+352)",
-      "L\u00edbano (+961)",
-      "L\u00edbia (+218)",
-      "Macau, RAE da China (+853)",
-      "Maced\u00f4nia do Norte (+389)",
-      "Madagascar (+261)",
-      "Malaui (+265)",
-      "Maldivas (+960)",
-      "Mali (+223)",
-      "Malta (+356)",
-      "Mal\u00e1sia (+60)",
-      "Marrocos (+212)",
-      "Martinica (+596)",
-      "Maurit\u00e2nia (+222)",
-      "Maur\u00edcio (+230)",
-      "Mayotte (+262)",
-      "Mianmar (Birm\u00e2nia) (+95)",
-      "Micron\u00e9sia (+691)",
-      "Mold\u00e1via (+373)",
-      "Mong\u00f3lia (+976)",
-      "Montenegro (+382)",
-      "Montserrat (+1)",
-      "Mo\u00e7ambique (+258)",
-      "M\u00e9xico (+52)",
-      "M\u00f4naco (+377)",
-      "Nam\u00edbia (+264)",
-      "Nauru (+674)",
-      "Nepal (+977)",
-      "Nicar\u00e1gua (+505)",
-      "Nig\u00e9ria (+234)",
-      "Niue (+683)",
-      "Noruega (+47)",
-      "Nova Caled\u00f4nia (+687)",
-      "Nova Zel\u00e2ndia (+64)",
-      "N\u00edger (+227)",
-      "Om\u00e3 (+968)",
-      "Palau (+680)",
-      "Panam\u00e1 (+507)",
-      "Papua-Nova Guin\u00e9 (+675)",
-      "Paquist\u00e3o (+92)",
-      "Paraguai (+595)",
-      "Pa\u00edses Baixos (+31)",
-      "Pa\u00edses Baixos Caribenhos (+599)",
-      "Peru (+51)",
-      "Polin\u00e9sia Francesa (+689)",
-      "Pol\u00f4nia (+48)",
-      "Porto Rico (+1)",
-      "Portugal (+351)",
-      "Quirguist\u00e3o (+996)",
-      "Quiribati (+686)",
-      "Qu\u00eania (+254)",
-      "Reino Unido (+44)",
-      "Rep\u00fablica Centro-Africana (+236)",
-      "Rep\u00fablica Dominicana (+1)",
-      "Rep\u00fablica do Congo (+242)",
-      "Reuni\u00e3o (+262)",
-      "Rom\u00eania (+40)",
-      "Ruanda (+250)",
-      "R\u00fassia (+7)",
-      "Saara Ocidental (+212)",
-      "Samoa (+685)",
-      "Samoa Americana (+1)",
-      "San Marino (+378)",
-      "Santa Helena (+290)",
-      "Santa L\u00facia (+1)",
-      "Seicheles (+248)",
-      "Senegal (+221)",
-      "Serra Leoa (+232)",
-      "Singapura (+65)",
-      "Sint Maarten (+1)",
-      "Som\u00e1lia (+252)",
-      "Sri Lanka (+94)",
-      "Sud\u00e3o (+249)",
-      "Sud\u00e3o do Sul (+211)",
-      "Suriname (+597)",
-      "Su\u00e9cia (+46)",
-      "Su\u00ed\u00e7a (+41)",
-      "Svalbard e Jan Mayen (+47)",
-      "S\u00e3o Bartolomeu (+590)",
-      "S\u00e3o Crist\u00f3v\u00e3o e N\u00e9vis (+1)",
-      "S\u00e3o Martinho (+590)",
-      "S\u00e3o Pedro e Miquel\u00e3o (+508)",
-      "S\u00e3o Tom\u00e9 e Pr\u00edncipe (+239)",
-      "S\u00e3o Vicente e Granadinas (+1)",
-      "S\u00e9rvia (+381)",
-      "S\u00edria (+963)",
-      "Tadjiquist\u00e3o (+992)",
-      "Tail\u00e2ndia (+66)",
-      "Taiwan (+886)",
-      "Tanz\u00e2nia (+255)",
-      "Tch\u00e9quia (+420)",
-      "Territ\u00f3rio Brit\u00e2nico do Oceano \u00cdndico (+246)",
-      "Territ\u00f3rios Franceses do Sul (+0)",
-      "Territ\u00f3rios palestinos (+970)",
-      "Timor-Leste (+670)",
-      "Togo (+228)",
-      "Tokelau (+690)",
-      "Tonga (+676)",
-      "Trinidad e Tobago (+1)",
-      "Tun\u00edsia (+216)",
-      "Turcomenist\u00e3o (+993)",
-      "Turquia (+90)",
-      "Tuvalu (+688)",
-      "Ucr\u00e2nia (+380)",
-      "Uganda (+256)",
-      "Uruguai (+598)",
-      "Uzbequist\u00e3o (+998)",
-      "Vanuatu (+678)",
-      "Venezuela (+58)",
-      "Vietn\u00e3 (+84)",
-      "Wallis e Futuna (+681)",
-      "Z\u00e2mbia (+260)",
-      "\u00c1frica do Sul (+27)",
-      "\u00c1ustria (+43)",
-      "\u00cdndia (+91)",
-      "Zimb\u00e1bue (+263)"
-    ]
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374504509-19446089289-phoneNumber-nationalNumber",
-    "label": "N\u00famero de celular",
-    "type": "input",
-    "options": []
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374504509-19446089281-multipleChoice",
-    "action": "select",
-    "value": "jonasdurau@gmail.com"
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374504509-19446089289-phoneNumber-country",
-    "action": "select",
-    "value": "Brasil (+55)"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374504509-19446089289-phoneNumber-nationalNumber",
-    "action": "type",
-    "value": "996775078"
-  }
-]
-
---- STEP 2 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "resume_radios",
-    "label": "Choose resume / Escolha o curr\u00edculo",
-    "type": "radio",
-    "options": [
-      {
-        "selector": "#jobsDocumentCardToggle-ember211",
-        "label": "Desmarcar sele\u00e7\u00e3o de resume Jonas-Felipe-Durau-Resume.pdf"
-      },
-      {
-        "selector": "#jobsDocumentCardToggle-ember213",
-        "label": "Selecionar resume Jonas-Felipe-Durau-Curriculo.pdf"
-      }
-    ]
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#jobsDocumentCardToggle-ember213",
-    "action": "click",
-    "value": null
-  }
-]
-
---- STEP 3 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374504509-19446089385-numeric",
-    "label": "H\u00e1 quantos anos voc\u00ea j\u00e1 usa Spring Boot no trabalho?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374504509-19446089361-numeric",
-    "label": "H\u00e1 quantos anos voc\u00ea j\u00e1 usa Banco de dados no trabalho?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374504509-19446089369-numeric",
-    "label": "H\u00e1 quantos anos voc\u00ea j\u00e1 usa SQL no trabalho?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374504509-19446089377-multipleChoice",
-    "label": "Qual seu n\u00edvel de profici\u00eancia em Ingl\u00eas?\nQual seu n\u00edvel de profici\u00eancia em Ingl\u00eas?",
-    "type": "select",
-    "options": [
-      "Selecionar op\u00e7\u00e3o",
-      "Nenhuma",
-      "Conversa\u00e7\u00e3o",
-      "Proficiente",
-      "Nativo ou bil\u00edngue"
-    ]
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374504509-19446089353-numeric",
-    "label": "qual sua pretens\u00e3o salarial?",
-    "type": "input",
-    "options": []
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374504509-19446089385-numeric",
-    "action": "type",
-    "value": "3"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374504509-19446089361-numeric",
-    "action": "type",
-    "value": "3"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374504509-19446089369-numeric",
-    "action": "type",
-    "value": "3"
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374504509-19446089377-multipleChoice",
-    "action": "select",
-    "value": "Proficiente"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4374504509-19446089353-numeric",
-    "action": "type",
-    "value": "6000"
-  }
-]
-
---- STEP 1 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4369827568-25962786748-text",
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4379169334-29347345994-text']",
     "label": "First name",
     "type": "input",
     "options": []
   },
   {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4369827568-25962786740-text",
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4379169334-29347345986-text']",
     "label": "Last name",
     "type": "input",
     "options": []
   },
   {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4369827568-25962786732-phoneNumber-country",
-    "label": "C\u00f3digo do pa\u00eds\nC\u00f3digo do pa\u00eds",
-    "type": "select",
-    "options": [
-      "Selecionar op\u00e7\u00e3o",
-      "Brasil (+55)",
-      "Afeganist\u00e3o (+93)",
-      "Alb\u00e2nia (+355)",
-      "Alemanha (+49)",
-      "Andorra (+376)",
-      "Angola (+244)",
-      "Anguila (+1)",
-      "Ant\u00e1rtida (+0)",
-      "Ant\u00edgua e Barbuda (+1)",
-      "Argentina (+54)",
-      "Arg\u00e9lia (+213)",
-      "Arm\u00eania (+374)",
-      "Aruba (+297)",
-      "Ar\u00e1bia Saudita (+966)",
-      "Austr\u00e1lia (+61)",
-      "Azerbaij\u00e3o (+994)",
-      "Bahamas (+1)",
-      "Bangladesh (+880)",
-      "Barbados (+1)",
-      "Barein (+973)",
-      "Belize (+501)",
-      "Benin (+229)",
-      "Bermudas (+1)",
-      "Bielorr\u00fassia (+375)",
-      "Bol\u00edvia (+591)",
-      "Botsuana (+267)",
-      "Brunei (+673)",
-      "Bulg\u00e1ria (+359)",
-      "Burquina Faso (+226)",
-      "Burundi (+257)",
-      "But\u00e3o (+975)",
-      "B\u00e9lgica (+32)",
-      "B\u00f3snia e Herzegovina (+387)",
-      "Cabo Verde (+238)",
-      "Camar\u00f5es (+237)",
-      "Camboja (+855)",
-      "Canad\u00e1 (+1)",
-      "Catar (+974)",
-      "Cazaquist\u00e3o (+7)",
-      "Chade (+235)",
-      "Chile (+56)",
-      "China (+86)",
-      "Chipre (+357)",
-      "Cidade do Vaticano (+39)",
-      "Col\u00f4mbia (+57)",
-      "Comores (+269)",
-      "Congo - Kinshasa (+243)",
-      "Coreia do Norte (+850)",
-      "Coreia do Sul (+82)",
-      "Costa Rica (+506)",
-      "Costa do Marfim (+225)",
-      "Cro\u00e1cia (+385)",
-      "Cuba (+53)",
-      "Cura\u00e7ao (+599)",
-      "Dinamarca (+45)",
-      "Djibuti (+253)",
-      "Dominica (+1)",
-      "Egito (+20)",
-      "El Salvador (+503)",
-      "Emirados \u00c1rabes Unidos (+971)",
-      "Equador (+593)",
-      "Eritreia (+291)",
-      "Eslov\u00e1quia (+421)",
-      "Eslov\u00eania (+386)",
-      "Espanha (+34)",
-      "Essuat\u00edni (+268)",
-      "Estados Unidos (+1)",
-      "Est\u00f4nia (+372)",
-      "Eti\u00f3pia (+251)",
-      "Fiji (+679)",
-      "Filipinas (+63)",
-      "Finl\u00e2ndia (+358)",
-      "Fran\u00e7a (+33)",
-      "Gab\u00e3o (+241)",
-      "Gana (+233)",
-      "Ge\u00f3rgia (+995)",
-      "Gibraltar (+350)",
-      "Granada (+1)",
-      "Groenl\u00e2ndia (+299)",
-      "Gr\u00e9cia (+30)",
-      "Guadalupe (+590)",
-      "Guam (+1)",
-      "Guatemala (+502)",
-      "Guernsey (+44)",
-      "Guiana (+592)",
-      "Guiana Francesa (+594)",
-      "Guin\u00e9 (+224)",
-      "Guin\u00e9 Equatorial (+240)",
-      "Guin\u00e9-Bissau (+245)",
-      "G\u00e2mbia (+220)",
-      "Haiti (+509)",
-      "Honduras (+504)",
-      "Hong Kong, RAE da China (+852)",
-      "Hungria (+36)",
-      "Ilha Bouvet (+0)",
-      "Ilha Christmas (+61)",
-      "Ilha Norfolk (+672)",
-      "Ilha de Man (+44)",
-      "Ilhas Aland (+358)",
-      "Ilhas Cayman (+1)",
-      "Ilhas Cocos (Keeling) (+61)",
-      "Ilhas Cook (+682)",
-      "Ilhas Faro\u00e9 (+298)",
-      "Ilhas Ge\u00f3rgia do Sul e Sandwich do Sul (+0)",
-      "Ilhas Heard e McDonald (+0)",
-      "Ilhas Malvinas (+500)",
-      "Ilhas Marianas do Norte (+1)",
-      "Ilhas Marshall (+692)",
-      "Ilhas Menores Distantes dos EUA (+0)",
-      "Ilhas Pitcairn (+0)",
-      "Ilhas Salom\u00e3o (+677)",
-      "Ilhas Turcas e Caicos (+1)",
-      "Ilhas Virgens Americanas (+1)",
-      "Ilhas Virgens Brit\u00e2nicas (+1)",
-      "Indon\u00e9sia (+62)",
-      "Iraque (+964)",
-      "Irlanda (+353)",
-      "Ir\u00e3 (+98)",
-      "Isl\u00e2ndia (+354)",
-      "Israel (+972)",
-      "It\u00e1lia (+39)",
-      "I\u00eamen (+967)",
-      "Jamaica (+1)",
-      "Jap\u00e3o (+81)",
-      "Jersey (+44)",
-      "Jord\u00e2nia (+962)",
-      "Kuwait (+965)",
-      "Laos (+856)",
-      "Lesoto (+266)",
-      "Let\u00f4nia (+371)",
-      "Lib\u00e9ria (+231)",
-      "Liechtenstein (+423)",
-      "Litu\u00e2nia (+370)",
-      "Luxemburgo (+352)",
-      "L\u00edbano (+961)",
-      "L\u00edbia (+218)",
-      "Macau, RAE da China (+853)",
-      "Maced\u00f4nia do Norte (+389)",
-      "Madagascar (+261)",
-      "Malaui (+265)",
-      "Maldivas (+960)",
-      "Mali (+223)",
-      "Malta (+356)",
-      "Mal\u00e1sia (+60)",
-      "Marrocos (+212)",
-      "Martinica (+596)",
-      "Maurit\u00e2nia (+222)",
-      "Maur\u00edcio (+230)",
-      "Mayotte (+262)",
-      "Mianmar (Birm\u00e2nia) (+95)",
-      "Micron\u00e9sia (+691)",
-      "Mold\u00e1via (+373)",
-      "Mong\u00f3lia (+976)",
-      "Montenegro (+382)",
-      "Montserrat (+1)",
-      "Mo\u00e7ambique (+258)",
-      "M\u00e9xico (+52)",
-      "M\u00f4naco (+377)",
-      "Nam\u00edbia (+264)",
-      "Nauru (+674)",
-      "Nepal (+977)",
-      "Nicar\u00e1gua (+505)",
-      "Nig\u00e9ria (+234)",
-      "Niue (+683)",
-      "Noruega (+47)",
-      "Nova Caled\u00f4nia (+687)",
-      "Nova Zel\u00e2ndia (+64)",
-      "N\u00edger (+227)",
-      "Om\u00e3 (+968)",
-      "Palau (+680)",
-      "Panam\u00e1 (+507)",
-      "Papua-Nova Guin\u00e9 (+675)",
-      "Paquist\u00e3o (+92)",
-      "Paraguai (+595)",
-      "Pa\u00edses Baixos (+31)",
-      "Pa\u00edses Baixos Caribenhos (+599)",
-      "Peru (+51)",
-      "Polin\u00e9sia Francesa (+689)",
-      "Pol\u00f4nia (+48)",
-      "Porto Rico (+1)",
-      "Portugal (+351)",
-      "Quirguist\u00e3o (+996)",
-      "Quiribati (+686)",
-      "Qu\u00eania (+254)",
-      "Reino Unido (+44)",
-      "Rep\u00fablica Centro-Africana (+236)",
-      "Rep\u00fablica Dominicana (+1)",
-      "Rep\u00fablica do Congo (+242)",
-      "Reuni\u00e3o (+262)",
-      "Rom\u00eania (+40)",
-      "Ruanda (+250)",
-      "R\u00fassia (+7)",
-      "Saara Ocidental (+212)",
-      "Samoa (+685)",
-      "Samoa Americana (+1)",
-      "San Marino (+378)",
-      "Santa Helena (+290)",
-      "Santa L\u00facia (+1)",
-      "Seicheles (+248)",
-      "Senegal (+221)",
-      "Serra Leoa (+232)",
-      "Singapura (+65)",
-      "Sint Maarten (+1)",
-      "Som\u00e1lia (+252)",
-      "Sri Lanka (+94)",
-      "Sud\u00e3o (+249)",
-      "Sud\u00e3o do Sul (+211)",
-      "Suriname (+597)",
-      "Su\u00e9cia (+46)",
-      "Su\u00ed\u00e7a (+41)",
-      "Svalbard e Jan Mayen (+47)",
-      "S\u00e3o Bartolomeu (+590)",
-      "S\u00e3o Crist\u00f3v\u00e3o e N\u00e9vis (+1)",
-      "S\u00e3o Martinho (+590)",
-      "S\u00e3o Pedro e Miquel\u00e3o (+508)",
-      "S\u00e3o Tom\u00e9 e Pr\u00edncipe (+239)",
-      "S\u00e3o Vicente e Granadinas (+1)",
-      "S\u00e9rvia (+381)",
-      "S\u00edria (+963)",
-      "Tadjiquist\u00e3o (+992)",
-      "Tail\u00e2ndia (+66)",
-      "Taiwan (+886)",
-      "Tanz\u00e2nia (+255)",
-      "Tch\u00e9quia (+420)",
-      "Territ\u00f3rio Brit\u00e2nico do Oceano \u00cdndico (+246)",
-      "Territ\u00f3rios Franceses do Sul (+0)",
-      "Territ\u00f3rios palestinos (+970)",
-      "Timor-Leste (+670)",
-      "Togo (+228)",
-      "Tokelau (+690)",
-      "Tonga (+676)",
-      "Trinidad e Tobago (+1)",
-      "Tun\u00edsia (+216)",
-      "Turcomenist\u00e3o (+993)",
-      "Turquia (+90)",
-      "Tuvalu (+688)",
-      "Ucr\u00e2nia (+380)",
-      "Uganda (+256)",
-      "Uruguai (+598)",
-      "Uzbequist\u00e3o (+998)",
-      "Vanuatu (+678)",
-      "Venezuela (+58)",
-      "Vietn\u00e3 (+84)",
-      "Wallis e Futuna (+681)",
-      "Z\u00e2mbia (+260)",
-      "\u00c1frica do Sul (+27)",
-      "\u00c1ustria (+43)",
-      "\u00cdndia (+91)",
-      "Zimb\u00e1bue (+263)"
-    ]
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4369827568-25962786732-phoneNumber-nationalNumber",
-    "label": "Mobile phone number",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4369827568-25962786724-multipleChoice",
-    "label": "Email address\nEmail address",
-    "type": "select",
-    "options": [
-      "Selecionar op\u00e7\u00e3o",
-      "jonasdurau@gmail.com"
-    ]
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4369827568-25962786748-text",
-    "action": "type",
-    "value": "Jonas"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4369827568-25962786740-text",
-    "action": "type",
-    "value": "Durau"
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4369827568-25962786732-phoneNumber-country",
-    "action": "select",
-    "value": "Brasil (+55)"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4369827568-25962786732-phoneNumber-nationalNumber",
-    "action": "type",
-    "value": "996775078"
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4369827568-25962786724-multipleChoice",
-    "action": "select",
-    "value": "jonasdurau@gmail.com"
-  }
-]
-
---- STEP 2 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "resume_radios",
-    "label": "Choose resume / Escolha o curr\u00edculo",
-    "type": "radio",
-    "options": [
-      {
-        "selector": "#jobsDocumentCardToggle-ember240",
-        "label": "Desmarcar sele\u00e7\u00e3o de resume Jonas-Felipe-Durau-Resume.pdf"
-      },
-      {
-        "selector": "#jobsDocumentCardToggle-ember242",
-        "label": "Selecionar resume Jonas-Felipe-Durau-Curriculo.pdf"
-      }
-    ]
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#jobsDocumentCardToggle-ember242",
-    "action": "click",
-    "value": null
-  }
-]
-
---- STEP 3 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4369827568-25962786772-text",
-    "label": "Voc\u00ea necessita de alguma adapta\u00e7\u00e3o ou acessibilidade para participar do processo seletivo? Se sim, qual?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "fieldset",
-    "label": "Voc\u00ea \u00e9 uma Pessoa com Defici\u00eancia (PCD), conforme previsto na Lei n\u00ba 13.146/2015?\nVoc\u00ea \u00e9 uma Pessoa com Defici\u00eancia (PCD), conforme previsto na Lei n\u00ba 13.146/2015?\n \nObrigat\u00f3rio",
-    "type": "radio",
-    "options": [
-      {
-        "selector": "#urn:li:fsd_formElement:urn:li:jobs_applyformcommon_easyApplyFormElement:(4369827568,25962786788,multipleChoice)-0",
-        "label": "Sim"
-      },
-      {
-        "selector": "#urn:li:fsd_formElement:urn:li:jobs_applyformcommon_easyApplyFormElement:(4369827568,25962786788,multipleChoice)-1",
-        "label": "N\u00e3o"
-      }
-    ]
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4369827568-25962786772-text",
-    "action": "type",
-    "value": "N\u00e3o, n\u00e3o necessito de adapta\u00e7\u00f5es."
-  },
-  {
-    "selector": "fieldset",
-    "action": "click",
-    "value": "N\u00e3o"
-  }
-]
-
---- STEP 4 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4369827568-25962786772-text",
-    "label": "Voc\u00ea necessita de alguma adapta\u00e7\u00e3o ou acessibilidade para participar do processo seletivo? Se sim, qual?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "fieldset",
-    "label": "Voc\u00ea \u00e9 uma Pessoa com Defici\u00eancia (PCD), conforme previsto na Lei n\u00ba 13.146/2015?\nVoc\u00ea \u00e9 uma Pessoa com Defici\u00eancia (PCD), conforme previsto na Lei n\u00ba 13.146/2015?\n \nObrigat\u00f3rio",
-    "type": "radio",
-    "options": [
-      {
-        "selector": "#urn:li:fsd_formElement:urn:li:jobs_applyformcommon_easyApplyFormElement:(4369827568,25962786788,multipleChoice)-0",
-        "label": "Sim"
-      },
-      {
-        "selector": "#urn:li:fsd_formElement:urn:li:jobs_applyformcommon_easyApplyFormElement:(4369827568,25962786788,multipleChoice)-1",
-        "label": "N\u00e3o"
-      }
-    ]
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4369827568-25962786772-text",
-    "action": "type",
-    "value": "N\u00e3o, n\u00e3o necessito de adapta\u00e7\u00f5es."
-  },
-  {
-    "selector": "fieldset",
-    "action": "select",
-    "value": "N\u00e3o"
-  }
-]
-
---- STEP 1 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4361046361-18403922993-multipleChoice",
-    "label": "E-mail\nE-mail",
-    "type": "select",
-    "options": [
-      "Selecionar op\u00e7\u00e3o",
-      "jonasdurau@gmail.com"
-    ]
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4361046361-18403922977-phoneNumber-country",
-    "label": "C\u00f3digo do pa\u00eds\nC\u00f3digo do pa\u00eds",
-    "type": "select",
-    "options": [
-      "Selecionar op\u00e7\u00e3o",
-      "Brasil (+55)",
-      "Afeganist\u00e3o (+93)",
-      "Alb\u00e2nia (+355)",
-      "Alemanha (+49)",
-      "Andorra (+376)",
-      "Angola (+244)",
-      "Anguila (+1)",
-      "Ant\u00e1rtida (+0)",
-      "Ant\u00edgua e Barbuda (+1)",
-      "Argentina (+54)",
-      "Arg\u00e9lia (+213)",
-      "Arm\u00eania (+374)",
-      "Aruba (+297)",
-      "Ar\u00e1bia Saudita (+966)",
-      "Austr\u00e1lia (+61)",
-      "Azerbaij\u00e3o (+994)",
-      "Bahamas (+1)",
-      "Bangladesh (+880)",
-      "Barbados (+1)",
-      "Barein (+973)",
-      "Belize (+501)",
-      "Benin (+229)",
-      "Bermudas (+1)",
-      "Bielorr\u00fassia (+375)",
-      "Bol\u00edvia (+591)",
-      "Botsuana (+267)",
-      "Brunei (+673)",
-      "Bulg\u00e1ria (+359)",
-      "Burquina Faso (+226)",
-      "Burundi (+257)",
-      "But\u00e3o (+975)",
-      "B\u00e9lgica (+32)",
-      "B\u00f3snia e Herzegovina (+387)",
-      "Cabo Verde (+238)",
-      "Camar\u00f5es (+237)",
-      "Camboja (+855)",
-      "Canad\u00e1 (+1)",
-      "Catar (+974)",
-      "Cazaquist\u00e3o (+7)",
-      "Chade (+235)",
-      "Chile (+56)",
-      "China (+86)",
-      "Chipre (+357)",
-      "Cidade do Vaticano (+39)",
-      "Col\u00f4mbia (+57)",
-      "Comores (+269)",
-      "Congo - Kinshasa (+243)",
-      "Coreia do Norte (+850)",
-      "Coreia do Sul (+82)",
-      "Costa Rica (+506)",
-      "Costa do Marfim (+225)",
-      "Cro\u00e1cia (+385)",
-      "Cuba (+53)",
-      "Cura\u00e7ao (+599)",
-      "Dinamarca (+45)",
-      "Djibuti (+253)",
-      "Dominica (+1)",
-      "Egito (+20)",
-      "El Salvador (+503)",
-      "Emirados \u00c1rabes Unidos (+971)",
-      "Equador (+593)",
-      "Eritreia (+291)",
-      "Eslov\u00e1quia (+421)",
-      "Eslov\u00eania (+386)",
-      "Espanha (+34)",
-      "Essuat\u00edni (+268)",
-      "Estados Unidos (+1)",
-      "Est\u00f4nia (+372)",
-      "Eti\u00f3pia (+251)",
-      "Fiji (+679)",
-      "Filipinas (+63)",
-      "Finl\u00e2ndia (+358)",
-      "Fran\u00e7a (+33)",
-      "Gab\u00e3o (+241)",
-      "Gana (+233)",
-      "Ge\u00f3rgia (+995)",
-      "Gibraltar (+350)",
-      "Granada (+1)",
-      "Groenl\u00e2ndia (+299)",
-      "Gr\u00e9cia (+30)",
-      "Guadalupe (+590)",
-      "Guam (+1)",
-      "Guatemala (+502)",
-      "Guernsey (+44)",
-      "Guiana (+592)",
-      "Guiana Francesa (+594)",
-      "Guin\u00e9 (+224)",
-      "Guin\u00e9 Equatorial (+240)",
-      "Guin\u00e9-Bissau (+245)",
-      "G\u00e2mbia (+220)",
-      "Haiti (+509)",
-      "Honduras (+504)",
-      "Hong Kong, RAE da China (+852)",
-      "Hungria (+36)",
-      "Ilha Bouvet (+0)",
-      "Ilha Christmas (+61)",
-      "Ilha Norfolk (+672)",
-      "Ilha de Man (+44)",
-      "Ilhas Aland (+358)",
-      "Ilhas Cayman (+1)",
-      "Ilhas Cocos (Keeling) (+61)",
-      "Ilhas Cook (+682)",
-      "Ilhas Faro\u00e9 (+298)",
-      "Ilhas Ge\u00f3rgia do Sul e Sandwich do Sul (+0)",
-      "Ilhas Heard e McDonald (+0)",
-      "Ilhas Malvinas (+500)",
-      "Ilhas Marianas do Norte (+1)",
-      "Ilhas Marshall (+692)",
-      "Ilhas Menores Distantes dos EUA (+0)",
-      "Ilhas Pitcairn (+0)",
-      "Ilhas Salom\u00e3o (+677)",
-      "Ilhas Turcas e Caicos (+1)",
-      "Ilhas Virgens Americanas (+1)",
-      "Ilhas Virgens Brit\u00e2nicas (+1)",
-      "Indon\u00e9sia (+62)",
-      "Iraque (+964)",
-      "Irlanda (+353)",
-      "Ir\u00e3 (+98)",
-      "Isl\u00e2ndia (+354)",
-      "Israel (+972)",
-      "It\u00e1lia (+39)",
-      "I\u00eamen (+967)",
-      "Jamaica (+1)",
-      "Jap\u00e3o (+81)",
-      "Jersey (+44)",
-      "Jord\u00e2nia (+962)",
-      "Kuwait (+965)",
-      "Laos (+856)",
-      "Lesoto (+266)",
-      "Let\u00f4nia (+371)",
-      "Lib\u00e9ria (+231)",
-      "Liechtenstein (+423)",
-      "Litu\u00e2nia (+370)",
-      "Luxemburgo (+352)",
-      "L\u00edbano (+961)",
-      "L\u00edbia (+218)",
-      "Macau, RAE da China (+853)",
-      "Maced\u00f4nia do Norte (+389)",
-      "Madagascar (+261)",
-      "Malaui (+265)",
-      "Maldivas (+960)",
-      "Mali (+223)",
-      "Malta (+356)",
-      "Mal\u00e1sia (+60)",
-      "Marrocos (+212)",
-      "Martinica (+596)",
-      "Maurit\u00e2nia (+222)",
-      "Maur\u00edcio (+230)",
-      "Mayotte (+262)",
-      "Mianmar (Birm\u00e2nia) (+95)",
-      "Micron\u00e9sia (+691)",
-      "Mold\u00e1via (+373)",
-      "Mong\u00f3lia (+976)",
-      "Montenegro (+382)",
-      "Montserrat (+1)",
-      "Mo\u00e7ambique (+258)",
-      "M\u00e9xico (+52)",
-      "M\u00f4naco (+377)",
-      "Nam\u00edbia (+264)",
-      "Nauru (+674)",
-      "Nepal (+977)",
-      "Nicar\u00e1gua (+505)",
-      "Nig\u00e9ria (+234)",
-      "Niue (+683)",
-      "Noruega (+47)",
-      "Nova Caled\u00f4nia (+687)",
-      "Nova Zel\u00e2ndia (+64)",
-      "N\u00edger (+227)",
-      "Om\u00e3 (+968)",
-      "Palau (+680)",
-      "Panam\u00e1 (+507)",
-      "Papua-Nova Guin\u00e9 (+675)",
-      "Paquist\u00e3o (+92)",
-      "Paraguai (+595)",
-      "Pa\u00edses Baixos (+31)",
-      "Pa\u00edses Baixos Caribenhos (+599)",
-      "Peru (+51)",
-      "Polin\u00e9sia Francesa (+689)",
-      "Pol\u00f4nia (+48)",
-      "Porto Rico (+1)",
-      "Portugal (+351)",
-      "Quirguist\u00e3o (+996)",
-      "Quiribati (+686)",
-      "Qu\u00eania (+254)",
-      "Reino Unido (+44)",
-      "Rep\u00fablica Centro-Africana (+236)",
-      "Rep\u00fablica Dominicana (+1)",
-      "Rep\u00fablica do Congo (+242)",
-      "Reuni\u00e3o (+262)",
-      "Rom\u00eania (+40)",
-      "Ruanda (+250)",
-      "R\u00fassia (+7)",
-      "Saara Ocidental (+212)",
-      "Samoa (+685)",
-      "Samoa Americana (+1)",
-      "San Marino (+378)",
-      "Santa Helena (+290)",
-      "Santa L\u00facia (+1)",
-      "Seicheles (+248)",
-      "Senegal (+221)",
-      "Serra Leoa (+232)",
-      "Singapura (+65)",
-      "Sint Maarten (+1)",
-      "Som\u00e1lia (+252)",
-      "Sri Lanka (+94)",
-      "Sud\u00e3o (+249)",
-      "Sud\u00e3o do Sul (+211)",
-      "Suriname (+597)",
-      "Su\u00e9cia (+46)",
-      "Su\u00ed\u00e7a (+41)",
-      "Svalbard e Jan Mayen (+47)",
-      "S\u00e3o Bartolomeu (+590)",
-      "S\u00e3o Crist\u00f3v\u00e3o e N\u00e9vis (+1)",
-      "S\u00e3o Martinho (+590)",
-      "S\u00e3o Pedro e Miquel\u00e3o (+508)",
-      "S\u00e3o Tom\u00e9 e Pr\u00edncipe (+239)",
-      "S\u00e3o Vicente e Granadinas (+1)",
-      "S\u00e9rvia (+381)",
-      "S\u00edria (+963)",
-      "Tadjiquist\u00e3o (+992)",
-      "Tail\u00e2ndia (+66)",
-      "Taiwan (+886)",
-      "Tanz\u00e2nia (+255)",
-      "Tch\u00e9quia (+420)",
-      "Territ\u00f3rio Brit\u00e2nico do Oceano \u00cdndico (+246)",
-      "Territ\u00f3rios Franceses do Sul (+0)",
-      "Territ\u00f3rios palestinos (+970)",
-      "Timor-Leste (+670)",
-      "Togo (+228)",
-      "Tokelau (+690)",
-      "Tonga (+676)",
-      "Trinidad e Tobago (+1)",
-      "Tun\u00edsia (+216)",
-      "Turcomenist\u00e3o (+993)",
-      "Turquia (+90)",
-      "Tuvalu (+688)",
-      "Ucr\u00e2nia (+380)",
-      "Uganda (+256)",
-      "Uruguai (+598)",
-      "Uzbequist\u00e3o (+998)",
-      "Vanuatu (+678)",
-      "Venezuela (+58)",
-      "Vietn\u00e3 (+84)",
-      "Wallis e Futuna (+681)",
-      "Z\u00e2mbia (+260)",
-      "\u00c1frica do Sul (+27)",
-      "\u00c1ustria (+43)",
-      "\u00cdndia (+91)",
-      "Zimb\u00e1bue (+263)"
-    ]
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4361046361-18403922977-phoneNumber-nationalNumber",
-    "label": "N\u00famero de celular",
-    "type": "input",
-    "options": []
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4361046361-18403922993-multipleChoice",
-    "action": "select",
-    "value": "jonasdurau@gmail.com"
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4361046361-18403922977-phoneNumber-country",
-    "action": "select",
-    "value": "Brasil (+55)"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4361046361-18403922977-phoneNumber-nationalNumber",
-    "action": "type",
-    "value": "41996775078"
-  }
-]
-
---- STEP 2 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "resume_radios",
-    "label": "Choose resume / Escolha o curr\u00edculo",
-    "type": "radio",
-    "options": [
-      {
-        "selector": "#jobsDocumentCardToggle-ember230",
-        "label": "Desmarcar sele\u00e7\u00e3o de resume Jonas-Felipe-Durau-Resume.pdf"
-      },
-      {
-        "selector": "#jobsDocumentCardToggle-ember232",
-        "label": "Selecionar resume Jonas-Felipe-Durau-Curriculo.pdf"
-      }
-    ]
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#jobsDocumentCardToggle-ember232",
-    "action": "click",
-    "value": null
-  }
-]
-
---- STEP 3 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4361046361-18403922985-numeric",
-    "label": "H\u00e1 quantos anos voc\u00ea j\u00e1 usa Java no trabalho?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4361046361-18403922961-numeric",
-    "label": "H\u00e1 quantos anos voc\u00ea j\u00e1 usa Desenvolvimento de aplicativos na nuvem no trabalho?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4361046361-18403923009-numeric",
-    "label": "H\u00e1 quantos anos voc\u00ea j\u00e1 usa Docker no trabalho?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4361046361-18403923001-numeric",
-    "label": "Pretens\u00e3o Salarial CLT+Benef\u00edcios (N\u00edvel Pleno) ?",
-    "type": "input",
-    "options": []
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4361046361-18403922985-numeric",
-    "action": "type",
-    "value": "3"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4361046361-18403922961-numeric",
-    "action": "type",
-    "value": "1"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4361046361-18403923009-numeric",
-    "action": "type",
-    "value": "2"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4361046361-18403923001-numeric",
-    "action": "type",
-    "value": "6000"
-  }
-]
-
---- STEP 1 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4376200323-19543079505-multipleChoice",
-    "label": "E-mail\nE-mail",
-    "type": "select",
-    "options": [
-      "Selecionar op\u00e7\u00e3o",
-      "jonasdurau@gmail.com"
-    ]
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4376200323-19543079489-phoneNumber-country",
-    "label": "C\u00f3digo do pa\u00eds\nC\u00f3digo do pa\u00eds",
-    "type": "select",
-    "options": [
-      "Selecionar op\u00e7\u00e3o",
-      "Brasil (+55)",
-      "Afeganist\u00e3o (+93)",
-      "Alb\u00e2nia (+355)",
-      "Alemanha (+49)",
-      "Andorra (+376)",
-      "Angola (+244)",
-      "Anguila (+1)",
-      "Ant\u00e1rtida (+0)",
-      "Ant\u00edgua e Barbuda (+1)",
-      "Argentina (+54)",
-      "Arg\u00e9lia (+213)",
-      "Arm\u00eania (+374)",
-      "Aruba (+297)",
-      "Ar\u00e1bia Saudita (+966)",
-      "Austr\u00e1lia (+61)",
-      "Azerbaij\u00e3o (+994)",
-      "Bahamas (+1)",
-      "Bangladesh (+880)",
-      "Barbados (+1)",
-      "Barein (+973)",
-      "Belize (+501)",
-      "Benin (+229)",
-      "Bermudas (+1)",
-      "Bielorr\u00fassia (+375)",
-      "Bol\u00edvia (+591)",
-      "Botsuana (+267)",
-      "Brunei (+673)",
-      "Bulg\u00e1ria (+359)",
-      "Burquina Faso (+226)",
-      "Burundi (+257)",
-      "But\u00e3o (+975)",
-      "B\u00e9lgica (+32)",
-      "B\u00f3snia e Herzegovina (+387)",
-      "Cabo Verde (+238)",
-      "Camar\u00f5es (+237)",
-      "Camboja (+855)",
-      "Canad\u00e1 (+1)",
-      "Catar (+974)",
-      "Cazaquist\u00e3o (+7)",
-      "Chade (+235)",
-      "Chile (+56)",
-      "China (+86)",
-      "Chipre (+357)",
-      "Cidade do Vaticano (+39)",
-      "Col\u00f4mbia (+57)",
-      "Comores (+269)",
-      "Congo - Kinshasa (+243)",
-      "Coreia do Norte (+850)",
-      "Coreia do Sul (+82)",
-      "Costa Rica (+506)",
-      "Costa do Marfim (+225)",
-      "Cro\u00e1cia (+385)",
-      "Cuba (+53)",
-      "Cura\u00e7ao (+599)",
-      "Dinamarca (+45)",
-      "Djibuti (+253)",
-      "Dominica (+1)",
-      "Egito (+20)",
-      "El Salvador (+503)",
-      "Emirados \u00c1rabes Unidos (+971)",
-      "Equador (+593)",
-      "Eritreia (+291)",
-      "Eslov\u00e1quia (+421)",
-      "Eslov\u00eania (+386)",
-      "Espanha (+34)",
-      "Essuat\u00edni (+268)",
-      "Estados Unidos (+1)",
-      "Est\u00f4nia (+372)",
-      "Eti\u00f3pia (+251)",
-      "Fiji (+679)",
-      "Filipinas (+63)",
-      "Finl\u00e2ndia (+358)",
-      "Fran\u00e7a (+33)",
-      "Gab\u00e3o (+241)",
-      "Gana (+233)",
-      "Ge\u00f3rgia (+995)",
-      "Gibraltar (+350)",
-      "Granada (+1)",
-      "Groenl\u00e2ndia (+299)",
-      "Gr\u00e9cia (+30)",
-      "Guadalupe (+590)",
-      "Guam (+1)",
-      "Guatemala (+502)",
-      "Guernsey (+44)",
-      "Guiana (+592)",
-      "Guiana Francesa (+594)",
-      "Guin\u00e9 (+224)",
-      "Guin\u00e9 Equatorial (+240)",
-      "Guin\u00e9-Bissau (+245)",
-      "G\u00e2mbia (+220)",
-      "Haiti (+509)",
-      "Honduras (+504)",
-      "Hong Kong, RAE da China (+852)",
-      "Hungria (+36)",
-      "Ilha Bouvet (+0)",
-      "Ilha Christmas (+61)",
-      "Ilha Norfolk (+672)",
-      "Ilha de Man (+44)",
-      "Ilhas Aland (+358)",
-      "Ilhas Cayman (+1)",
-      "Ilhas Cocos (Keeling) (+61)",
-      "Ilhas Cook (+682)",
-      "Ilhas Faro\u00e9 (+298)",
-      "Ilhas Ge\u00f3rgia do Sul e Sandwich do Sul (+0)",
-      "Ilhas Heard e McDonald (+0)",
-      "Ilhas Malvinas (+500)",
-      "Ilhas Marianas do Norte (+1)",
-      "Ilhas Marshall (+692)",
-      "Ilhas Menores Distantes dos EUA (+0)",
-      "Ilhas Pitcairn (+0)",
-      "Ilhas Salom\u00e3o (+677)",
-      "Ilhas Turcas e Caicos (+1)",
-      "Ilhas Virgens Americanas (+1)",
-      "Ilhas Virgens Brit\u00e2nicas (+1)",
-      "Indon\u00e9sia (+62)",
-      "Iraque (+964)",
-      "Irlanda (+353)",
-      "Ir\u00e3 (+98)",
-      "Isl\u00e2ndia (+354)",
-      "Israel (+972)",
-      "It\u00e1lia (+39)",
-      "I\u00eamen (+967)",
-      "Jamaica (+1)",
-      "Jap\u00e3o (+81)",
-      "Jersey (+44)",
-      "Jord\u00e2nia (+962)",
-      "Kuwait (+965)",
-      "Laos (+856)",
-      "Lesoto (+266)",
-      "Let\u00f4nia (+371)",
-      "Lib\u00e9ria (+231)",
-      "Liechtenstein (+423)",
-      "Litu\u00e2nia (+370)",
-      "Luxemburgo (+352)",
-      "L\u00edbano (+961)",
-      "L\u00edbia (+218)",
-      "Macau, RAE da China (+853)",
-      "Maced\u00f4nia do Norte (+389)",
-      "Madagascar (+261)",
-      "Malaui (+265)",
-      "Maldivas (+960)",
-      "Mali (+223)",
-      "Malta (+356)",
-      "Mal\u00e1sia (+60)",
-      "Marrocos (+212)",
-      "Martinica (+596)",
-      "Maurit\u00e2nia (+222)",
-      "Maur\u00edcio (+230)",
-      "Mayotte (+262)",
-      "Mianmar (Birm\u00e2nia) (+95)",
-      "Micron\u00e9sia (+691)",
-      "Mold\u00e1via (+373)",
-      "Mong\u00f3lia (+976)",
-      "Montenegro (+382)",
-      "Montserrat (+1)",
-      "Mo\u00e7ambique (+258)",
-      "M\u00e9xico (+52)",
-      "M\u00f4naco (+377)",
-      "Nam\u00edbia (+264)",
-      "Nauru (+674)",
-      "Nepal (+977)",
-      "Nicar\u00e1gua (+505)",
-      "Nig\u00e9ria (+234)",
-      "Niue (+683)",
-      "Noruega (+47)",
-      "Nova Caled\u00f4nia (+687)",
-      "Nova Zel\u00e2ndia (+64)",
-      "N\u00edger (+227)",
-      "Om\u00e3 (+968)",
-      "Palau (+680)",
-      "Panam\u00e1 (+507)",
-      "Papua-Nova Guin\u00e9 (+675)",
-      "Paquist\u00e3o (+92)",
-      "Paraguai (+595)",
-      "Pa\u00edses Baixos (+31)",
-      "Pa\u00edses Baixos Caribenhos (+599)",
-      "Peru (+51)",
-      "Polin\u00e9sia Francesa (+689)",
-      "Pol\u00f4nia (+48)",
-      "Porto Rico (+1)",
-      "Portugal (+351)",
-      "Quirguist\u00e3o (+996)",
-      "Quiribati (+686)",
-      "Qu\u00eania (+254)",
-      "Reino Unido (+44)",
-      "Rep\u00fablica Centro-Africana (+236)",
-      "Rep\u00fablica Dominicana (+1)",
-      "Rep\u00fablica do Congo (+242)",
-      "Reuni\u00e3o (+262)",
-      "Rom\u00eania (+40)",
-      "Ruanda (+250)",
-      "R\u00fassia (+7)",
-      "Saara Ocidental (+212)",
-      "Samoa (+685)",
-      "Samoa Americana (+1)",
-      "San Marino (+378)",
-      "Santa Helena (+290)",
-      "Santa L\u00facia (+1)",
-      "Seicheles (+248)",
-      "Senegal (+221)",
-      "Serra Leoa (+232)",
-      "Singapura (+65)",
-      "Sint Maarten (+1)",
-      "Som\u00e1lia (+252)",
-      "Sri Lanka (+94)",
-      "Sud\u00e3o (+249)",
-      "Sud\u00e3o do Sul (+211)",
-      "Suriname (+597)",
-      "Su\u00e9cia (+46)",
-      "Su\u00ed\u00e7a (+41)",
-      "Svalbard e Jan Mayen (+47)",
-      "S\u00e3o Bartolomeu (+590)",
-      "S\u00e3o Crist\u00f3v\u00e3o e N\u00e9vis (+1)",
-      "S\u00e3o Martinho (+590)",
-      "S\u00e3o Pedro e Miquel\u00e3o (+508)",
-      "S\u00e3o Tom\u00e9 e Pr\u00edncipe (+239)",
-      "S\u00e3o Vicente e Granadinas (+1)",
-      "S\u00e9rvia (+381)",
-      "S\u00edria (+963)",
-      "Tadjiquist\u00e3o (+992)",
-      "Tail\u00e2ndia (+66)",
-      "Taiwan (+886)",
-      "Tanz\u00e2nia (+255)",
-      "Tch\u00e9quia (+420)",
-      "Territ\u00f3rio Brit\u00e2nico do Oceano \u00cdndico (+246)",
-      "Territ\u00f3rios Franceses do Sul (+0)",
-      "Territ\u00f3rios palestinos (+970)",
-      "Timor-Leste (+670)",
-      "Togo (+228)",
-      "Tokelau (+690)",
-      "Tonga (+676)",
-      "Trinidad e Tobago (+1)",
-      "Tun\u00edsia (+216)",
-      "Turcomenist\u00e3o (+993)",
-      "Turquia (+90)",
-      "Tuvalu (+688)",
-      "Ucr\u00e2nia (+380)",
-      "Uganda (+256)",
-      "Uruguai (+598)",
-      "Uzbequist\u00e3o (+998)",
-      "Vanuatu (+678)",
-      "Venezuela (+58)",
-      "Vietn\u00e3 (+84)",
-      "Wallis e Futuna (+681)",
-      "Z\u00e2mbia (+260)",
-      "\u00c1frica do Sul (+27)",
-      "\u00c1ustria (+43)",
-      "\u00cdndia (+91)",
-      "Zimb\u00e1bue (+263)"
-    ]
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4376200323-19543079489-phoneNumber-nationalNumber",
-    "label": "N\u00famero de celular",
-    "type": "input",
-    "options": []
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4376200323-19543079505-multipleChoice",
-    "action": "select",
-    "value": "jonasdurau@gmail.com"
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4376200323-19543079489-phoneNumber-country",
-    "action": "select",
-    "value": "Brasil (+55)"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4376200323-19543079489-phoneNumber-nationalNumber",
-    "action": "type",
-    "value": "41996775078"
-  }
-]
-
---- STEP 2 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "resume_radios",
-    "label": "Choose resume / Escolha o curr\u00edculo",
-    "type": "radio",
-    "options": [
-      {
-        "selector": "#jobsDocumentCardToggle-ember196",
-        "label": "Desmarcar sele\u00e7\u00e3o de resume Jonas-Felipe-Durau-Resume.pdf"
-      },
-      {
-        "selector": "#jobsDocumentCardToggle-ember198",
-        "label": "Selecionar resume Jonas-Felipe-Durau-Curriculo.pdf"
-      }
-    ]
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#jobsDocumentCardToggle-ember198",
-    "action": "click",
-    "value": null
-  }
-]
-
---- STEP 3 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4376200323-19543079497-numeric",
-    "label": "H\u00e1 quantos anos voc\u00ea j\u00e1 usa Arquitetura de software no trabalho?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4376200323-19543079473-numeric",
-    "label": "H\u00e1 quantos anos voc\u00ea j\u00e1 usa Desenvolvimento Java no trabalho?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4376200323-19543079465-numeric",
-    "label": "Qual \u00e9 a sua pretens\u00e3o salarial, considerando contrato CLT?",
-    "type": "input",
-    "options": []
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4376200323-19543079497-numeric",
-    "action": "type",
-    "value": "3"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4376200323-19543079473-numeric",
-    "action": "type",
-    "value": "3"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4376200323-19543079465-numeric",
-    "action": "type",
-    "value": "6000"
-  }
-]
-
---- STEP 1 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378101744-19600520905-multipleChoice",
-    "label": "E-mail\nE-mail",
-    "type": "select",
-    "options": [
-      "Selecionar op\u00e7\u00e3o",
-      "jonasdurau@gmail.com"
-    ]
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378101744-19600520913-phoneNumber-country",
-    "label": "C\u00f3digo do pa\u00eds\nC\u00f3digo do pa\u00eds",
-    "type": "select",
-    "options": [
-      "Selecionar op\u00e7\u00e3o",
-      "Brasil (+55)",
-      "Afeganist\u00e3o (+93)",
-      "Alb\u00e2nia (+355)",
-      "Alemanha (+49)",
-      "Andorra (+376)",
-      "Angola (+244)",
-      "Anguila (+1)",
-      "Ant\u00e1rtida (+0)",
-      "Ant\u00edgua e Barbuda (+1)",
-      "Argentina (+54)",
-      "Arg\u00e9lia (+213)",
-      "Arm\u00eania (+374)",
-      "Aruba (+297)",
-      "Ar\u00e1bia Saudita (+966)",
-      "Austr\u00e1lia (+61)",
-      "Azerbaij\u00e3o (+994)",
-      "Bahamas (+1)",
-      "Bangladesh (+880)",
-      "Barbados (+1)",
-      "Barein (+973)",
-      "Belize (+501)",
-      "Benin (+229)",
-      "Bermudas (+1)",
-      "Bielorr\u00fassia (+375)",
-      "Bol\u00edvia (+591)",
-      "Botsuana (+267)",
-      "Brunei (+673)",
-      "Bulg\u00e1ria (+359)",
-      "Burquina Faso (+226)",
-      "Burundi (+257)",
-      "But\u00e3o (+975)",
-      "B\u00e9lgica (+32)",
-      "B\u00f3snia e Herzegovina (+387)",
-      "Cabo Verde (+238)",
-      "Camar\u00f5es (+237)",
-      "Camboja (+855)",
-      "Canad\u00e1 (+1)",
-      "Catar (+974)",
-      "Cazaquist\u00e3o (+7)",
-      "Chade (+235)",
-      "Chile (+56)",
-      "China (+86)",
-      "Chipre (+357)",
-      "Cidade do Vaticano (+39)",
-      "Col\u00f4mbia (+57)",
-      "Comores (+269)",
-      "Congo - Kinshasa (+243)",
-      "Coreia do Norte (+850)",
-      "Coreia do Sul (+82)",
-      "Costa Rica (+506)",
-      "Costa do Marfim (+225)",
-      "Cro\u00e1cia (+385)",
-      "Cuba (+53)",
-      "Cura\u00e7ao (+599)",
-      "Dinamarca (+45)",
-      "Djibuti (+253)",
-      "Dominica (+1)",
-      "Egito (+20)",
-      "El Salvador (+503)",
-      "Emirados \u00c1rabes Unidos (+971)",
-      "Equador (+593)",
-      "Eritreia (+291)",
-      "Eslov\u00e1quia (+421)",
-      "Eslov\u00eania (+386)",
-      "Espanha (+34)",
-      "Essuat\u00edni (+268)",
-      "Estados Unidos (+1)",
-      "Est\u00f4nia (+372)",
-      "Eti\u00f3pia (+251)",
-      "Fiji (+679)",
-      "Filipinas (+63)",
-      "Finl\u00e2ndia (+358)",
-      "Fran\u00e7a (+33)",
-      "Gab\u00e3o (+241)",
-      "Gana (+233)",
-      "Ge\u00f3rgia (+995)",
-      "Gibraltar (+350)",
-      "Granada (+1)",
-      "Groenl\u00e2ndia (+299)",
-      "Gr\u00e9cia (+30)",
-      "Guadalupe (+590)",
-      "Guam (+1)",
-      "Guatemala (+502)",
-      "Guernsey (+44)",
-      "Guiana (+592)",
-      "Guiana Francesa (+594)",
-      "Guin\u00e9 (+224)",
-      "Guin\u00e9 Equatorial (+240)",
-      "Guin\u00e9-Bissau (+245)",
-      "G\u00e2mbia (+220)",
-      "Haiti (+509)",
-      "Honduras (+504)",
-      "Hong Kong, RAE da China (+852)",
-      "Hungria (+36)",
-      "Ilha Bouvet (+0)",
-      "Ilha Christmas (+61)",
-      "Ilha Norfolk (+672)",
-      "Ilha de Man (+44)",
-      "Ilhas Aland (+358)",
-      "Ilhas Cayman (+1)",
-      "Ilhas Cocos (Keeling) (+61)",
-      "Ilhas Cook (+682)",
-      "Ilhas Faro\u00e9 (+298)",
-      "Ilhas Ge\u00f3rgia do Sul e Sandwich do Sul (+0)",
-      "Ilhas Heard e McDonald (+0)",
-      "Ilhas Malvinas (+500)",
-      "Ilhas Marianas do Norte (+1)",
-      "Ilhas Marshall (+692)",
-      "Ilhas Menores Distantes dos EUA (+0)",
-      "Ilhas Pitcairn (+0)",
-      "Ilhas Salom\u00e3o (+677)",
-      "Ilhas Turcas e Caicos (+1)",
-      "Ilhas Virgens Americanas (+1)",
-      "Ilhas Virgens Brit\u00e2nicas (+1)",
-      "Indon\u00e9sia (+62)",
-      "Iraque (+964)",
-      "Irlanda (+353)",
-      "Ir\u00e3 (+98)",
-      "Isl\u00e2ndia (+354)",
-      "Israel (+972)",
-      "It\u00e1lia (+39)",
-      "I\u00eamen (+967)",
-      "Jamaica (+1)",
-      "Jap\u00e3o (+81)",
-      "Jersey (+44)",
-      "Jord\u00e2nia (+962)",
-      "Kuwait (+965)",
-      "Laos (+856)",
-      "Lesoto (+266)",
-      "Let\u00f4nia (+371)",
-      "Lib\u00e9ria (+231)",
-      "Liechtenstein (+423)",
-      "Litu\u00e2nia (+370)",
-      "Luxemburgo (+352)",
-      "L\u00edbano (+961)",
-      "L\u00edbia (+218)",
-      "Macau, RAE da China (+853)",
-      "Maced\u00f4nia do Norte (+389)",
-      "Madagascar (+261)",
-      "Malaui (+265)",
-      "Maldivas (+960)",
-      "Mali (+223)",
-      "Malta (+356)",
-      "Mal\u00e1sia (+60)",
-      "Marrocos (+212)",
-      "Martinica (+596)",
-      "Maurit\u00e2nia (+222)",
-      "Maur\u00edcio (+230)",
-      "Mayotte (+262)",
-      "Mianmar (Birm\u00e2nia) (+95)",
-      "Micron\u00e9sia (+691)",
-      "Mold\u00e1via (+373)",
-      "Mong\u00f3lia (+976)",
-      "Montenegro (+382)",
-      "Montserrat (+1)",
-      "Mo\u00e7ambique (+258)",
-      "M\u00e9xico (+52)",
-      "M\u00f4naco (+377)",
-      "Nam\u00edbia (+264)",
-      "Nauru (+674)",
-      "Nepal (+977)",
-      "Nicar\u00e1gua (+505)",
-      "Nig\u00e9ria (+234)",
-      "Niue (+683)",
-      "Noruega (+47)",
-      "Nova Caled\u00f4nia (+687)",
-      "Nova Zel\u00e2ndia (+64)",
-      "N\u00edger (+227)",
-      "Om\u00e3 (+968)",
-      "Palau (+680)",
-      "Panam\u00e1 (+507)",
-      "Papua-Nova Guin\u00e9 (+675)",
-      "Paquist\u00e3o (+92)",
-      "Paraguai (+595)",
-      "Pa\u00edses Baixos (+31)",
-      "Pa\u00edses Baixos Caribenhos (+599)",
-      "Peru (+51)",
-      "Polin\u00e9sia Francesa (+689)",
-      "Pol\u00f4nia (+48)",
-      "Porto Rico (+1)",
-      "Portugal (+351)",
-      "Quirguist\u00e3o (+996)",
-      "Quiribati (+686)",
-      "Qu\u00eania (+254)",
-      "Reino Unido (+44)",
-      "Rep\u00fablica Centro-Africana (+236)",
-      "Rep\u00fablica Dominicana (+1)",
-      "Rep\u00fablica do Congo (+242)",
-      "Reuni\u00e3o (+262)",
-      "Rom\u00eania (+40)",
-      "Ruanda (+250)",
-      "R\u00fassia (+7)",
-      "Saara Ocidental (+212)",
-      "Samoa (+685)",
-      "Samoa Americana (+1)",
-      "San Marino (+378)",
-      "Santa Helena (+290)",
-      "Santa L\u00facia (+1)",
-      "Seicheles (+248)",
-      "Senegal (+221)",
-      "Serra Leoa (+232)",
-      "Singapura (+65)",
-      "Sint Maarten (+1)",
-      "Som\u00e1lia (+252)",
-      "Sri Lanka (+94)",
-      "Sud\u00e3o (+249)",
-      "Sud\u00e3o do Sul (+211)",
-      "Suriname (+597)",
-      "Su\u00e9cia (+46)",
-      "Su\u00ed\u00e7a (+41)",
-      "Svalbard e Jan Mayen (+47)",
-      "S\u00e3o Bartolomeu (+590)",
-      "S\u00e3o Crist\u00f3v\u00e3o e N\u00e9vis (+1)",
-      "S\u00e3o Martinho (+590)",
-      "S\u00e3o Pedro e Miquel\u00e3o (+508)",
-      "S\u00e3o Tom\u00e9 e Pr\u00edncipe (+239)",
-      "S\u00e3o Vicente e Granadinas (+1)",
-      "S\u00e9rvia (+381)",
-      "S\u00edria (+963)",
-      "Tadjiquist\u00e3o (+992)",
-      "Tail\u00e2ndia (+66)",
-      "Taiwan (+886)",
-      "Tanz\u00e2nia (+255)",
-      "Tch\u00e9quia (+420)",
-      "Territ\u00f3rio Brit\u00e2nico do Oceano \u00cdndico (+246)",
-      "Territ\u00f3rios Franceses do Sul (+0)",
-      "Territ\u00f3rios palestinos (+970)",
-      "Timor-Leste (+670)",
-      "Togo (+228)",
-      "Tokelau (+690)",
-      "Tonga (+676)",
-      "Trinidad e Tobago (+1)",
-      "Tun\u00edsia (+216)",
-      "Turcomenist\u00e3o (+993)",
-      "Turquia (+90)",
-      "Tuvalu (+688)",
-      "Ucr\u00e2nia (+380)",
-      "Uganda (+256)",
-      "Uruguai (+598)",
-      "Uzbequist\u00e3o (+998)",
-      "Vanuatu (+678)",
-      "Venezuela (+58)",
-      "Vietn\u00e3 (+84)",
-      "Wallis e Futuna (+681)",
-      "Z\u00e2mbia (+260)",
-      "\u00c1frica do Sul (+27)",
-      "\u00c1ustria (+43)",
-      "\u00cdndia (+91)",
-      "Zimb\u00e1bue (+263)"
-    ]
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378101744-19600520913-phoneNumber-nationalNumber",
-    "label": "N\u00famero de celular",
-    "type": "input",
-    "options": []
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378101744-19600520905-multipleChoice",
-    "action": "select",
-    "value": "jonasdurau@gmail.com"
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378101744-19600520913-phoneNumber-country",
-    "action": "select",
-    "value": "Brasil (+55)"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378101744-19600520913-phoneNumber-nationalNumber",
-    "action": "type",
-    "value": "41996775078"
-  }
-]
-
---- STEP 2 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "resume_radios",
-    "label": "Choose resume / Escolha o curr\u00edculo",
-    "type": "radio",
-    "options": [
-      {
-        "selector": "#jobsDocumentCardToggle-ember215",
-        "label": "Desmarcar sele\u00e7\u00e3o de resume Jonas-Felipe-Durau-Resume.pdf"
-      },
-      {
-        "selector": "#jobsDocumentCardToggle-ember217",
-        "label": "Selecionar resume Jonas-Felipe-Durau-Curriculo.pdf"
-      }
-    ]
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#jobsDocumentCardToggle-ember217",
-    "action": "click",
-    "value": null
-  }
-]
-
---- STEP 3 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378101744-19600520937-numeric",
-    "label": "Qual a sua pretens\u00e3o salarial (CLT)?",
-    "type": "input",
-    "options": []
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378101744-19600520937-numeric",
-    "action": "type",
-    "value": "6000"
-  }
-]
-
---- STEP 1 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378782521-29232076642-multipleChoice",
-    "label": "Email address\nEmail address",
-    "type": "select",
-    "options": [
-      "Select an option",
-      "jonasdurau@gmail.com"
-    ]
-  },
-  {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378782521-29232076634-phoneNumber-country",
+    "selector": "[id='text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4379169334-29347345970-phoneNumber-country']",
     "label": "Phone country code\nPhone country code",
     "type": "select",
     "options": [
@@ -2969,105 +976,52 @@ INPUT FIELDS:
     ]
   },
   {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378782521-29232076634-phoneNumber-nationalNumber",
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4379169334-29347345970-phoneNumber-nationalNumber']",
     "label": "Mobile phone number",
     "type": "input",
     "options": []
+  },
+  {
+    "selector": "[id='text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4379169334-29347345962-multipleChoice']",
+    "label": "Email address\nEmail address",
+    "type": "select",
+    "options": [
+      "Select an option",
+      "jonasdurau@gmail.com"
+    ]
   }
 ]
 ACTIONS:
 [
   {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378782521-29232076642-multipleChoice",
-    "action": "select",
-    "value": "jonasdurau@gmail.com"
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4379169334-29347345994-text']",
+    "action": "type",
+    "value": "Jonas"
   },
   {
-    "selector": "#text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378782521-29232076634-phoneNumber-country",
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4379169334-29347345986-text']",
+    "action": "type",
+    "value": "Durau"
+  },
+  {
+    "selector": "[id='text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4379169334-29347345970-phoneNumber-country']",
     "action": "select",
     "value": "Brazil (+55)"
   },
   {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378782521-29232076634-phoneNumber-nationalNumber",
+    "selector": "[id='single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4379169334-29347345970-phoneNumber-nationalNumber']",
     "action": "type",
-    "value": "41996775078"
+    "value": "996775078"
+  },
+  {
+    "selector": "[id='text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4379169334-29347345962-multipleChoice']",
+    "action": "select",
+    "value": "jonasdurau@gmail.com"
   }
 ]
 
---- STEP 2 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "resume_radios",
-    "label": "Choose resume / Escolha o curr\u00edculo",
-    "type": "radio",
-    "options": [
-      {
-        "selector": "#jobsDocumentCardToggle-ember199",
-        "label": "Desmarcar sele\u00e7\u00e3o de resume Jonas-Felipe-Durau-Resume.pdf"
-      },
-      {
-        "selector": "#jobsDocumentCardToggle-ember201",
-        "label": "Selecionar resume Jonas-Felipe-Durau-Curriculo.pdf"
-      }
-    ]
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#jobsDocumentCardToggle-ember201",
-    "action": "click",
-    "value": null
-  }
-]
-
---- STEP 3 ---
-INPUT FIELDS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378782521-29232076738-numeric",
-    "label": "How many years of work experience do you have with Spring Boot?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378782521-29232076722-numeric",
-    "label": "How many years of work experience do you have with Databases?",
-    "type": "input",
-    "options": []
-  },
-  {
-    "selector": "fieldset",
-    "label": "Have you completed the following level of education: Bachelor's Degree?\nHave you completed the following level of education: Bachelor's Degree?\n \nObrigat\u00f3rio",
-    "type": "radio",
-    "options": [
-      {
-        "selector": "#urn:li:fsd_formElement:urn:li:jobs_applyformcommon_easyApplyFormElement:(4378782521,29232076730,multipleChoice)-0",
-        "label": "Yes"
-      },
-      {
-        "selector": "#urn:li:fsd_formElement:urn:li:jobs_applyformcommon_easyApplyFormElement:(4378782521,29232076730,multipleChoice)-1",
-        "label": "No"
-      }
-    ]
-  }
-]
-ACTIONS:
-[
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378782521-29232076738-numeric",
-    "action": "type",
-    "value": "3"
-  },
-  {
-    "selector": "#single-line-text-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4378782521-29232076722-numeric",
-    "action": "type",
-    "value": "3"
-  },
-  {
-    "selector": "#urn:li:fsd_formElement:urn:li:jobs_applyformcommon_easyApplyFormElement:(4378782521,29232076730,multipleChoice)-0",
-    "action": "click",
-    "value": null
-  }
-]
+--- RESUME SELECTION ---
+Job Title: Java Software Engineer
+Detected Language: en
+Target: Resume.pdf
+Options: ['Desmarcar seleção de resume Jonas-Felipe-Durau-Resume.pdf', 'Selecionar resume Jonas-Felipe-Durau-Curriculo.pdf']

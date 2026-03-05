@@ -5,6 +5,89 @@ from ai.form_solver import solve_form
 
 MAX_RETRIES = 3
 
+# English indicator words (common in job descriptions AND job titles)
+_EN_WORDS = {"the", "and", "you", "with", "for", "are", "will", "our", "this", "your",
+             "experience", "team", "about", "work", "role", "skills", "we", "requirements",
+             "looking", "join", "company", "position", "responsibilities", "including",
+             "ability", "knowledge", "development", "software", "engineering",
+             "developer", "engineer", "senior", "junior", "backend", "frontend",
+             "fullstack", "full-stack", "remote", "lead", "architect", "manager",
+             "analyst", "specialist", "consultant", "java", "python", "node"}
+
+# Portuguese indicator words (common in job descriptions AND job titles)
+_PT_WORDS = {"você", "com", "para", "são", "nossa", "equipe", "sobre", "vaga", "experiência",
+             "requisitos", "empresa", "responsabilidades", "conhecimento", "trabalho",
+             "desenvolvimento", "buscamos", "procuramos", "nosso", "atuação", "oportunidade",
+             "candidato", "atividades", "desejável", "necessário", "formação", "superior",
+             "desenvolvedor", "engenheiro", "pleno", "sênior", "júnior", "analista",
+             "remoto", "especialista", "consultor", "coordenador", "gerente"}
+
+
+def detect_language(text: str) -> str:
+    """Detects whether `text` is primarily English or Portuguese using word frequency.
+    Returns 'en' or 'pt'. Defaults to 'pt' (user's native language) if uncertain."""
+    if not text:
+        return "pt"
+    words = set(text.lower().split())
+    en_score = len(words & _EN_WORDS)
+    pt_score = len(words & _PT_WORDS)
+    detected = "en" if en_score > pt_score else "pt"
+    print(f"[EasyApply] Language detection: EN={en_score}, PT={pt_score} -> {detected}")
+    return detected
+
+
+async def handle_resume_selection(page: Page, job_title: str, job_description: str):
+    """Deterministically selects the correct resume based on JOB TITLE language.
+    Uses ONLY the title for language detection (description has PT UI noise).
+    This runs BEFORE the AI, directly in Playwright."""
+    modal = page.locator(".artdeco-modal__content, .jobs-easy-apply-modal")
+    if await modal.count() == 0:
+        return
+
+    resume_containers = await modal.first.locator(".jobs-document-upload-redesign-card__container").all()
+    if not resume_containers:
+        return
+
+    # Build a map of resume options
+    options = []
+    for rc in resume_containers:
+        inputs = await rc.locator("input[type='radio']").all()
+        for r_in in inputs:
+            r_id = await r_in.get_attribute("id")
+            card = modal.first.locator(f"label[for='{r_id}']")
+            if await card.count() > 0:
+                label_text = await card.inner_text()
+                options.append({"id": r_id, "label": label_text.strip()})
+
+    if not options:
+        return
+
+    # Use ONLY the job title for language detection (it's never contaminated by LinkedIn PT UI)
+    lang = detect_language(job_title)
+    target_keyword = "Resume.pdf" if lang == "en" else "Curriculo.pdf"
+
+    # Debug log to file
+    with open("ai_form_debug.log", "a", encoding="utf-8") as f:
+        f.write(f"\n--- RESUME SELECTION ---\nJob Title: {job_title}\nDetected Language: {lang}\nTarget: {target_keyword}\nOptions: {[o['label'] for o in options]}\n")
+
+    print(f"[EasyApply] Resume selection: lang={lang}, looking for '{target_keyword}' among {len(options)} options")
+
+    for opt in options:
+        if target_keyword in opt["label"]:
+            if "Desmarcar" in opt["label"] or "Deselect" in opt["label"]:
+                print(f"[EasyApply] Resume '{target_keyword}' is ALREADY selected. No action needed.")
+                return
+            else:
+                print(f"[EasyApply] Clicking resume: {opt['label']}")
+                lbl = page.locator(f"label[for='{opt['id']}']")
+                if await lbl.count() > 0:
+                    await lbl.first.click(force=True)
+                    await random_sleep(0.5, 1.0)
+                return
+
+    print(f"[EasyApply] WARNING: Could not find resume matching '{target_keyword}'. Options: {[o['label'] for o in options]}")
+
+
 async def start_easy_apply(page: Page, job_id: str) -> bool:
     """
     Clicks the Easy Apply button and manages the multi-step form process.
@@ -22,11 +105,120 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
 
     job_description = ""
     try:
-        job_desc_loc = page.locator(".jobs-description-content__text, #job-details, .job-details-jobs-unified-top-card__job-insight")
-        if await job_desc_loc.count() > 0:
-            job_description = (await job_desc_loc.first.inner_text())[:4000]
-    except Exception:
-        pass
+        # Wait for page content to load
+        await random_sleep(1.5, 2.5)
+        
+        # STEP 1: ALWAYS grab the job title first (it's never hidden behind "See more")
+        # Use document.title which ALWAYS contains the job title on LinkedIn (e.g. "Software Engineer | Company | LinkedIn")
+        title_text = ""
+        try:
+            raw_title = await page.title()
+            if raw_title:
+                # LinkedIn page titles are like: "Job Title | Company Name | LinkedIn" or "(N) Job Title | Company | LinkedIn"
+                # Strip notification count prefix like "(3) "
+                clean = raw_title.strip()
+                if clean.startswith("(") and ")" in clean:
+                    clean = clean[clean.index(")") + 1:].strip()
+                # Take first segment before " | "
+                if " | " in clean:
+                    title_text = clean.split(" | ")[0].strip()
+                elif " - " in clean:
+                    title_text = clean.split(" - ")[0].strip()
+                else:
+                    title_text = clean
+                print(f"[EasyApply] Job title from page title: '{title_text}'")
+        except Exception:
+            pass
+
+        # Fallback: try CSS selectors if document.title failed
+        if not title_text:
+            title_selectors = [
+                "h1.top-card-layout__title",
+                "h1.t-24",
+                "h1.job-details-jobs-unified-top-card__job-title",
+                ".jobs-unified-top-card__job-title",
+                "h1"
+            ]
+            for ts in title_selectors:
+                try:
+                    t_loc = page.locator(ts)
+                    if await t_loc.count() > 0:
+                        title_text = (await t_loc.first.inner_text()).strip()
+                        if title_text:
+                            print(f"[EasyApply] Job title found via CSS '{ts}': '{title_text}'")
+                            break
+                except Exception:
+                    pass
+        
+        # STEP 2: Try to expand and read the full description
+        see_more_selectors = [
+            "button.jobs-description__footer-button",
+            "button:has-text('See more')",
+            "button:has-text('Ler mais')",
+            "button:has-text('Ver mais')",
+            "button:has-text('…more')",
+            "button[aria-label*='more']",
+        ]
+        for sm_sel in see_more_selectors:
+            try:
+                sm_btn = page.locator(sm_sel)
+                if await sm_btn.count() > 0 and await sm_btn.first.is_visible():
+                    await sm_btn.first.click()
+                    print(f"[EasyApply] Clicked 'See more' button ({sm_sel})")
+                    await random_sleep(1.0, 2.0)
+                    break
+            except Exception:
+                pass
+        
+        desc_text = ""
+        desc_locators = [
+            ".jobs-description-content__text",
+            "#job-details",
+            ".job-details-module",
+            ".jobs-box__html-content",
+            "article.jobs-description__container",
+        ]
+        
+        for selector in desc_locators:
+            try:
+                loc = page.locator(selector)
+                if await loc.count() > 0:
+                    text = await loc.first.inner_text()
+                    if text and len(text.strip()) > 50:
+                        desc_text = text[:4000]
+                        print(f"[EasyApply] Description found via '{selector}' ({len(desc_text)} chars)")
+                        break
+            except Exception:
+                pass
+        
+        # If still no desc, try heading parent
+        if not desc_text:
+            try:
+                heading = page.locator("h2:has-text('About the job'), h2:has-text('Sobre a vaga')")
+                if await heading.count() > 0:
+                    parent = heading.first.locator("..")
+                    text = await parent.inner_text()
+                    if text and len(text.strip()) > 50:
+                        desc_text = text[:4000]
+                        print(f"[EasyApply] Description found via heading parent ({len(desc_text)} chars)")
+            except Exception:
+                pass
+
+        # STEP 3: Combine title + description. Title comes first for reliable language detection.
+        parts = []
+        if title_text:
+            parts.append(title_text)
+        if desc_text:
+            parts.append(desc_text)
+        job_description = "\n".join(parts)
+
+    except Exception as e:
+        print(f"[EasyApply] Soft exception during job description extraction: {e}")
+
+    if job_description:
+        print(f"[EasyApply] Language context extracted ({len(job_description)} chars). First 200: {job_description[:200]}")
+    else:
+        print(f"[EasyApply] WARNING: Job Description AND Title are EMPTY. Resume/language detection will default to PT.")
 
     try:
         # Array of possible locators for Playwright
@@ -71,9 +263,9 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
         print(f"[EasyApply] Error clicking apply button: {e}")
         return False
     
-    return await handle_form_loop(page, job_description)
+    return await handle_form_loop(page, job_title=title_text, job_description=job_description)
 
-async def handle_form_loop(page: Page, job_description: str = "") -> bool:
+async def handle_form_loop(page: Page, job_title: str = "", job_description: str = "") -> bool:
     """
     Iterates through the modal steps (Next, Review, Submit) solving fields via AI.
     """
@@ -107,7 +299,11 @@ async def handle_form_loop(page: Page, job_description: str = "") -> bool:
             return True # Pretending success for the dry-run
 
         # If not submit, we must answer questions and click "Next" or "Review"
-        # 1. Extract fields
+        
+        # 0. Handle resume selection deterministically (bypasses AI)
+        await handle_resume_selection(page, job_title, job_description)
+        
+        # 1. Extract fields (resume is NOT included, it's handled above)
         extracted_fields = await extract_fields(page)
         
         # 2. If there are inputs that require answers, use AI
@@ -229,7 +425,7 @@ async def extract_fields(page: Page) -> list:
 
     # 2. Radio Button Groups (Fieldsets or loose)
     fieldsets = await modal.locator("fieldset").all()
-    for fs in fieldsets:
+    for fs_idx, fs in enumerate(fieldsets):
         try:
             if not await fs.is_visible():
                 continue
@@ -241,6 +437,13 @@ async def extract_fields(page: Page) -> list:
             radio_inputs = await fs.locator("input[type='radio']").all()
             if not radio_inputs:
                 continue
+            
+            # Get a unique fieldset ID if available, otherwise use nth-of-type index
+            fs_id = await fs.get_attribute("id")
+            if fs_id:
+                fs_selector = f"[id='{fs_id}']"
+            else:
+                fs_selector = f"fieldset >> nth={fs_idx}"
                 
             opts = []
             for r_in in radio_inputs:
@@ -252,7 +455,7 @@ async def extract_fields(page: Page) -> list:
                     r_lbl = await fs.locator(f"[for='{r_id}']").inner_text() if await fs.locator(f"[for='{r_id}']").count() > 0 else r_id
                 opts.append({"selector": f"[id='{r_id}']", "label": r_lbl.strip()})
                 
-            fields.append({"selector": "fieldset", "label": legend, "type": "radio", "options": opts})
+            fields.append({"selector": fs_selector, "label": legend, "type": "radio", "options": opts})
         except Exception:
             pass
 
@@ -270,20 +473,7 @@ async def extract_fields(page: Page) -> list:
         except Exception:
             pass
             
-    # 4. Resume Selection Container
-    resume_containers = await modal.locator(".jobs-document-upload-redesign-card__container").all()
-    if resume_containers:
-        opts = []
-        for rc in resume_containers:
-            inputs = await rc.locator("input[type='radio']").all()
-            for r_in in inputs:
-                r_id = await r_in.get_attribute("id")
-                card = modal.locator(f"label[for='{r_id}']")
-                if await card.count() > 0:
-                    name = await card.inner_text()
-                    opts.append({"selector": f"[id='{r_id}']", "label": name.strip()})
-        if opts:
-            fields.append({"selector": "resume_radios", "label": "Choose resume / Escolha o currículo", "type": "radio", "options": opts})
+    # 4. Resume Selection Container — handled deterministically by handle_resume_selection(), NOT by AI
 
     return fields
 
@@ -294,8 +484,13 @@ async def execute_ai_actions(page: Page, actions: list):
         act_type = action.get("action")
         val = action.get("value")
         
-        if not selector: continue
+        if not selector or act_type == "skip": continue
         
+        # If the AI returns the fake 'resume_radios' but puts the real target in 'val' to satisfy JSON form rules
+        if selector == "resume_radios" and act_type == "click" and val:
+            if str(val).startswith("[id="):
+                selector = str(val)
+
         try:
             el = page.locator(selector)
             if await el.count() == 0:

@@ -30,11 +30,11 @@ Critical Instructions:
 7. For text/number inputs: If a question asks for years of experience generally (not a specific tech), base it on the overall experience (3 years).
 8. For radio buttons / selects (e.g., "Are you legally authorized to work in the US?"), choose the option that matches the profile or common sense if not explicitly stated (e.g., Yes to authorization if applying in their home country, "Brazilian" for citizenship, etc.). CRITICAL: For radio button lists, you MUST provide the specific `selector` of the chosen option from the `options` array, NOT the 'fieldset' or group selector.
 9. Checkboxes/Consent: If you see a checkbox asking for consent, agreement to terms, policy acknowledgment, or stating "I agree" etc., you MUST check it by returning "action": "click" for that selector.
-10. Resume Selection: If you see options to select a resume, determine the language of the Job Description (ignore form UI language). If the Job Description is in Portuguese, you MUST select the exact option that contains "Curriculo.pdf". If the Job Description is in English, you MUST select the exact option that contains "Resume.pdf".
+10. Resume Selection is handled automatically. If you see any resume-related fields, return `"action": "skip"` for them.
 11. Docs/IDs: If asked for CPF or RG (identity document), use the exact values from the profile.
 12. Date of Birth/Age: If asked for Date of Birth, provide the exact `birth_date` from the profile (e.g., "21/09/2001"), formatting it as the form requires (MM/DD/YYYY or DD/MM/YYYY).
 13. Phone number: Always include the area code (e.g., "41").
-14. Answer ALL fields: You must provide exactly one action for EVERY field object provided in the input JSON. Do not skip any fields (like radio buttons or text areas) even if they ask about the same topic (like disability).
+14. Answer ALL fields: You must provide exactly one action object for EVERY field object in the input JSON. Do not skip or omit any fields except resume-related ones (use `"action": "skip"` for those).
 15. Always respond in valid JSON format ONLY. CRITICAL: Return the exact `selector` string provided in the input JSON without modifying or converting it.
 
 Expected JSON Output Format:
