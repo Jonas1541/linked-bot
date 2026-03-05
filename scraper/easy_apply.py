@@ -20,6 +20,14 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
     except Exception:
         pass # If we timeout waiting for layout, still try to find the button
 
+    job_description = ""
+    try:
+        job_desc_loc = page.locator(".jobs-description-content__text, #job-details, .job-details-jobs-unified-top-card__job-insight")
+        if await job_desc_loc.count() > 0:
+            job_description = (await job_desc_loc.first.inner_text())[:4000]
+    except Exception:
+        pass
+
     try:
         # Array of possible locators for Playwright
         locators = [
@@ -63,9 +71,9 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
         print(f"[EasyApply] Error clicking apply button: {e}")
         return False
     
-    return await handle_form_loop(page)
+    return await handle_form_loop(page, job_description)
 
-async def handle_form_loop(page: Page) -> bool:
+async def handle_form_loop(page: Page, job_description: str = "") -> bool:
     """
     Iterates through the modal steps (Next, Review, Submit) solving fields via AI.
     """
@@ -104,13 +112,9 @@ async def handle_form_loop(page: Page) -> bool:
         
         # 2. If there are inputs that require answers, use AI
         if extracted_fields:
+            if not job_description:
+                print(f"[EasyApply] Warning: Extracting Job Description failed previously. AI might miss language context.")
             print(f"[EasyApply] Found {len(extracted_fields)} fields, calling AI...")
-            
-            # Fetch job description to provide context for the AI (e.g. what language is the job in)
-            job_desc_loc = page.locator(".jobs-description-content__text")
-            job_description = ""
-            if await job_desc_loc.count() > 0:
-                job_description = (await job_desc_loc.first.inner_text())[:4000] # First 4000 chars are enough for context/language
             
             actions = await solve_form(extracted_fields, job_description=job_description)
             
@@ -217,9 +221,9 @@ async def extract_fields(page: Page) -> list:
             if tag_name == "select":
                 options = await el.locator("option").all_inner_texts()
                 clean_opts = [o.strip() for o in options if o.strip() and o.lower() != "select an option"]
-                fields.append({"selector": f"#{tag_id}", "label": label, "type": "select", "options": clean_opts})
+                fields.append({"selector": f"[id='{tag_id}']", "label": label, "type": "select", "options": clean_opts})
             else:
-                fields.append({"selector": f"#{tag_id}", "label": label, "type": "input", "options": []})
+                fields.append({"selector": f"[id='{tag_id}']", "label": label, "type": "input", "options": []})
         except Exception:
             pass
 
@@ -246,13 +250,27 @@ async def extract_fields(page: Page) -> list:
                     r_lbl = await r_lbl_loc.inner_text()
                 else:
                     r_lbl = await fs.locator(f"[for='{r_id}']").inner_text() if await fs.locator(f"[for='{r_id}']").count() > 0 else r_id
-                opts.append({"selector": f"#{r_id}", "label": r_lbl.strip()})
+                opts.append({"selector": f"[id='{r_id}']", "label": r_lbl.strip()})
                 
             fields.append({"selector": "fieldset", "label": legend, "type": "radio", "options": opts})
         except Exception:
             pass
+
+    # 3. Solo Checkboxes
+    checkboxes = await modal.locator("input[type='checkbox']").all()
+    for cb in checkboxes:
+        try:
+            if not await cb.is_visible():
+                continue
+            cb_id = await cb.get_attribute("id")
+            if cb_id:
+                label_loc = modal.locator(f"label[for='{cb_id}']")
+                label = await label_loc.inner_text() if await label_loc.count() > 0 else "Checkbox"
+                fields.append({"selector": f"[id='{cb_id}']", "label": label.strip(), "type": "checkbox", "options": []})
+        except Exception:
+            pass
             
-    # 3. Resume Selection Container
+    # 4. Resume Selection Container
     resume_containers = await modal.locator(".jobs-document-upload-redesign-card__container").all()
     if resume_containers:
         opts = []
@@ -263,7 +281,7 @@ async def extract_fields(page: Page) -> list:
                 card = modal.locator(f"label[for='{r_id}']")
                 if await card.count() > 0:
                     name = await card.inner_text()
-                    opts.append({"selector": f"#{r_id}", "label": name.strip()})
+                    opts.append({"selector": f"[id='{r_id}']", "label": name.strip()})
         if opts:
             fields.append({"selector": "resume_radios", "label": "Choose resume / Escolha o currículo", "type": "radio", "options": opts})
 
@@ -287,13 +305,43 @@ async def execute_ai_actions(page: Page, actions: list):
                 # Clear existing text first
                 await el.fill("")
                 await human_type(page, selector, str(val))
+                
+                # Check for location/autocomplete dropdowns that might block the "Next" button
+                await random_sleep(1.0, 2.0)
+                typeahead = page.locator(".search-typeahead-v2__hit, .jobs-search-box__typeahead-suggestion")
+                if await typeahead.count() > 0 and await typeahead.first.is_visible():
+                    # Press ArrowDown and Enter to select the first autocomplete option
+                    await page.keyboard.press("ArrowDown")
+                    await random_sleep(0.5, 1.0)
+                    await page.keyboard.press("Enter")
+                    await random_sleep(0.5, 1.0)
             elif act_type == "select" and val:
                 await el.select_option(label=str(val))
                 await random_sleep(0.5, 1.0)
             elif act_type == "click":
                 # For radio buttons/checkboxes, React often intercepts clicks on the pseudo-hidden input
                 # It's more reliable to click the `<label>` linked to it.
+                # Handle the edge case where the AI returns "fieldset" as selector + text value
+                # instead of returning the specific option's selector.
                 tag_name = await el.evaluate("e => e.tagName.toLowerCase()")
+                if tag_name == "fieldset" and (act_type == "click" or act_type == "select") and val:
+                    val_str = str(val)
+                    if val_str.startswith("[id="):
+                        # The AI put the option's selector inside the 'value' field!
+                        opt_id = val_str.replace("[id='", "").replace("']", "")
+                        lbl = page.locator(f"label[for='{opt_id}']")
+                        if await lbl.count() > 0:
+                            await lbl.first.click(force=True)
+                            await random_sleep(0.5, 1.0)
+                            continue
+                    else:
+                        # Find the label inside the fieldset that matches the value text
+                        matching_labels = await el.locator(f"label:has-text('{val_str}')").all()
+                        if matching_labels:
+                            await matching_labels[0].click(force=True)
+                            await random_sleep(0.5, 1.0)
+                            continue
+                        
                 if tag_name == "input":
                     input_id = await el.get_attribute("id")
                     if input_id:

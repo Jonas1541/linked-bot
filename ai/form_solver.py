@@ -17,27 +17,31 @@ Job Description:
 
 
 Critical Instructions:
-1. Language Adaptation: Pay close attention to the language of the form fields (e.g., Portuguese or English). YOU MUST provide the `value` in the EXACT SAME language as the form question.
-2. Handling Unknown Technologies/Skills: If a question asks for years of experience with a specific technology not listed in the profile (e.g., "Kubernetes", "C#"), DO NOT fail or leave it blank if an integer is required. Assume 1 year of experience (or "1") to bypass the ATS filter, unless asked if you have experience, then say "Sim, possuo conhecimentos fundamentais" or "Yes, I have foundational knowledge".
-3. Salary/Compensation Expectations: If a question asks for salary expectations (and the input requires a number), you MUST provide ONLY digits (e.g., "10000"). DO NOT include text like "Negociável", "Negotiable", currency symbols like "R$" or "$", or punctuation. To determine the number: 
+1. Language Adaptation: Pay close attention to the language of the Job Description. YOU MUST provide the `value` for subjective/text questions in the EXACT SAME language as the Job Description, disregarding the language of the form fields (which might be automatically translated by the UI).
+2. Handling KNOWN Technologies: If a question asks about your experience with a technology explicitly listed in your profile (e.g., "Spring Boot", "Java", "Docker"), and requires a text response, assert your expertise confidently and specify your years of experience (e.g., "I have 3 years of professional experience building microservices with Spring Boot"). If it requires a number, provide the exact years from the profile (e.g., "3").
+3. Handling UNKNOWN Technologies: If a question asks for experience with a technology NOT listed in the profile (e.g., "Kubernetes", "C#"), DO NOT fail or leave it blank if an integer is required. Assume 1 year of experience (or "1") to bypass the ATS filter. If a text response is required, say "Sim, possuo conhecimentos fundamentais" or "Yes, I have foundational knowledge".
+4. Salary/Compensation Expectations: If a question asks for salary expectations (and the input requires a number), you MUST provide ONLY digits (e.g., "10000"). DO NOT include text like "Negociável", "Negotiable", currency symbols like "R$" or "$", or punctuation. To determine the number: 
    - First, check the Job Description to see if a salary range or budget is explicitly stated; if so, pick a number near the middle of that range. 
    - If no salary is stated, infer the seniority of the role (Junior, Pleno/Mid-level, or Senior).
    - Then, infer the currency based on the Job Description location or language (e.g., jobs in Brazil or in Portuguese use BRL; US, Europe, or International Remote jobs use USD). 
    - Pick the corresponding numeric value from the profile's `salary_expectation` under the inferred currency (BRL or USD) and seniority (junior, pleno, or senior).
-4. Personal/Subjective Questions: If asked "Why do you want to work here?" or similar, generate a polite, professional, and generic response highlighting the user's background in Java/Backend and eagerness to contribute, in the language of the question.
-4. For text/number inputs (e.g., "Years of experience with Java"), provide the integer or text value required. If the question asks for years of experience generally, base it on the overall experience (3 years).
-5. For radio buttons / selects (e.g., "Are you legally authorized to work in the US?"), choose the option that matches the profile or common sense if not explicitly stated (e.g., Yes to authorization if applying in their home country, "Brazilian" for citizenship, etc.).
-6. Resume Selection: If you see options to select a resume (often radio buttons with file names), determine the language of the job application form. If the form is in Portuguese, select the option that appears to be the Portuguese resume (e.g., 'Curriculo', 'PT'). If the form is in English, select the option for the English resume (e.g., 'Resume', 'EN').
-7. Docs/IDs: If asked for CPF or RG (identity document), use the exact values from the profile.
-8. Phone number: Always include the area code (e.g., "41").
-9. Answer ALL fields: You must provide exactly one action for EVERY field object provided in the input JSON. Do not skip any fields (like radio buttons or text areas) even if they ask about the same topic (like disability).
-10. Always respond in valid JSON format ONLY.
+5. Personal/Subjective Questions: If asked "Why do you want to work here?" or similar, generate a polite, professional, and generic response highlighting the user's background in Java/Backend and eagerness to contribute, in the language of the question.
+6. Current Company: If asked for your current employer or company, provide the exact `current_company` value from the profile (e.g., "Velsis").
+7. For text/number inputs: If a question asks for years of experience generally (not a specific tech), base it on the overall experience (3 years).
+8. For radio buttons / selects (e.g., "Are you legally authorized to work in the US?"), choose the option that matches the profile or common sense if not explicitly stated (e.g., Yes to authorization if applying in their home country, "Brazilian" for citizenship, etc.). CRITICAL: For radio button lists, you MUST provide the specific `selector` of the chosen option from the `options` array, NOT the 'fieldset' or group selector.
+9. Checkboxes/Consent: If you see a checkbox asking for consent, agreement to terms, policy acknowledgment, or stating "I agree" etc., you MUST check it by returning "action": "click" for that selector.
+10. Resume Selection: If you see options to select a resume, determine the language of the Job Description (ignore form UI language). If the Job Description is in Portuguese, you MUST select the exact option that contains "Curriculo.pdf". If the Job Description is in English, you MUST select the exact option that contains "Resume.pdf".
+11. Docs/IDs: If asked for CPF or RG (identity document), use the exact values from the profile.
+12. Date of Birth/Age: If asked for Date of Birth, provide the exact `birth_date` from the profile (e.g., "21/09/2001"), formatting it as the form requires (MM/DD/YYYY or DD/MM/YYYY).
+13. Phone number: Always include the area code (e.g., "41").
+14. Answer ALL fields: You must provide exactly one action for EVERY field object provided in the input JSON. Do not skip any fields (like radio buttons or text areas) even if they ask about the same topic (like disability).
+15. Always respond in valid JSON format ONLY. CRITICAL: Return the exact `selector` string provided in the input JSON without modifying or converting it.
 
 Expected JSON Output Format:
 [
-  {{"selector": "input#id-123", "action": "type", "value": "3"}},
-  {{"selector": "select#id-456", "action": "select", "value": "Yes"}},
-  {{"selector": "input#radio-789", "action": "click", "value": null}}
+  {{"selector": "[id='id-123']", "action": "type", "value": "3"}},
+  {{"selector": "[id='id-456']", "action": "select", "value": "Yes"}},
+  {{"selector": "[id='radio-789']", "action": "click", "value": null}}
 ]
 """
 

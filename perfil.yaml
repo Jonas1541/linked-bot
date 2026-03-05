@@ -2,11 +2,12 @@ personal_info:
   name: "Jonas Felipe Durau"
   phone: "41996775078"
   email: "jonasdurau@gmail.com"
-  location: "Curitiba, PR, Brazil"
+  location: "Rodovia Aníbal Khury, 12355, Balsa Nova, Paraná"
   github: "https://github.com/Jonas1541"
   linkedin: "https://www.linkedin.com/in/jonas-durau-32b048223/"
   cpf: "10337419906"
   rg: "134403306"
+  birth_date: "21/09/2001"
 
 demographics:
   gender: "Male"
@@ -31,6 +32,8 @@ preferences:
       senior: "6000"
 experience_summary:
   years_of_experience: "3"
+  current_company: "Velsis"
+  industry: "Road Technology / Tecnologia Viária"
   years_java: "3"
   years_spring_boot: "3"
   years_docker: "2"
