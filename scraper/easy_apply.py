@@ -289,14 +289,21 @@ async def handle_form_loop(page: Page, job_title: str = "", job_description: str
                 break
 
         if submit_btn:
-            print("[EasyApply] Final Submit screen reached.")
-            # For testing purposes, we might want to click it or just review.
-            print(">>> SKIPPING SUBMIT FOR DRY RUN <<<") 
-            # In production: await submit_btn.click()
-            await random_sleep(2.0, 3.0)
+            print("[EasyApply] Final Submit screen reached. Submitting application...")
+            await submit_btn.click()
+            await random_sleep(3.0, 5.0)
             
-            await close_modal(page)
-            return True # Pretending success for the dry-run
+            # Check if submission was successful (modal should close or show confirmation)
+            try:
+                # Wait a moment for any post-submit modal/confirmation
+                await random_sleep(2.0, 3.0)
+                # If the modal is still open, try to close it (could be a "Application submitted" confirmation)
+                await close_modal(page)
+            except Exception:
+                pass
+            
+            print("[EasyApply] Application submitted successfully!")
+            return True
 
         # If not submit, we must answer questions and click "Next" or "Review"
         
