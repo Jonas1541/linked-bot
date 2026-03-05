@@ -7,6 +7,9 @@ from scraper.job_search import perform_search, extract_job_ids_from_page
 from scraper.easy_apply import start_easy_apply
 from browser.stealth import random_sleep
 
+MAX_PAGES = 10  # Safety limit: don't go beyond 10 pages (250 jobs) per run
+
+
 async def main_loop():
     print("====================================")
     print("      LinkedIn Auto-Applier Bot     ")
@@ -18,12 +21,22 @@ async def main_loop():
         print(f"[Main] Daily limit reached ({applied_today}/{MAX_DAILY_APPLICATIONS}). Exiting.")
         return
 
-    # 2. Init Browser
+    # 2. Determine today's search keyword (cycles daily through roles)
+    roles = USER_PROFILE.get("preferences", {}).get("roles", ["Software Engineer"])
+    role_index = db.get_todays_role_index(len(roles))
+    keywords = roles[role_index]
+    location = USER_PROFILE.get("personal_info", {}).get("location", "Brazil")
+    
+    print(f"[Main] Today's search role: '{keywords}' (index {role_index}/{len(roles)-1})")
+    print(f"[Main] All roles: {roles}")
+    print(f"[Main] Applications today: {applied_today}/{MAX_DAILY_APPLICATIONS}")
+
+    # 3. Init Browser
     browser_manager = BrowserManager()
     page = await browser_manager.init_browser()
     
     try:
-        # 3. Handle Authentication
+        # 4. Handle Authentication
         authenticated = await perform_login(page)
         if not authenticated:
             print("[Main] Failed to authenticate. Exiting.")
@@ -31,57 +44,89 @@ async def main_loop():
 
         print("[Main] Logged in successfully.")
 
-        # 4. Search and Process Jobs Loop
-        # We grab parameters from user profile (e.g., job titles)
-        keywords = USER_PROFILE.get("preferences", {}).get("roles", ["Software Engineer"])[0]
-        location = USER_PROFILE.get("personal_info", {}).get("location", "Brazil")
+        # 5. Multi-page search loop
+        total_applied = 0
+        total_skipped = 0
+        total_failed = 0
         
-        # In a robust scenario we'd loop through multiple pages (start_index = 0, 25, 50...)
-        # Here we do a single page for demonstration
-        await perform_search(page, keywords, location, start_index=0)
-        await random_sleep(2.0, 4.0)
+        for page_num in range(MAX_PAGES):
+            start_index = page_num * 25
+            
+            print(f"\n[Main] === Searching page {page_num + 1} (offset {start_index}) ===")
+            await perform_search(page, keywords, location, start_index=start_index)
+            await random_sleep(2.0, 4.0)
 
-        job_ids = await extract_job_ids_from_page(page)
-        print(f"[Main] Found {len(job_ids)} jobs on this page.")
-
-        for job_id in job_ids:
-            # Check limit before each execution
-            if db.get_daily_application_count() >= MAX_DAILY_APPLICATIONS:
-                print("[Main] Daily limit reached midway. Stopping.")
+            job_ids = await extract_job_ids_from_page(page)
+            print(f"[Main] Found {len(job_ids)} jobs on page {page_num + 1}.")
+            
+            if not job_ids:
+                print("[Main] No more jobs found. Search exhausted.")
                 break
-                
-            # Skip if already applied/failed
-            if db.is_job_applied(job_id):
-                print(f"[Main] Skipping job {job_id}, already processed.")
-                continue
-                
-            # Navigate to the specific job page
-            job_url = f"https://www.linkedin.com/jobs/view/{job_id}/"
-            print(f"[Main] Navigating to job {job_url}")
-            try:
-                await page.goto(job_url)
-                await random_sleep(2.0, 4.0)
-            except Exception as e:
-                print(f"[Main] Could not load job page: {e}")
-                continue
 
-            # 5. Execute Apply Flow
-            success = await start_easy_apply(page, job_id)
+            new_jobs_on_page = 0
             
-            # 6. Save State  
-            # 'APPLIED' if it went through the steps and clicked submit (simulated as success inside dry-run right now)
-            # 'FAILED' if it crashed or didn't have Easy Apply
-            status_text = "APPLIED" if success else "FAILED"
-            db.add_application(job_id, title="ExtractTitleLater", company="ExtractCompanyLater", status=status_text)
+            for job_id in job_ids:
+                # Check limit before each application
+                if db.get_daily_application_count() >= MAX_DAILY_APPLICATIONS:
+                    print(f"[Main] Daily limit reached ({MAX_DAILY_APPLICATIONS}). Stopping.")
+                    break
+                    
+                # Skip if already applied/failed
+                if db.is_job_applied(job_id):
+                    total_skipped += 1
+                    continue
+                
+                new_jobs_on_page += 1
+                    
+                # Navigate to the specific job page
+                job_url = f"https://www.linkedin.com/jobs/view/{job_id}/"
+                print(f"[Main] Navigating to job {job_url}")
+                try:
+                    await page.goto(job_url)
+                    await random_sleep(2.0, 4.0)
+                except Exception as e:
+                    print(f"[Main] Could not load job page: {e}")
+                    continue
+
+                # Execute Apply Flow
+                success = await start_easy_apply(page, job_id)
+                
+                # Save State
+                status_text = "APPLIED" if success else "FAILED"
+                db.add_application(job_id, title="", company="", status=status_text)
+                
+                if success:
+                    total_applied += 1
+                    print(f"[Main] ✓ Successfully applied to job {job_id}. Taking a breather...")
+                    await random_sleep(60.0, 180.0)
+                else:
+                    total_failed += 1
+                    print(f"[Main] ✗ Failed to apply to job {job_id}. Moving to next.")
+                    await random_sleep(5.0, 15.0)
             
-            # 7. Global Pacing / Rate Limiter
-            # High delays to mimic a human looking at different things. Wait 1-3 minutes.
-            if success:
-                print(f"[Main] Successfully processed job {job_id}. Taking a long breather...")
-                await random_sleep(60.0, 180.0) 
-            else:
-                print(f"[Main] Failed to process job {job_id}. Moving to next.")
-                await random_sleep(5.0, 15.0)
+            # Check if we hit the daily limit
+            if db.get_daily_application_count() >= MAX_DAILY_APPLICATIONS:
+                print(f"[Main] Daily limit reached. Stopping pagination.")
+                break
+            
+            # If all jobs on this page were already processed, the next page might also be stale
+            if new_jobs_on_page == 0:
+                print(f"[Main] All jobs on page {page_num + 1} were already processed. Moving to next page...")
+            
+            # Small delay between pages
+            await random_sleep(3.0, 6.0)
+
+        # 6. Summary
+        print("\n====================================")
+        print("         Session Summary            ")
+        print("====================================")
+        print(f"  Search keyword:  {keywords}")
+        print(f"  Pages scanned:   {page_num + 1}")
+        print(f"  Applied:         {total_applied}")
+        print(f"  Failed:          {total_failed}")
+        print(f"  Skipped (dupes): {total_skipped}")
+        print(f"  Total today:     {db.get_daily_application_count()}/{MAX_DAILY_APPLICATIONS}")
+        print("====================================")
 
     except Exception as e:
         print(f"[Main] Unhandled exception occurred: {e}")
