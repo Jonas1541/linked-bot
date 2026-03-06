@@ -44,15 +44,17 @@ else
     echo "✓ .env already exists. Skipping."
 fi
 
+# 6. Setup cron
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 echo ""
 echo "=== Setup Complete ==="
 echo ""
 echo "Next steps:"
 echo "  1. Edit .env with your credentials:  nano .env"
 echo "  2. Test the bot:                     source venv/bin/activate && python3 main.py"
-echo "  3. Set up cron (see below):"
+echo "  3. Set up cron:"
 echo ""
-echo "  crontab -e"
-echo "  # Add these lines (runs at 8h, 12h, 17h Brasilia time):"
-echo "  0 8,12,17 * * * cd $(pwd) && source venv/bin/activate && python3 main.py >> bot.log 2>&1"
+echo "     crontab -e"
+echo "     # Add this line (runs 3x/day at peak hours):"
+echo "     0 8,12,17 * * * ${SCRIPT_DIR}/run.sh"
 echo ""

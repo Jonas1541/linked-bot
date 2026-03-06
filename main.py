@@ -8,6 +8,7 @@ from scraper.easy_apply import start_easy_apply
 from browser.stealth import random_sleep
 
 MAX_PAGES = 10  # Safety limit: don't go beyond 10 pages (250 jobs) per run
+MAX_APPS_PER_RUN = 17  # ~50/day spread across 3 runs (8h, 12h, 17h)
 
 
 async def main_loop():
@@ -43,6 +44,9 @@ async def main_loop():
             return
 
         print("[Main] Logged in successfully.")
+        
+        # Enable bandwidth saving AFTER login (login page needs all resources)
+        await browser_manager.enable_bandwidth_saver()
 
         # 5. Multi-page search loop
         total_applied = 0
@@ -66,9 +70,12 @@ async def main_loop():
             new_jobs_on_page = 0
             
             for job_id in job_ids:
-                # Check limit before each application
+                # Check limits before each application
                 if db.get_daily_application_count() >= MAX_DAILY_APPLICATIONS:
                     print(f"[Main] Daily limit reached ({MAX_DAILY_APPLICATIONS}). Stopping.")
+                    break
+                if total_applied >= MAX_APPS_PER_RUN:
+                    print(f"[Main] Per-run limit reached ({MAX_APPS_PER_RUN}). Saving the rest for later.")
                     break
                     
                 # Skip if already applied/failed
@@ -104,9 +111,12 @@ async def main_loop():
                     print(f"[Main] ✗ Failed to apply to job {job_id}. Moving to next.")
                     await random_sleep(5.0, 15.0)
             
-            # Check if we hit the daily limit
+            # Check if we hit any limit
             if db.get_daily_application_count() >= MAX_DAILY_APPLICATIONS:
                 print(f"[Main] Daily limit reached. Stopping pagination.")
+                break
+            if total_applied >= MAX_APPS_PER_RUN:
+                print(f"[Main] Per-run limit reached. Stopping pagination.")
                 break
             
             # If all jobs on this page were already processed, the next page might also be stale
