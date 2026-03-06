@@ -1,5 +1,6 @@
 import asyncio
-from core.config import USER_PROFILE, MAX_DAILY_APPLICATIONS
+import random
+from core.config import USER_PROFILE
 from database.db_manager import db
 from browser.session import BrowserManager
 from auth.linkedin_login import perform_login
@@ -8,7 +9,6 @@ from scraper.easy_apply import start_easy_apply
 from browser.stealth import random_sleep
 
 MAX_PAGES = 10  # Safety limit: don't go beyond 10 pages (250 jobs) per run
-MAX_APPS_PER_RUN = 17  # ~50/day spread across 3 runs (8h, 12h, 17h)
 
 
 async def main_loop():
@@ -16,10 +16,10 @@ async def main_loop():
     print("      LinkedIn Auto-Applier Bot     ")
     print("====================================")
     
-    # 1. Check daily limit right away
+    # 1. Safety check (hard cap — should never hit with 3 cron runs of 12-22)
     applied_today = db.get_daily_application_count()
-    if applied_today >= MAX_DAILY_APPLICATIONS:
-        print(f"[Main] Daily limit reached ({applied_today}/{MAX_DAILY_APPLICATIONS}). Exiting.")
+    if applied_today >= 75:
+        print(f"[Main] Safety cap reached ({applied_today} today). Exiting.")
         return
 
     # 2. Determine today's search keyword (cycles daily through roles)
@@ -28,9 +28,13 @@ async def main_loop():
     keywords = roles[role_index]
     location = USER_PROFILE.get("personal_info", {}).get("location", "Brazil")
     
+    # Randomize per-run limit for organic behavior (avoids always applying to exactly N)
+    max_apps_this_run = random.randint(12, 22)
+    
     print(f"[Main] Today's search role: '{keywords}' (index {role_index}/{len(roles)-1})")
     print(f"[Main] All roles: {roles}")
-    print(f"[Main] Applications today: {applied_today}/{MAX_DAILY_APPLICATIONS}")
+    print(f"[Main] Applications today so far: {applied_today}")
+    print(f"[Main] This run limit: {max_apps_this_run}")
 
     # 3. Init Browser
     browser_manager = BrowserManager()
@@ -70,12 +74,9 @@ async def main_loop():
             new_jobs_on_page = 0
             
             for job_id in job_ids:
-                # Check limits before each application
-                if db.get_daily_application_count() >= MAX_DAILY_APPLICATIONS:
-                    print(f"[Main] Daily limit reached ({MAX_DAILY_APPLICATIONS}). Stopping.")
-                    break
-                if total_applied >= MAX_APPS_PER_RUN:
-                    print(f"[Main] Per-run limit reached ({MAX_APPS_PER_RUN}). Saving the rest for later.")
+                # Check per-run limit
+                if total_applied >= max_apps_this_run:
+                    print(f"[Main] Per-run limit reached ({max_apps_this_run}). Saving the rest for later.")
                     break
                     
                 # Skip if already applied/failed
@@ -111,11 +112,8 @@ async def main_loop():
                     print(f"[Main] ✗ Failed to apply to job {job_id}. Moving to next.")
                     await random_sleep(5.0, 15.0)
             
-            # Check if we hit any limit
-            if db.get_daily_application_count() >= MAX_DAILY_APPLICATIONS:
-                print(f"[Main] Daily limit reached. Stopping pagination.")
-                break
-            if total_applied >= MAX_APPS_PER_RUN:
+            # Check if we hit the per-run limit
+            if total_applied >= max_apps_this_run:
                 print(f"[Main] Per-run limit reached. Stopping pagination.")
                 break
             
@@ -135,7 +133,7 @@ async def main_loop():
         print(f"  Applied:         {total_applied}")
         print(f"  Failed:          {total_failed}")
         print(f"  Skipped (dupes): {total_skipped}")
-        print(f"  Total today:     {db.get_daily_application_count()}/{MAX_DAILY_APPLICATIONS}")
+        print(f"  Total today:     {db.get_daily_application_count()}")
         print("====================================")
 
     except Exception as e:
