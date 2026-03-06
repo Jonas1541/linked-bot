@@ -15,7 +15,7 @@ sudo apt-get install -y \
     wget curl unzip \
     fonts-liberation libnss3 libatk-bridge2.0-0 libdrm2 \
     libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 \
-    libgbm1 libasound2 libpango-1.0-0 libcairo2 \
+    libgbm1 libasound2t64 libpango-1.0-0 libcairo2 \
     libatspi2.0-0 libgtk-3-0 xdg-utils cron
 
 # 2. Python virtual environment
