@@ -7,6 +7,7 @@ from auth.linkedin_login import perform_login
 from scraper.job_search import perform_search, extract_job_ids_from_page
 from scraper.easy_apply import start_easy_apply
 from browser.stealth import random_sleep
+from notifications.telegram import notify_run_summary, notify_error
 
 MAX_PAGES = 10  # Safety limit: don't go beyond 10 pages (250 jobs) per run
 
@@ -125,6 +126,7 @@ async def main_loop():
             await random_sleep(3.0, 6.0)
 
         # 6. Summary
+        total_today = db.get_daily_application_count()
         print("\n====================================")
         print("         Session Summary            ")
         print("====================================")
@@ -133,11 +135,15 @@ async def main_loop():
         print(f"  Applied:         {total_applied}")
         print(f"  Failed:          {total_failed}")
         print(f"  Skipped (dupes): {total_skipped}")
-        print(f"  Total today:     {db.get_daily_application_count()}")
+        print(f"  Total today:     {total_today}")
         print("====================================")
+        
+        # 7. Telegram notification
+        await notify_run_summary(keywords, page_num + 1, total_applied, total_failed, total_skipped, total_today)
 
     except Exception as e:
         print(f"[Main] Unhandled exception occurred: {e}")
+        await notify_error(str(e))
     finally:
         print("[Main] Shutting down browser...")
         await browser_manager.close()
