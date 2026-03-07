@@ -122,9 +122,13 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
             httpx_proxy = PROXY_SERVER
             
     try:
+        # Grab Playwright cookies to authenticate the httpx request
+        page_cookies = await page.context.cookies()
+        httpx_cookies = {c["name"]: c["value"] for c in page_cookies}
+        
         # Use a generous timeout for the proxy
         async with httpx.AsyncClient(proxies=httpx_proxy, timeout=30.0) if httpx_proxy else httpx.AsyncClient(timeout=30.0) as client:
-            resp = await client.get(job_url, headers=headers)
+            resp = await client.get(job_url, headers=headers, cookies=httpx_cookies)
             html = resp.text
     except Exception as e:
         print(f"[EasyApply] Failed to fetch job {job_id} HTML via httpx: {e}")
