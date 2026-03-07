@@ -2,7 +2,7 @@ import asyncio
 from playwright.async_api import Page, Locator
 from browser.stealth import random_sleep, human_type
 from ai.form_solver import solve_form
-from config import PROXY_SERVER
+from core.config import PROXY_SERVER
 
 MAX_RETRIES = 3
 
