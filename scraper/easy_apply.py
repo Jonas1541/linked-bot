@@ -251,8 +251,10 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
                 html = await page.content()
                 with open("debug_failed_job.html", "w", encoding="utf-8") as f:
                     f.write(html)
+                await page.screenshot(path=f"debug_job_{job_id}.png", full_page=True)
+                print(f"[EasyApply] Saved diagnostic screenshot to debug_job_{job_id}.png")
             except Exception as e:
-                print(f"[EasyApply] Failed to dump HTML: {e}")
+                print(f"[EasyApply] Failed to dump HTML or take screenshot: {e}")
             return False
             
         await random_sleep(1.0, 3.0)
