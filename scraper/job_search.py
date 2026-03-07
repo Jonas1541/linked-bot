@@ -43,43 +43,35 @@ async def extract_job_ids_from_page(page: Page) -> list[str]:
     """
     job_ids = []
     
+    import re
+    
     try:
-        # Wait for the list container or generic job cards to appear
-        try:
-            await page.wait_for_selector("div[data-job-id], li[data-occludable-job-id], li.jobs-search-results__list-item", timeout=30000)
-        except Exception:
-            print("[Search] Timeout waiting for job cards. They might be using a new DOM structure.")
-            await page.screenshot(path="debug_timeout.png", full_page=True)
-            print(f"[Search] Saved diagnostic screenshot to debug_timeout.png. URL: {page.url}")
-            
-        # In modern LinkedIn DOM, job cards might have 'data-job-id' or 'data-occludable-job-id'
-        cards = await page.locator("div[data-job-id], li[data-occludable-job-id], li.jobs-search-results__list-item").all()
+        # Wait a few seconds for the initial HTML to load at least
+        await random_sleep(2.0, 4.0)
         
-        for idx, card in enumerate(cards):
-            job_id = await card.get_attribute("data-job-id")
-            if not job_id:
-                job_id = await card.get_attribute("data-occludable-job-id")
-            
-            # Fallback if the element itself doesn't have it, maybe a child does
-            if not job_id:
-                try:
-                    inner_div = card.locator("div[data-job-id]").first
-                    if await inner_div.count() > 0:
-                        job_id = await inner_div.get_attribute("data-job-id")
-                except Exception:
-                    pass
+        # In headless VPS the Ember.js SPA might get stuck on the loading logo
+        # but the actual job IDs are already embedded in the raw HTML payload 
+        # from the server (inside <code> blocks or initial JSON state).
+        # So we bypass the DOM entirely and extract them with regex.
+        html_content = await page.content()
+        
+        # Look for typical job ID patterns in the raw HTML
+        # e.g. urn:li:fsd_jobPosting:4376200323 or data-job-id="4376200323"
+        pattern1 = r'urn:li:fsd_jobPosting:(\d{10})'
+        pattern2 = r'data-job-id="(\d{10})"'
+        pattern3 = r'data-occludable-job-id="(\d{10})"'
+        
+        matches = []
+        matches.extend(re.findall(pattern1, html_content))
+        matches.extend(re.findall(pattern2, html_content))
+        matches.extend(re.findall(pattern3, html_content))
+        
+        # Deduplicate and maintain order
+        for j_id in matches:
+            if j_id not in job_ids:
+                job_ids.append(j_id)
                 
-            if job_id and job_id not in job_ids:
-                job_ids.append(job_id)
-            
-            # Scroll to it to trigger lazy loading of next items
-            try:
-                await card.scroll_into_view_if_needed()
-            except Exception:
-                pass
-                
-            if idx % 5 == 0:
-                await random_sleep(0.5, 1.5)
+        print(f"[Search] Extracted {len(job_ids)} raw job IDs from HTML source.")
                 
     except Exception as e:
         print(f"[Search] Error extracting job IDs: {e}")
