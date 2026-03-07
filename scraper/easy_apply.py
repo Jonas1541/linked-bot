@@ -97,138 +97,87 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
     
     # Locate Easy Apply button
     # There are multiple possible selectors for the button depending on the variation
+    import httpx
+    import re
+    from bs4 import BeautifulSoup
+    import json
+    
+    # 1. Fetch Job SSR HTML using Mobile User Agent (bypasses Ember.js SPA)
+    mobile_user_agent = "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1"
+    headers = {"User-Agent": mobile_user_agent, "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7"}
+    job_url = f"https://www.linkedin.com/jobs/view/{job_id}/"
+    
     try:
-        # Wait for the main container/job title to load before looking for buttons
-        # The proxy can be slow, taking 10-20s to load the job details JSON via XHR.
-        await page.wait_for_selector("h1, .jobs-unified-top-card, .job-view-layout", timeout=30000)
-    except Exception:
-        print(f"[EasyApply] Timeout: Job {job_id} details failed to render on the page (XHR timeout or blocked).")
-        await page.screenshot(path=f"debug_job_timeout_{job_id}.png", full_page=True)
+        # Use a generous timeout for the proxy
+        async with httpx.AsyncClient(proxies=PROXY_SERVER, timeout=30.0) if PROXY_SERVER else httpx.AsyncClient(timeout=30.0) as client:
+            resp = await client.get(job_url, headers=headers)
+            html = resp.text
+    except Exception as e:
+        print(f"[EasyApply] Failed to fetch job {job_id} HTML via httpx: {e}")
         return False
-
+        
+    # 2. Check if it's an Easy Apply job by scanning the raw HTML
+    # LinkedIn mobile view uses the class 'jobs-apply-button' or JSON structured data
+    is_easy_apply = "jobs-apply-button" in html or "Candidatura simplificada" in html or "Easy Apply" in html
+    
+    if not is_easy_apply:
+        print(f"[EasyApply] Job {job_id} does not have an Easy Apply button (detected via fast SSR HTML check).")
+        return False
+        
+    # 3. Extract Title and Description from SSR HTML using BeautifulSoup/Regex
+    title_text = ""
     job_description = ""
     try:
-        # Wait for page content to load
-        await random_sleep(1.5, 2.5)
+        soup = BeautifulSoup(html, "html.parser")
         
-        # STEP 1: ALWAYS grab the job title first (it's never hidden behind "See more")
-        # Use document.title which ALWAYS contains the job title on LinkedIn (e.g. "Software Engineer | Company | LinkedIn")
-        title_text = ""
-        try:
-            raw_title = await page.title()
-            if raw_title:
-                # LinkedIn page titles are like: "Job Title | Company Name | LinkedIn" or "(N) Job Title | Company | LinkedIn"
-                # Strip notification count prefix like "(3) "
-                clean = raw_title.strip()
-                if clean.startswith("(") and ")" in clean:
-                    clean = clean[clean.index(")") + 1:].strip()
-                # Take first segment before " | "
-                if " | " in clean:
-                    title_text = clean.split(" | ")[0].strip()
-                elif " - " in clean:
-                    title_text = clean.split(" - ")[0].strip()
-                else:
-                    title_text = clean
-                print(f"[EasyApply] Job title from page title: '{title_text}'")
-        except Exception:
-            pass
-
-        # Fallback: try CSS selectors if document.title failed
-        if not title_text:
-            title_selectors = [
-                "h1.top-card-layout__title",
-                "h1.t-24",
-                "h1.job-details-jobs-unified-top-card__job-title",
-                ".jobs-unified-top-card__job-title",
-                "h1"
-            ]
-            for ts in title_selectors:
-                try:
-                    t_loc = page.locator(ts)
-                    if await t_loc.count() > 0:
-                        title_text = (await t_loc.first.inner_text()).strip()
-                        if title_text:
-                            print(f"[EasyApply] Job title found via CSS '{ts}': '{title_text}'")
-                            break
-                except Exception:
-                    pass
-        
-        # STEP 2: Try to expand and read the full description
-        see_more_selectors = [
-            "button.jobs-description__footer-button",
-            "button:has-text('See more')",
-            "button:has-text('Ler mais')",
-            "button:has-text('Ver mais')",
-            "button:has-text('…more')",
-            "button[aria-label*='more']",
-        ]
-        for sm_sel in see_more_selectors:
-            try:
-                sm_btn = page.locator(sm_sel)
-                if await sm_btn.count() > 0 and await sm_btn.first.is_visible():
-                    await sm_btn.first.click()
-                    print(f"[EasyApply] Clicked 'See more' button ({sm_sel})")
-                    await random_sleep(1.0, 2.0)
-                    break
-            except Exception:
-                pass
-        
-        desc_text = ""
-        desc_locators = [
-            ".jobs-description-content__text",
-            "#job-details",
-            ".job-details-module",
-            ".jobs-box__html-content",
-            "article.jobs-description__container",
-        ]
-        
-        for selector in desc_locators:
-            try:
-                loc = page.locator(selector)
-                if await loc.count() > 0:
-                    text = await loc.first.inner_text()
-                    if text and len(text.strip()) > 50:
-                        desc_text = text[:4000]
-                        print(f"[EasyApply] Description found via '{selector}' ({len(desc_text)} chars)")
-                        break
-            except Exception:
-                pass
-        
-        # If still no desc, try heading parent
-        if not desc_text:
-            try:
-                heading = page.locator("h2:has-text('About the job'), h2:has-text('Sobre a vaga')")
-                if await heading.count() > 0:
-                    parent = heading.first.locator("..")
-                    text = await parent.inner_text()
-                    if text and len(text.strip()) > 50:
-                        desc_text = text[:4000]
-                        print(f"[EasyApply] Description found via heading parent ({len(desc_text)} chars)")
-            except Exception:
-                pass
-
-        # STEP 3: Combine title + description. Title comes first for reliable language detection.
-        parts = []
-        if title_text:
-            parts.append(title_text)
-        if desc_text:
-            parts.append(desc_text)
-        job_description = "\n".join(parts)
-
+        # Title
+        title_tag = soup.find("h1")
+        if title_tag:
+            title_text = title_tag.get_text(strip=True)
+            print(f"[EasyApply] Job title from SSR HTML: '{title_text}'")
+            
+        # Description
+        desc_div = soup.find("div", class_="show-more-less-html__markup")
+        if desc_div:
+            desc_text = desc_div.get_text(separator="\n", strip=True)
+            if desc_text and len(desc_text) > 50:
+                job_description = desc_text[:4000]
+                
     except Exception as e:
-        print(f"[EasyApply] Soft exception during job description extraction: {e}")
-
+        print(f"[EasyApply] Error parsing SSR HTML: {e}")
+        
+    # Combine title + description. Title comes first for reliable language detection.
+    parts = []
+    if title_text:
+        parts.append(title_text)
     if job_description:
-        print(f"[EasyApply] Language context extracted ({len(job_description)} chars). First 200: {job_description[:200]}")
+        parts.append(job_description)
+    full_context = "\n".join(parts)
+
+    if full_context:
+        print(f"[EasyApply] Language context extracted ({len(full_context)} chars). First 200: {full_context[:200]}")
     else:
         print(f"[EasyApply] WARNING: Job Description AND Title are EMPTY. Resume/language detection will default to PT.")
 
+    # 4. NOW we can safely navigate Playwright to the job page, knowing it IS an Easy Apply job
+    print(f"[EasyApply] Confirmed Easy Apply. Navigating browser to job page...")
     try:
-        # Array of possible locators for Playwright
+        await page.goto("about:blank")
+        await page.goto(job_url, wait_until="domcontentloaded")
+        
+        # Wait up to 30s for the page layout
+        await page.wait_for_selector("h1, .jobs-unified-top-card, .job-view-layout, .jobs-details", timeout=30000)
+        await random_sleep(2.0, 4.0)
+    except Exception:
+        print(f"[EasyApply] Timeout: Job {job_id} details failed to render on the page despite SSR confirming it exists.")
+        return False
+
+    # 5. Locate and click the Easy Apply button in the DOM
+    try:
         locators = [
             page.locator("[data-view-name='job-apply-button']"),
             page.locator("button.jobs-apply-button"),
-            page.locator("button.jobs-apply-button--disabled"), # Sometimes we see it, though we'll check it later
+            page.locator("button.jobs-apply-button--disabled"),
             page.locator("button[aria-label*='Easy Apply']"),
             page.locator("button[aria-label*='Candidatura simplificada']"),
             page.locator("button:has-text('Easy Apply')"),
@@ -239,7 +188,6 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
         button = None
         for loc in locators:
             if await loc.count() > 0:
-                # Get the first one that is visible
                 for i in range(await loc.count()):
                     el = loc.nth(i)
                     if await el.is_visible():
@@ -249,15 +197,7 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
                 break
                 
         if not button:
-            print(f"[EasyApply] Job {job_id} does not have an Easy Apply button. Dumping HTML to debug_failed_job.html")
-            try:
-                html = await page.content()
-                with open("debug_failed_job.html", "w", encoding="utf-8") as f:
-                    f.write(html)
-                await page.screenshot(path=f"debug_job_{job_id}.png", full_page=True)
-                print(f"[EasyApply] Saved diagnostic screenshot to debug_job_{job_id}.png")
-            except Exception as e:
-                print(f"[EasyApply] Failed to dump HTML or take screenshot: {e}")
+            print(f"[EasyApply] Failed to locate Easy Apply button in Chromium DOM (SPA rendering freeze).")
             return False
             
         await random_sleep(1.0, 3.0)
