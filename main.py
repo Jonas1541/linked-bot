@@ -99,6 +99,8 @@ async def main_loop():
                 job_url = f"https://www.linkedin.com/jobs/view/{job_id}/"
                 print(f"[Main] Navigating to job {job_url}")
                 try:
+                    # Force hard parse to bypass frozen Ember.js SPA router on headless VPS
+                    await page.goto("about:blank")
                     await page.goto(job_url, wait_until="domcontentloaded")
                     await random_sleep(2.0, 4.0)
                 except Exception as e:
