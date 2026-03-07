@@ -23,9 +23,6 @@ async def perform_search(page: Page, keywords: str, location: str, start_index: 
     search_url = f"{base_url}?{query_string}"
 
     print(f"[Search] Navigating to: {search_url}")
-    # Reset SPA state — after login check on /feed, LinkedIn's Ember.js does
-    # client-side routing which doesn't render properly in headless mode.
-    await page.goto("about:blank")
     await page.goto(search_url, wait_until="domcontentloaded")
     
     # Wait for job list to load (longer timeout for proxy connections)

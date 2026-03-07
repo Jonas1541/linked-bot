@@ -50,7 +50,11 @@ async def main_loop():
 
         print("[Main] Logged in successfully.")
         
-        # Enable bandwidth saving AFTER login (login page needs all resources)
+        # Open a fresh page to reset LinkedIn's SPA state from the /feed login check.
+        # The /feed page initializes Ember.js which breaks search rendering in headless.
+        page = await browser_manager.fresh_page()
+        
+        # Enable bandwidth saving on the fresh page
         await browser_manager.enable_bandwidth_saver()
 
         # 5. Multi-page search loop

@@ -92,6 +92,18 @@ class BrowserManager:
             await self._page.route("**/*", _block_unnecessary_requests)
             print("[Browser] Bandwidth saver enabled: blocking images and media.")
 
+    async def fresh_page(self) -> Page:
+        """Opens a new tab, closing the old one. Resets LinkedIn's SPA JavaScript
+        state while preserving cookies/session. Needed after login check on /feed
+        contaminates the Ember.js SPA state in headless mode."""
+        if self._page:
+            await self._page.close()
+        self._page = await self._browser_context.new_page()
+        await stealth_async(self._page)
+        if HEADLESS_MODE:
+            await self._page.set_viewport_size({"width": 1920, "height": 1080})
+        return self._page
+
     async def get_page(self) -> Page:
         """Returns the current page or initializes it if not ready."""
         if not self._page:
