@@ -98,10 +98,13 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
     # Locate Easy Apply button
     # There are multiple possible selectors for the button depending on the variation
     try:
-        # Wait for the main container to load before looking for buttons
-        await page.wait_for_selector(".job-view-layout, .jobs-details", timeout=10000)
+        # Wait for the main container/job title to load before looking for buttons
+        # The proxy can be slow, taking 10-20s to load the job details JSON via XHR.
+        await page.wait_for_selector("h1, .jobs-unified-top-card, .job-view-layout", timeout=30000)
     except Exception:
-        pass # If we timeout waiting for layout, still try to find the button
+        print(f"[EasyApply] Timeout: Job {job_id} details failed to render on the page (XHR timeout or blocked).")
+        await page.screenshot(path=f"debug_job_timeout_{job_id}.png", full_page=True)
+        return False
 
     job_description = ""
     try:
