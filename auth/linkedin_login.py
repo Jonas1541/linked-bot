@@ -9,11 +9,14 @@ async def is_logged_in(page: Page) -> bool:
     print("[Auth] Checking login status...")
     await page.goto("https://www.linkedin.com/feed/")
     try:
-        # Wait up to 5 seconds to see if the global nav (search bar) or feed exists
-        await expect(page.locator("id=global-nav")).to_be_visible(timeout=5000)
+        await expect(page.locator("id=global-nav")).to_be_visible(timeout=15000)
         print("[Auth] Session is valid. User is already logged in!")
         return True
     except Exception:
+        # Fallback: if LinkedIn redirected us to /feed, we're logged in even if global-nav didn't render yet
+        if "/feed" in page.url:
+            print("[Auth] Session is valid (URL confirms /feed). User is already logged in!")
+            return True
         print("[Auth] Session invalid or expired. Need to login.")
         return False
 
