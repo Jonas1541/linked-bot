@@ -7,7 +7,7 @@ from browser.stealth import human_type, random_sleep
 async def is_logged_in(page: Page) -> bool:
     """Checks if the current session is valid by navigating to the homepage and looking for the feed."""
     print("[Auth] Checking login status...")
-    await page.goto("https://www.linkedin.com/feed/")
+    await page.goto("https://www.linkedin.com/feed/", wait_until="domcontentloaded")
     try:
         await expect(page.locator("id=global-nav")).to_be_visible(timeout=15000)
         print("[Auth] Session is valid. User is already logged in!")
@@ -30,7 +30,7 @@ async def perform_login(page: Page):
         raise ValueError("Missing LinkedIn credentials in .env")
 
     print("[Auth] Navigating to login page...")
-    await page.goto("https://www.linkedin.com/login")
+    await page.goto("https://www.linkedin.com/login", wait_until="domcontentloaded")
     await random_sleep(2.0, 4.0)
 
     # Fill username and password with human behavior

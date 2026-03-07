@@ -91,7 +91,7 @@ async def main_loop():
                 job_url = f"https://www.linkedin.com/jobs/view/{job_id}/"
                 print(f"[Main] Navigating to job {job_url}")
                 try:
-                    await page.goto(job_url)
+                    await page.goto(job_url, wait_until="domcontentloaded")
                     await random_sleep(2.0, 4.0)
                 except Exception as e:
                     print(f"[Main] Could not load job page: {e}")

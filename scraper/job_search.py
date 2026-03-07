@@ -23,7 +23,7 @@ async def perform_search(page: Page, keywords: str, location: str, start_index: 
     search_url = f"{base_url}?{query_string}"
 
     print(f"[Search] Navigating to: {search_url}")
-    await page.goto(search_url)
+    await page.goto(search_url, wait_until="domcontentloaded")
     
     # Wait for job list to load (longer timeout for proxy connections)
     try:
