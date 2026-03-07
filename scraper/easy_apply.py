@@ -103,20 +103,11 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
         await page.goto("about:blank")
         
         job_url = f"https://www.linkedin.com/jobs/view/{job_id}/"
-        # We only wait for DOM, not networkidle, to save RAM
-        await page.goto(job_url, wait_until="domcontentloaded", timeout=45000)
+        await page.goto(job_url, wait_until="domcontentloaded")
         
-        # Aggressively stop page loading to prevent Ember.js from eating all 1GB RAM on the VPS
-        try:
-            await page.evaluate("window.stop();")
-        except Exception:
-            pass
-            
-        # Wait for the main container or title, but don't strictly fail on timeout
-        try:
-            await page.wait_for_selector("h1, .jobs-unified-top-card, .job-view-layout, .jobs-details", timeout=15000)
-        except Exception:
-            print(f"[EasyApply] Warning: Job {job_id} container check timed out, but proceeding anyway.")
+        # Wait for the main container/job title to load before looking for buttons
+        # The proxy can be slow, taking 10-20s to load the job details JSON via XHR.
+        await page.wait_for_selector("h1, .jobs-unified-top-card, .job-view-layout, .jobs-details", timeout=30000)
             
     except Exception as e:
         print(f"[EasyApply] Critical Timeout: Job {job_id} failed to reach DOM: {e}")
