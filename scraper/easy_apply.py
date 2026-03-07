@@ -103,14 +103,27 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
     from bs4 import BeautifulSoup
     import json
     
+    from core.config import PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD
+    
     # 1. Fetch Job SSR HTML using Mobile User Agent (bypasses Ember.js SPA)
     mobile_user_agent = "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1"
     headers = {"User-Agent": mobile_user_agent, "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7"}
     job_url = f"https://www.linkedin.com/jobs/view/{job_id}/"
     
+    # Format proxy for httpx with auth if available
+    httpx_proxy = None
+    if PROXY_SERVER:
+        if PROXY_USERNAME and PROXY_PASSWORD:
+            # Insert auth into proxy URL
+            # e.g., http://host:port -> http://user:pass@host:port
+            scheme, host_port = PROXY_SERVER.split("://")
+            httpx_proxy = f"{scheme}://{PROXY_USERNAME}:{PROXY_PASSWORD}@{host_port}"
+        else:
+            httpx_proxy = PROXY_SERVER
+            
     try:
         # Use a generous timeout for the proxy
-        async with httpx.AsyncClient(proxies=PROXY_SERVER, timeout=30.0) if PROXY_SERVER else httpx.AsyncClient(timeout=30.0) as client:
+        async with httpx.AsyncClient(proxies=httpx_proxy, timeout=30.0) if httpx_proxy else httpx.AsyncClient(timeout=30.0) as client:
             resp = await client.get(job_url, headers=headers)
             html = resp.text
     except Exception as e:
