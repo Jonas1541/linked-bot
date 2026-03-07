@@ -20,6 +20,7 @@ demographics:
 
 preferences:
   roles: ["Java Developer", "Backend Developer", "Software Engineer", "Full Stack Developer"]
+  locations: ["Brazil", "Remote"]
   work_models: ["Remote"] # Preferred setup
   salary_expectation:
     BRL: # Valores em Reais para vagas no Brasil (Competitivo)

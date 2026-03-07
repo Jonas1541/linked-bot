@@ -27,7 +27,11 @@ async def main_loop():
     roles = USER_PROFILE.get("preferences", {}).get("roles", ["Software Engineer"])
     role_index = db.get_todays_role_index(len(roles))
     keywords = roles[role_index]
-    location = USER_PROFILE.get("personal_info", {}).get("location", "Brazil")
+    # Use generic location for job search (e.g. 'Brazil' or 'Remote').
+    # Do NOT use personal_info.location as that's a highly specific home address 
+    # which will cause LinkedIn to return 0 job results.
+    preferred_locations = USER_PROFILE.get("preferences", {}).get("locations", ["Brazil"])
+    location = preferred_locations[0] if isinstance(preferred_locations, list) and preferred_locations else "Brazil"
     
     # Randomize per-run limit for organic behavior (avoids always applying to exactly N)
     max_apps_this_run = random.randint(12, 22)
