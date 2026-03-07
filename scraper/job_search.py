@@ -46,6 +46,8 @@ async def extract_job_ids_from_page(page: Page) -> list[str]:
             await page.wait_for_selector("div[data-job-id], li[data-occludable-job-id], li.jobs-search-results__list-item", timeout=30000)
         except Exception:
             print("[Search] Timeout waiting for job cards. They might be using a new DOM structure.")
+            await page.screenshot(path="debug_timeout.png", full_page=True)
+            print(f"[Search] Saved diagnostic screenshot to debug_timeout.png. URL: {page.url}")
             
         # In modern LinkedIn DOM, job cards might have 'data-job-id' or 'data-occludable-job-id'
         cards = await page.locator("div[data-job-id], li[data-occludable-job-id], li.jobs-search-results__list-item").all()
