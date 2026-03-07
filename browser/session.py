@@ -52,13 +52,19 @@ class BrowserManager:
         # Prepare userdata dir
         os.makedirs(USER_DATA_DIR, exist_ok=True)
 
+        # In headless mode (VPS), set a fixed viewport — LinkedIn's SPA needs
+        # viewport dimensions to trigger lazy loading and render job cards.
+        # In headed mode (local dev), use no_viewport so browser fills the screen.
+        viewport_config = {"width": 1920, "height": 1080} if HEADLESS_MODE else None
+
         self._browser_context = await self._playwright.chromium.launch_persistent_context(
             user_data_dir=USER_DATA_DIR,
             headless=HEADLESS_MODE,
             args=launch_args,
             ignore_default_args=["--enable-automation", "--disable-extensions"],
             proxy=proxy_config,
-            no_viewport=True,
+            viewport=viewport_config,
+            no_viewport=not HEADLESS_MODE,
             record_video_dir=None
         )
 
