@@ -4,8 +4,8 @@ from playwright.async_api import async_playwright, Page, BrowserContext, Route
 from playwright_stealth import stealth_async
 from core.config import USER_DATA_DIR, HEADLESS_MODE, PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD
 
-# Resource types to block for bandwidth savings (saves ~60-70% of data)
-_BLOCKED_RESOURCE_TYPES = {"image", "media", "font"}
+# Resource types to block for bandwidth savings
+_BLOCKED_RESOURCE_TYPES = {"image", "media"}
 
 
 async def _block_unnecessary_requests(route: Route):
