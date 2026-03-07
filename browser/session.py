@@ -36,7 +36,11 @@ class BrowserManager:
             "--start-maximized",
             "--no-sandbox",
             "--disable-setuid-sandbox",
-            "--test-type"
+            "--test-type",
+            # Essential for headless VPS without GPU/display
+            "--disable-gpu",
+            "--disable-dev-shm-usage",
+            "--disable-software-rasterizer",
         ]
 
         proxy_config = None
