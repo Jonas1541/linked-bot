@@ -69,6 +69,10 @@ class BrowserManager:
         # Apply stealth
         await stealth_async(self._page)
         
+        # Increase timeouts for proxy connections (residential proxies are slower)
+        self._browser_context.set_default_navigation_timeout(60000)  # 60s for page loads
+        self._browser_context.set_default_timeout(45000)  # 45s for element waits
+        
         return self._page
 
     async def enable_bandwidth_saver(self):

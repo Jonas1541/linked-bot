@@ -32,6 +32,18 @@ async def perform_login(page: Page):
 
     # Fill username and password with human behavior
     print("[Auth] Typing credentials...")
+    try:
+        await page.wait_for_selector("id=username", timeout=30000)
+    except Exception:
+        # Dump the page to see what LinkedIn is showing (CAPTCHA? challenge?)
+        html = await page.content()
+        with open("debug_login_page.html", "w", encoding="utf-8") as f:
+            f.write(html)
+        print(f"[Auth] Login page did not render username field! HTML dumped to debug_login_page.html ({len(html)} bytes)")
+        print(f"[Auth] Page URL: {page.url}")
+        print(f"[Auth] Page title: {await page.title()}")
+        return False
+    
     await human_type(page, "id=username", LINKEDIN_USERNAME)
     await random_sleep(0.5, 1.5)
     await human_type(page, "id=password", LINKEDIN_PASSWORD)
