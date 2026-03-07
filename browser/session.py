@@ -61,6 +61,8 @@ class BrowserManager:
         # In headed mode (local dev), use no_viewport so browser fills the screen.
         viewport_config = {"width": 1920, "height": 1080} if HEADLESS_MODE else None
 
+        user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
         self._browser_context = await self._playwright.chromium.launch_persistent_context(
             user_data_dir=USER_DATA_DIR,
             headless=HEADLESS_MODE,
@@ -69,6 +71,7 @@ class BrowserManager:
             proxy=proxy_config,
             viewport=viewport_config,
             no_viewport=not HEADLESS_MODE,
+            user_agent=user_agent,
             record_video_dir=None
         )
 
