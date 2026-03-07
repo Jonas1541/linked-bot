@@ -75,6 +75,10 @@ class BrowserManager:
         # Apply stealth
         await stealth_async(self._page)
         
+        # Ensure viewport is set (critical for headless — LinkedIn won't render without it)
+        if HEADLESS_MODE:
+            await self._page.set_viewport_size({"width": 1920, "height": 1080})
+        
         # Increase timeouts for proxy connections (residential proxies are slower)
         self._browser_context.set_default_navigation_timeout(60000)  # 60s for page loads
         self._browser_context.set_default_timeout(45000)  # 45s for element waits
@@ -82,11 +86,11 @@ class BrowserManager:
         return self._page
 
     async def enable_bandwidth_saver(self):
-        """Blocks images, media, fonts, and trackers to save proxy bandwidth.
+        """Blocks images and media to save proxy bandwidth.
         Call this AFTER authentication — login page needs all resources."""
         if self._page:
             await self._page.route("**/*", _block_unnecessary_requests)
-            print("[Browser] Bandwidth saver enabled: blocking images, media, fonts, and trackers.")
+            print("[Browser] Bandwidth saver enabled: blocking images and media.")
 
     async def get_page(self) -> Page:
         """Returns the current page or initializes it if not ready."""
