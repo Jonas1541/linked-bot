@@ -7,5 +7,4 @@ history.db
 debug_failed_job.html
 job_debug.html
 job_debug.png
-test_job.py
 debug_job.py
