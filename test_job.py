@@ -21,12 +21,23 @@ async def extract_html():
                 playwright_proxy["username"] = PROXY_USERNAME
                 playwright_proxy["password"] = PROXY_PASSWORD
                 
+        launch_args = [
+            "--disable-blink-features=AutomationControlled",
+            "--disable-infobars",
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-gpu",
+            "--disable-dev-shm-usage",
+            "--disable-software-rasterizer",
+        ]
+        
         # Launch persistent context
         print("Launching context...")
         context = await p.chromium.launch_persistent_context(
             user_data_dir=USER_DATA_DIR,
             headless=True,
-            proxy=playwright_proxy
+            proxy=playwright_proxy,
+            args=launch_args
         )
         
         page = context.pages[0] if context.pages else await context.new_page()
