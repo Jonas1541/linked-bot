@@ -25,12 +25,13 @@ async def perform_search(page: Page, keywords: str, location: str, start_index: 
     print(f"[Search] Navigating to: {search_url}")
     await page.goto(search_url)
     
-    # Wait for job list to load
+    # Wait for job list to load (longer timeout for proxy connections)
     try:
-        await expect(page.locator(".jobs-search-results-list, .scaffold-layout__list, ul.scaffold-layout__list-container")).to_be_visible(timeout=10000)
-        await random_sleep(2.0, 4.0)
+        await expect(page.locator(".jobs-search-results-list, .scaffold-layout__list, ul.scaffold-layout__list-container")).to_be_visible(timeout=30000)
+        await random_sleep(3.0, 5.0)
     except Exception as e:
         print("[Search] Warning: Job list did not load exactly as expected. Trying to proceed anyway.")
+        await random_sleep(3.0, 5.0)  # Give extra time anyway
         pass
 
 async def extract_job_ids_from_page(page: Page) -> list[str]:
@@ -42,7 +43,7 @@ async def extract_job_ids_from_page(page: Page) -> list[str]:
     try:
         # Wait for the list container or generic job cards to appear
         try:
-            await page.wait_for_selector("div[data-job-id], li[data-occludable-job-id], li.jobs-search-results__list-item", timeout=15000)
+            await page.wait_for_selector("div[data-job-id], li[data-occludable-job-id], li.jobs-search-results__list-item", timeout=30000)
         except Exception:
             print("[Search] Timeout waiting for job cards. They might be using a new DOM structure.")
             
