@@ -95,32 +95,9 @@ class BrowserManager:
         return self._page
 
     async def enable_bandwidth_saver(self):
-        """Blocks images and media to save proxy bandwidth and VPS RAM.
-        Call this AFTER authentication — login page needs all resources."""
-        if self._page:
-            async def intercept_route(route):
-                request = route.request
-                resource_type = request.resource_type
-                url = request.url
-
-                # Block images and media
-                if resource_type in ["image", "media"]:
-                    await route.abort()
-                    return
-
-                # Block known tracking and ad domains to save RAM
-                blocked_domains = [
-                    "google-analytics.com", "analytics", "telemetry",
-                    "doubleclick.net", "px.ads.linkedin.com"
-                ]
-                if any(domain in url for domain in blocked_domains):
-                    await route.abort()
-                    return
-
-                await route.continue_()
-
-            await self._page.route("**/*", intercept_route)
-            print("[Browser] Bandwidth saver enabled: blocking images, media, and trackers.")
+        """Bandwidth saver disabled to ensure 100% identical rendering to local."""
+        print("[Browser] Bandwidth saver is disabled. Loading all resources (CSS, Images, etc) normally.")
+        pass
 
     async def fresh_page(self) -> Page:
         """Opens a new tab, closing the old one. Resets LinkedIn's SPA JavaScript
