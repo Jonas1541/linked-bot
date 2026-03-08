@@ -131,6 +131,11 @@ class BrowserManager:
             } catch(e) {}
         """)
 
+    async def enable_bandwidth_saver(self):
+        """Bandwidth saver disabled to ensure 100% identical rendering to local."""
+        print("[Browser] Bandwidth saver is disabled. Loading all resources (CSS, Images, etc) normally.")
+        pass
+
     async def fresh_page(self) -> Page:
         if self._page:
             await self._page.close()
