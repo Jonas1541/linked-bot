@@ -16,7 +16,11 @@ sudo apt-get install -y \
     fonts-liberation libnss3 libatk-bridge2.0-0 libdrm2 \
     libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 \
     libgbm1 libasound2t64 libpango-1.0-0 libcairo2 \
-    libatspi2.0-0 libgtk-3-0 xdg-utils cron
+    libatspi2.0-0 libgtk-3-0 xdg-utils cron xvfb
+
+# Pre-accept Microsoft fonts EULA to prevent interactive prompt hanging and install fonts
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+sudo apt-get install -y ttf-mscorefonts-installer
 
 # 2. Python virtual environment
 echo "[2/5] Setting up Python virtual environment..."

@@ -41,6 +41,8 @@ class BrowserManager:
             "--disable-gpu",
             "--disable-dev-shm-usage",
             "--disable-software-rasterizer",
+            # Prevent WebRTC from leaking local IP to LinkedIn when using Proxy
+            "--disable-features=WebRtcHideLocalIpsWithMdns",
         ]
 
         proxy_config = None
