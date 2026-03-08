@@ -105,19 +105,12 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
         job_url = f"https://www.linkedin.com/jobs/view/{job_id}/"
         await page.goto(job_url, wait_until="domcontentloaded")
         
-        # Wait for the main container/job title to load before looking for buttons
-        # The proxy can be slow, taking 10-20s to load the job details JSON via XHR.
-        await page.wait_for_selector("h1, .jobs-unified-top-card, .job-view-layout, .jobs-details", timeout=30000)
+        # Wait for the main container/job title to load before looking for buttons.
+        # Support both desktop Ember.js and mobile SDUI payloads.
+        await page.wait_for_selector("h1, .jobs-unified-top-card, .job-view-layout, .jobs-details, [data-sdui-screen], [data-view-name='job-detail-page'], main", timeout=30000)
             
     except Exception as e:
         print(f"[EasyApply] Critical Timeout: Job {job_id} failed to reach DOM: {e}")
-        try:
-            await page.screenshot(path=f"debug_timeout_{job_id}.png", full_page=True)
-            with open(f"debug_timeout_{job_id}.html", "w", encoding="utf-8") as f:
-                f.write(await page.content())
-            print(f"[EasyApply] Saved diagnostic screenshot and HTML to debug_timeout_{job_id}.*")
-        except Exception:
-            pass
         return False
         
     job_description = ""
