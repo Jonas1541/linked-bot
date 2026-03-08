@@ -239,6 +239,8 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
             page.locator("button[aria-label*='Candidatura simplificada']"),
             page.locator("button:has-text('Easy Apply')"),
             page.locator("button:has-text('Candidatura simplificada')"),
+            # SDUI Mobile specifics (Found in VPS HTML dumps)
+            page.locator("a[href*='/apply/?openSDUIApplyFlow=true']"),
             page.locator("a[href*='/apply/']")
         ]
         
@@ -248,6 +250,11 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
                 for i in range(await loc.count()):
                     el = loc.nth(i)
                     if await el.is_visible():
+                        button = el
+                        break
+                    # SDUI links sometimes have complex wrapping that makes is_visible() return false
+                    # depending on viewport. If we find the specific SDUI href, we force it.
+                    elif "openSDUIApplyFlow=true" in (await el.get_attribute("href") or ""):
                         button = el
                         break
             if button:
