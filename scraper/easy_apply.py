@@ -244,39 +244,37 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
             page.locator("a[href*='/apply/']")
         ]
         
-        button = None
-        for loc in locators:
-            if await loc.count() > 0:
-                for i in range(await loc.count()):
-                    el = loc.nth(i)
-                    if await el.is_visible():
-                        button = el
-                        break
-                    # SDUI links sometimes have complex wrapping that makes is_visible() return false
-                    # depending on viewport. If we find the specific SDUI href, we force it.
-                    elif "openSDUIApplyFlow=true" in (await el.get_attribute("href") or ""):
-                        button = el
-                        break
-            if button:
-                break
-                
+        # Extract SDUI URL directly from the JSON payload if button still not found
         if not button:
-            print(f"[EasyApply] Failed to locate Easy Apply button in Chromium DOM (SPA rendering freeze or really no button).")
-            try:
-                await page.screenshot(path=f"debug_nobutton_{job_id}.png", full_page=True)
-                with open(f"debug_nobutton_{job_id}.html", "w", encoding="utf-8") as f:
-                    f.write(await page.content())
-                print(f"[EasyApply] Saved diagnostic screenshot and HTML to debug_nobutton_{job_id}.*")
-            except Exception:
-                pass
-            return False
+            print(f"[EasyApply] Button not visible. Analyzing SDUI hydration state for embedded apply link...")
+            html = await page.content()
+            import re
             
-        await random_sleep(1.0, 3.0)
-        await button.click()
-        await random_sleep(2.0, 4.0)
+            # Look for the ?openSDUIApplyFlow=true link anywhere in the source code
+            sdui_match = re.search(r'(https://www.linkedin.com/jobs/view/\d+/apply/\?openSDUIApplyFlow=true[^\"]+)', html)
+            if sdui_match:
+                sdui_url = sdui_match.group(1).replace("\\u0026", "&")
+                print(f"[EasyApply] Extracted raw SDUI Apply link from state JSON! Forcing navigation to modal.")
+                await page.goto(sdui_url, wait_until="domcontentloaded")
+                # Wait for the modal to spawn
+                await random_sleep(2.0, 4.0)
+            else:
+                print(f"[EasyApply] Failed to locate Easy Apply button or SDUI link in Chromium DOM.")
+                try:
+                    await page.screenshot(path=f"debug_nobutton_{job_id}.png", full_page=True)
+                    with open(f"debug_nobutton_{job_id}.html", "w", encoding="utf-8") as f:
+                        f.write(html)
+                    print(f"[EasyApply] Saved diagnostic screenshot and HTML to debug_nobutton_{job_id}.*")
+                except Exception:
+                    pass
+                return False
+        else:
+            await random_sleep(1.0, 3.0)
+            await button.click()
+            await random_sleep(2.0, 4.0)
 
     except Exception as e:
-        print(f"[EasyApply] Error clicking apply button: {e}")
+        print(f"[EasyApply] Error during apply trigger: {e}")
         return False
     
     return await handle_form_loop(page, job_title=title_text, job_description=job_description)
