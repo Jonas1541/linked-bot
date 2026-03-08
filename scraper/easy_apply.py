@@ -255,6 +255,13 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
                 
         if not button:
             print(f"[EasyApply] Failed to locate Easy Apply button in Chromium DOM (SPA rendering freeze or really no button).")
+            try:
+                await page.screenshot(path=f"debug_nobutton_{job_id}.png", full_page=True)
+                with open(f"debug_nobutton_{job_id}.html", "w", encoding="utf-8") as f:
+                    f.write(await page.content())
+                print(f"[EasyApply] Saved diagnostic screenshot and HTML to debug_nobutton_{job_id}.*")
+            except Exception:
+                pass
             return False
             
         await random_sleep(1.0, 3.0)
