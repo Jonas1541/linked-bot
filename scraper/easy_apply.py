@@ -111,6 +111,13 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
             
     except Exception as e:
         print(f"[EasyApply] Critical Timeout: Job {job_id} failed to reach DOM: {e}")
+        try:
+            await page.screenshot(path=f"debug_timeout_{job_id}.png", full_page=True)
+            with open(f"debug_timeout_{job_id}.html", "w", encoding="utf-8") as f:
+                f.write(await page.content())
+            print(f"[EasyApply] Saved diagnostic screenshot and HTML to debug_timeout_{job_id}.*")
+        except Exception:
+            pass
         return False
         
     job_description = ""

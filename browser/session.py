@@ -93,7 +93,7 @@ class BrowserManager:
         return self._page
 
     async def enable_bandwidth_saver(self):
-        """Blocks images, media, CSS, fonts, and trackers to save proxy bandwidth and VPS RAM.
+        """Blocks images and media to save proxy bandwidth and VPS RAM.
         Call this AFTER authentication — login page needs all resources."""
         if self._page:
             async def intercept_route(route):
@@ -101,31 +101,24 @@ class BrowserManager:
                 resource_type = request.resource_type
                 url = request.url
 
-                # Block non-essential resource types
-                if resource_type in ["image", "media", "font", "stylesheet", "other"]:
+                # Block images and media
+                if resource_type in ["image", "media"]:
                     await route.abort()
                     return
 
-                # Block known tracking, telemetry, and ad domains to save RAM
+                # Block known tracking and ad domains to save RAM
                 blocked_domains = [
-                    "google-analytics.com", "analytics", "tracking", "telemetry",
-                    "doubleclick.net", "ads", "li_fat_id", "px.ads.linkedin.com"
+                    "google-analytics.com", "analytics", "telemetry",
+                    "doubleclick.net", "px.ads.linkedin.com"
                 ]
                 if any(domain in url for domain in blocked_domains):
                     await route.abort()
                     return
 
-                # Block extraneous LinkedIn subdomains that aren't needed for DOM logic
-                if "media.licdn.com" in url or "static.licdn.com" in url:
-                    # Some static JS might be needed, but we try to block heavy assets
-                    if resource_type != "script" and resource_type != "xhr" and resource_type != "fetch":
-                        await route.abort()
-                        return
-
                 await route.continue_()
 
             await self._page.route("**/*", intercept_route)
-            print("[Browser] Aggressive bandwidth and RAM saver enabled: blocking images, CSS, fonts, and trackers.")
+            print("[Browser] Bandwidth saver enabled: blocking images, media, and trackers.")
 
     async def fresh_page(self) -> Page:
         """Opens a new tab, closing the old one. Resets LinkedIn's SPA JavaScript
