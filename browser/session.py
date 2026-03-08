@@ -43,6 +43,10 @@ class BrowserManager:
             "--disable-software-rasterizer",
             # Prevent WebRTC from leaking local IP to LinkedIn when using Proxy
             "--disable-features=WebRtcHideLocalIpsWithMdns",
+            "--force-webrtc-ip-handling-policy=disable_non_proxied_udp",
+            "--enforce-webrtc-ip-permission-check",
+            # Additional stealth: Hide that we are using a Virtual Display (Mesa / SwiftShader)
+            "--override-use-software-gl-for-tests",
         ]
 
         proxy_config = None
@@ -62,7 +66,14 @@ class BrowserManager:
         # LinkedIn's Mobile SDUI layout. We MUST force the desktop viewport.
         viewport_config = {"width": 1920, "height": 1080}
 
-        user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        # Deep Stealth: Timezone and Locale MUST match the proxy IP location (Brazil)
+        # Otherwise, LinkedIn's anti-bot detects a Brazilian IP running UTC time with en-US language.
+        locale = "pt-BR"
+        timezone_id = "America/Sao_Paulo"
+        geolocation = {"latitude": -23.5505, "longitude": -46.6333} # Sao Paulo coords
+
+        # Use a very recent standard Chrome user agent
+        user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 
         self._browser_context = await self._playwright.chromium.launch_persistent_context(
             user_data_dir=USER_DATA_DIR,
@@ -72,6 +83,11 @@ class BrowserManager:
             proxy=proxy_config,
             viewport=viewport_config,
             user_agent=user_agent,
+            locale=locale,
+            timezone_id=timezone_id,
+            geolocation=geolocation,
+            permissions=["geolocation"],
+            color_scheme="dark",
             record_video_dir=None
         )
 
@@ -79,10 +95,8 @@ class BrowserManager:
         pages = self._browser_context.pages
         self._page = pages[0] if pages else await self._browser_context.new_page()
 
-        # Apply stealth
-        await stealth_async(self._page)
+        await self._apply_deep_stealth(self._page)
         
-        # Ensure viewport is set (critical for headless — LinkedIn won't render without it)
         if HEADLESS_MODE:
             await self._page.set_viewport_size({"width": 1920, "height": 1080})
         
@@ -92,19 +106,36 @@ class BrowserManager:
         
         return self._page
 
-    async def enable_bandwidth_saver(self):
-        """Bandwidth saver disabled to ensure 100% identical rendering to local."""
-        print("[Browser] Bandwidth saver is disabled. Loading all resources (CSS, Images, etc) normally.")
-        pass
+    async def _apply_deep_stealth(self, page: Page):
+        """Applies advanced stealth beyond playwright-stealth, masking the VPS."""
+        await stealth_async(page)
+        
+        # Spoof WebGL and missing APIs
+        await page.add_init_script("""
+            // Spoof Permissions API to avoid headless detection
+            const originalQuery = window.navigator.permissions.query;
+            window.navigator.permissions.query = (parameters) => (
+                parameters.name === 'notifications' ?
+                    Promise.resolve({ state: Notification.permission }) :
+                    originalQuery(parameters)
+            );
+            
+            // Mask the Xvfb / headless WebGL vendor
+            try {
+                const getParameter = WebGLRenderingContext.prototype.getParameter;
+                WebGLRenderingContext.prototype.getParameter = function(parameter) {
+                    if (parameter === 37445) return 'Google Inc. (Intel)';
+                    if (parameter === 37446) return 'ANGLE (Intel, Intel(R) UHD Graphics 620 (0x00005920) Direct3D11 vs_5_0 ps_5_0, D3D11)';
+                    return getParameter.apply(this, arguments);
+                };
+            } catch(e) {}
+        """)
 
     async def fresh_page(self) -> Page:
-        """Opens a new tab, closing the old one. Resets LinkedIn's SPA JavaScript
-        state while preserving cookies/session. Needed after login check on /feed
-        contaminates the Ember.js SPA state in headless mode."""
         if self._page:
             await self._page.close()
         self._page = await self._browser_context.new_page()
-        await stealth_async(self._page)
+        await self._apply_deep_stealth(self._page)
         if HEADLESS_MODE:
             await self._page.set_viewport_size({"width": 1920, "height": 1080})
         return self._page

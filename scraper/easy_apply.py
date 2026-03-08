@@ -268,8 +268,9 @@ async def start_easy_apply(page: Page, job_id: str) -> bool:
             # Look for the ?openSDUIApplyFlow=true link anywhere in the source code
             sdui_match = re.search(r'(https://www.linkedin.com/jobs/view/\d+/apply/\?openSDUIApplyFlow=true[^\"]+)', html)
             if sdui_match:
-                sdui_url = sdui_match.group(1).replace("\\u0026", "&")
+                sdui_url = sdui_match.group(1).replace("\\u0026", "&").rstrip('\\')
                 print(f"[EasyApply] Extracted raw SDUI Apply link from state JSON! Forcing navigation to modal.")
+                print(f"[EasyApply] Target URL: {sdui_url}")
                 await page.goto(sdui_url, wait_until="domcontentloaded")
                 # Wait for the modal to spawn
                 await random_sleep(2.0, 4.0)
