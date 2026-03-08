@@ -58,10 +58,9 @@ class BrowserManager:
         # Prepare userdata dir
         os.makedirs(USER_DATA_DIR, exist_ok=True)
 
-        # In headless mode (VPS), set a fixed viewport — LinkedIn's SPA needs
-        # viewport dimensions to trigger lazy loading and render job cards.
-        # In headed mode (local dev), use no_viewport so browser fills the screen.
-        viewport_config = {"width": 1920, "height": 1080} if HEADLESS_MODE else None
+        # Force a fixed 1920x1080 viewport. Xvfb defaults to 640x480 which triggers
+        # LinkedIn's Mobile SDUI layout. We MUST force the desktop viewport.
+        viewport_config = {"width": 1920, "height": 1080}
 
         user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
@@ -72,7 +71,6 @@ class BrowserManager:
             ignore_default_args=["--enable-automation", "--disable-extensions"],
             proxy=proxy_config,
             viewport=viewport_config,
-            no_viewport=not HEADLESS_MODE,
             user_agent=user_agent,
             record_video_dir=None
         )
